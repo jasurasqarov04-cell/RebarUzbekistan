@@ -1,107 +1,42 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
-  margin: 0;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-}
+:root{--bg:#f6f7f9;--card:#fff;--accent:#0ea46a}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);margin:0;padding:12px;color:#111}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:12px;justify-content:space-between}
+.logo{height:44px}
+.cart-btn{background:#0ea46a;color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer}
+.search{display:flex;gap:8px;margin-bottom:10px}
+input#q{flex:1;padding:10px;border-radius:8px;border:1px solid #ddd;font-size:15px}
+button#btnSearch{padding:10px 14px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+.results{display:flex;flex-direction:column;gap:12px}
+.card{background:var(--card);border-radius:12px;padding:12px;box-shadow:0 2px 6px rgba(0,0,0,0.06);display:flex;gap:12px;align-items:center}
+.card img{width:84px;height:84px;object-fit:cover;border-radius:8px}
+.card .info{flex:1}
+.card h3{margin:0 0 6px 0;font-size:16px}
+.card p{margin:0;font-size:13px;color:#666}
+.card .price{color:#16a34a;font-weight:700;margin-top:6px}
+.card .actions{display:flex;flex-direction:column;gap:8px}
+.btn-choose{background:#059669;color:#fff;padding:8px 10px;border-radius:8px;border:0;cursor:pointer}
+.btn-search{background:#e6f4ea;color:#087f5b;padding:6px 8px;border-radius:8px;border:0;cursor:pointer}
 
-.product-card {
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  width: 320px;
-  padding: 20px;
-  text-align: center;
-}
+/* Модальное окно (новое окно товара) */
+.modal{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;z-index:1000}
+.hidden{display:none}
+.modal-content{background:#fff;border-radius:10px;max-width:900px;width:95%;padding:12px;box-shadow:0 8px 30px rgba(0,0,0,0.2)}
+.modal-body{display:flex;gap:16px}
+.modal-left img{width:320px;height:320px;object-fit:contain;border-radius:8px;background:#f7f7f7}
+.modal-right{flex:1}
+.modal-close{float:right;background:none;border:0;font-size:28px;cursor:pointer}
+.desc{color:#333}
+.props ul{padding-left:18px}
+.calculator{margin-top:10px;background:#f9fafb;padding:10px;border-radius:8px}
+.calc-row{display:flex;justify-content:space-between;margin-top:8px}
+.modal-actions{margin-top:12px}
 
-.product-image {
-  width: 100%;
-  border-radius: 12px;
-}
-
-.product-title {
-  font-size: 20px;
-  margin-top: 10px;
-}
-
-.product-desc {
-  color: #555;
-  font-size: 14px;
-  margin: 10px 0;
-}
-
-.price-section {
-  font-size: 16px;
-  margin: 10px 0;
-}
-
-.quantity-control {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 0;
-}
-
-.quantity-control button {
-  background-color: #008f39;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 18px;
-}
-
-.quantity-control input {
-  width: 60px;
-  text-align: center;
-  font-size: 16px;
-  margin: 0 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-.total {
-  margin-top: 10px;
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.actions button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px;
-  margin: 5px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.actions button:hover {
-  background-color: #0056b3;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 10;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-}
-
-.modal-content {
-  background: white;
-  margin: 10% auto;
-  padding: 20px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-}
-
-.close {
-  float: right;
-  font-size: 22px;
-  cursor: pointer;
-}
+/* Корзина */
+.cart-panel{position:fixed;right:14px;bottom:14px;width:340px;background:#fff;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.2);z-index:1200;padding:12px}
+.cart-header{display:flex;justify-content:space-between;align-items:center}
+.cart-items{max-height:260px;overflow:auto;margin-top:10px}
+.cart-item{display:flex;gap:10px;align-items:center;padding:8px;border-bottom:1px solid #eee}
+.cart-item img{width:50px;height:50px;object-fit:cover;border-radius:6px}
+.cart-footer{margin-top:10px}
+.cart-footer input{width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #ddd}
+.cart-actions{display:flex;gap:8px;margin-top:8px}
