@@ -9,8 +9,9 @@
 </head>
 <body>
   <header class="top">
-    <img src="Rebar.png" alt="RebarUzbekistan" class="logo" />
+    <img src="logo.png" alt="RebarUzbekistan" class="logo" />
     <div id="location">Город: Ташкент</div>
+    <div class="cart-btn" id="openCartBtn">Корзина (<span id="cartCount">0</span>)</div>
   </header>
 
   <main>
@@ -21,6 +22,62 @@
 
     <div id="results" class="results"></div>
   </main>
+
+  <!-- Модальное "новое окно" товара -->
+  <div id="productModal" class="modal hidden">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-body">
+        <div class="modal-left">
+          <img id="modalImage" src="" alt="product" />
+        </div>
+        <div class="modal-right">
+          <h2 id="modalTitle"></h2>
+          <p id="modalDesc" class="desc"></p>
+
+          <div class="props">
+            <h4>Свойства</h4>
+            <ul id="modalProps"></ul>
+          </div>
+
+          <div class="calculator">
+            <h4>Калькулятор — расчёт по метрам</h4>
+            <label>Длина (м): <input id="calcMeters" type="number" min="0" step="0.1" value="1"></label>
+            <div class="calc-row">
+              <div>Цена за метр: <strong id="pricePerMeter"></strong></div>
+              <div>Итого: <strong id="calcTotalPrice"></strong></div>
+            </div>
+            <div class="calc-row">
+              <div>Вес 1 м: <strong id="weightPerMeter"></strong></div>
+              <div>Итоговый вес: <strong id="calcTotalWeight"></strong></div>
+            </div>
+            <div class="modal-actions">
+              <button id="addToCartBtn" class="btn-choose">Добавить в корзину</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Панель Корзины -->
+  <div id="cartPanel" class="cart-panel hidden">
+    <div class="cart-header">
+      <h3>Корзина</h3>
+      <button id="closeCartBtn">Закрыть</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-footer">
+      <div>Итого: <strong id="cartTotal">0</strong></div>
+      <input id="buyerName" placeholder="Ваше имя" />
+      <input id="buyerPhone" placeholder="+998..." />
+      <div class="cart-actions">
+        <button id="sendToBitrix" class="btn-choose">Заказать в Bitrix</button>
+        <button id="sendToBot" class="btn-search">Отправить боту (tg.sendData)</button>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
