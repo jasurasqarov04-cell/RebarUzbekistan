@@ -1,52 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RebarUzbekistan</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RebarUzbekistan — Каталог</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-  <div class="product-card">
-    <img src="https://via.placeholder.com/600x400.png?text=Базальт+4мм" alt="Базальтовая арматура" class="product-image">
-    <h2 class="product-title">Базальто-композитная арматура 4 мм</h2>
-    <p class="product-desc">Альтернатива металлопрокату. Используется для армирования фундаментов и инфраструктурных сооружений.</p>
-    
-    <div class="price-section">
-      <span class="price-label">Цена за метр:</span>
-      <span class="price-value" id="price">2500</span> сум
+  <header class="top">
+    <img src="logo.png" alt="RebarUzbekistan" class="logo" />
+    <div id="location">Город: Ташкент</div>
+    <div class="cart-btn" id="openCartBtn">Корзина (<span id="cartCount">0</span>)</div>
+  </header>
+
+  <main>
+    <div class="search">
+      <input id="q" placeholder="🔍 Поиск товара" />
+      <button id="btnSearch">Поиск</button>
     </div>
 
-    <div class="quantity-control">
-      <button id="decrease">➖</button>
-      <input type="text" id="quantity" value="1" readonly>
-      <button id="increase">➕</button>
-    </div>
+    <div id="results" class="results"></div>
+  </main>
 
-    <div class="total">
-      <span>Итого:</span>
-      <span id="total">2500</span> сум
-    </div>
+  <!-- Модальное "новое окно" товара -->
+  <div id="productModal" class="modal hidden">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-body">
+        <div class="modal-left">
+          <img id="modalImage" src="" alt="product" />
+        </div>
+        <div class="modal-right">
+          <h2 id="modalTitle"></h2>
+          <p id="modalDesc" class="desc"></p>
 
-    <div class="actions">
-      <button id="addToCart">🛒 Добавить в корзину</button>
-      <button id="moreInfo">📖 Подробнее</button>
+          <div class="props">
+            <h4>Свойства</h4>
+            <ul id="modalProps"></ul>
+          </div>
+
+          <div class="calculator">
+            <h4>Калькулятор — расчёт по метрам</h4>
+            <label>Длина (м): <input id="calcMeters" type="number" min="0" step="0.1" value="1"></label>
+            <div class="calc-row">
+              <div>Цена за метр: <strong id="pricePerMeter"></strong></div>
+              <div>Итого: <strong id="calcTotalPrice"></strong></div>
+            </div>
+            <div class="calc-row">
+              <div>Вес 1 м: <strong id="weightPerMeter"></strong></div>
+              <div>Итоговый вес: <strong id="calcTotalWeight"></strong></div>
+            </div>
+            <div class="modal-actions">
+              <button id="addToCartBtn" class="btn-choose">Добавить в корзину</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Модальное окно -->
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Базальто-композитная арматура 4 мм</h2>
-      <p>Базальто-композитная арматура считается альтернативой металлопроката. 
-        Используется для армирования строительных конструкций, фундаментов, мостов и других сооружений.</p>
-
-      <ul>
-        <li><strong>Вес 1-го метра:</strong> 0.85 кг</li>
-        <li><strong>Вес 50 м бухты:</strong> 2.55 кг</li>
-        <li><strong>Вес 100 м бухты:</strong> 5.1 кг</li>
-      </ul>
+  <!-- Панель Корзины -->
+  <div id="cartPanel" class="cart-panel hidden">
+    <div class="cart-header">
+      <h3>Корзина</h3>
+      <button id="closeCartBtn">Закрыть</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-footer">
+      <div>Итого: <strong id="cartTotal">0</strong></div>
+      <input id="buyerName" placeholder="Ваше имя" />
+      <input id="buyerPhone" placeholder="+998..." />
+      <div class="cart-actions">
+        <button id="sendToBitrix" class="btn-choose">Заказать в Bitrix</button>
+        <button id="sendToBot" class="btn-search">Отправить боту (tg.sendData)</button>
+      </div>
     </div>
   </div>
 
