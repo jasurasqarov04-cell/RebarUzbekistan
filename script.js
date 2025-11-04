@@ -24,7 +24,7 @@ const PRODUCTS = [
       { k: "Вес 100-метровой бухты", v: "5.1 кг" }
     ],
     pricePerMeter: DEFAULT_PRICE_PER_METER,
-    image: "https://via.placeholder.com/600x600.png?text=Basalto+4mm"
+    image: "https://github.com/jasurasqarov04-cell/RebarUzbekistan/blob/main/artboard-13.png"
   },
 
   // можно добавить другие товары
