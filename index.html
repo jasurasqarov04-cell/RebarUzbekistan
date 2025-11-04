@@ -1,84 +1,95 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>RebarUzbekistan — Каталог</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-</head>
-<body>
-  <header class="top">
-    <img src="Rebar.png" alt="RebarUzbekistan" class="logo" />
-    <div id="location">Город: Ташкент</div>
-    <div class="cart-btn" id="openCartBtn">Корзина (<span id="cartCount">0</span>)</div>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Базальтовая арматура</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div
+      class="max-w-2xl bg-white shadow-lg rounded-2xl border border-gray-100 overflow-hidden p-4 flex flex-col sm:flex-row items-center gap-4"
+    >
+      <!-- Фото -->
+      <img
+        src="https://via.placeholder.com/200x200.png?text=Basalto+4mm"
+        alt="Базальтовая арматура"
+        class="rounded-xl w-40 h-40 object-cover"
+      />
 
-  <main>
-    <div class="search">
-      <input id="q" placeholder="🔍 Поиск товара" />
-      <button id="btnSearch">Поиск</button>
-    </div>
+      <!-- Текстовая часть -->
+      <div class="flex-1">
+        <h2 class="text-lg font-bold text-gray-800">
+          Базальто-композитная арматура 4 мм
+        </h2>
+        <p class="text-sm text-gray-600 mt-1">
+          Лёгкий, прочный и долговечный материал для строительства.  
+          Доступен в катушках и прутках.
+        </p>
 
-    <div id="results" class="results"></div>
-  </main>
-
-  <!-- Модальное "новое окно" товара -->
-  <div id="productModal" class="modal hidden">
-    <div class="modal-content">
-      <button class="modal-close" id="modalClose">&times;</button>
-      <div class="modal-body">
-        <div class="modal-left">
-          <img id="modalImage" src="" alt="product" />
+        <div class="flex items-center justify-between mt-3">
+          <span class="text-gray-700 text-sm">Цена за метр:</span>
+          <span id="pricePerMeter" class="font-semibold text-green-600">8 222 сум</span>
         </div>
-        <div class="modal-right">
-          <h2 id="modalTitle"></h2>
-          <p id="modalDesc" class="desc"></p>
 
-          <div class="props">
-            <h4>Свойства</h4>
-            <ul id="modalProps"></ul>
+        <!-- Калькулятор -->
+        <div class="flex items-center justify-between mt-3">
+          <div class="flex items-center gap-3">
+            <button
+              id="decrease"
+              class="bg-gray-200 text-lg font-bold rounded-full w-8 h-8 flex items-center justify-center"
+            >
+              −
+            </button>
+            <span id="quantity" class="text-lg font-semibold">1</span>
+            <button
+              id="increase"
+              class="bg-gray-200 text-lg font-bold rounded-full w-8 h-8 flex items-center justify-center"
+            >
+              +
+            </button>
           </div>
-
-          <div class="calculator">
-            <h4>Калькулятор — расчёт по метрам</h4>
-            <label>Длина (м): <input id="calcMeters" type="number" min="0" step="0.1" value="1"></label>
-            <div class="calc-row">
-              <div>Цена за метр: <strong id="pricePerMeter"></strong></div>
-              <div>Итого: <strong id="calcTotalPrice"></strong></div>
-            </div>
-            <div class="calc-row">
-              <div>Вес 1 м: <strong id="weightPerMeter"></strong></div>
-              <div>Итоговый вес: <strong id="calcTotalWeight"></strong></div>
-            </div>
-            <div class="modal-actions">
-              <button id="addToCartBtn" class="btn-choose">Добавить в корзину</button>
-            </div>
-          </div>
-
+          <span id="total" class="text-base font-semibold text-gray-800">8 222 сум</span>
         </div>
+
+        <!-- Кнопка -->
+        <button
+          id="addToCart"
+          class="w-full bg-green-600 hover:bg-green-700 text-white mt-4 py-2 rounded-xl text-sm font-medium transition"
+        >
+          🛒 Заказать
+        </button>
       </div>
     </div>
-  </div>
 
-  <!-- Панель Корзины -->
-  <div id="cartPanel" class="cart-panel hidden">
-    <div class="cart-header">
-      <h3>Корзина</h3>
-      <button id="closeCartBtn">Закрыть</button>
-    </div>
-    <div id="cartItems" class="cart-items"></div>
-    <div class="cart-footer">
-      <div>Итого: <strong id="cartTotal">0</strong></div>
-      <input id="buyerName" placeholder="Ваше имя" />
-      <input id="buyerPhone" placeholder="+998..." />
-      <div class="cart-actions">
-        <button id="sendToBitrix" class="btn-choose">Заказать в Bitrix</button>
-        <button id="sendToBot" class="btn-search">Отправить боту (tg.sendData)</button>
-      </div>
-    </div>
-  </div>
+    <script>
+      const pricePerMeter = 8222;
+      let quantity = 1;
 
-  <script src="script.js"></script>
-</body>
+      const quantityEl = document.getElementById("quantity");
+      const totalEl = document.getElementById("total");
+
+      function updateTotal() {
+        const total = quantity * pricePerMeter;
+        totalEl.textContent = total.toLocaleString() + " сум";
+        quantityEl.textContent = quantity;
+      }
+
+      document.getElementById("decrease").addEventListener("click", () => {
+        if (quantity > 1) {
+          quantity -= 1;
+          updateTotal();
+        }
+      });
+
+      document.getElementById("increase").addEventListener("click", () => {
+        quantity += 1;
+        updateTotal();
+      });
+
+      document.getElementById("addToCart").addEventListener("click", () => {
+        alert(`Заявка оформлена: ${quantity} м (${(quantity * pricePerMeter).toLocaleString()} сум)`);
+      });
+    </script>
+  </body>
 </html>
