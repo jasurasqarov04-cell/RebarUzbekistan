@@ -1,81 +1,150 @@
-:root{--bg:#f6f7f9;--card:#fff;--accent:#0ea46a}
-body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);margin:0;padding:12px;color:#111}
-.top{display:flex;align-items:center;gap:12px;margin-bottom:12px;justify-content:space-between}
-.logo{height:44px}
-#location{font-size:14px;color:#555}
-.cart-btn{background:#0ea46a;color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600;min-width:100px;text-align:center;} /* Улучшил для Telegram WebApp */
-.search{display:flex;gap:8px;margin-bottom:10px}
-input#q{flex:1;padding:10px;border-radius:8px;border:1px solid #ddd;font-size:15px}
-button#btnSearch{padding:10px 14px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer}
-.results{display:flex;flex-direction:column;gap:12px}
-
-/* Карточка товара */
-.card{background:var(--card);border-radius:12px;padding:12px;box-shadow:0 2px 6px rgba(0,0,0,0.06);display:flex;gap:12px;align-items:flex-start}
-.card img{width:84px;height:84px;object-fit:cover;border-radius:8px}
-.card .info{flex:1}
-.card h3{margin:0 0 4px 0;font-size:16px}
-.card p{margin:0;font-size:13px;color:#666}
-.card .price{color:#16a34a;font-weight:700;margin-top:4px;margin-bottom:6px}
-.card .actions{display:flex;gap:8px;margin-top:8px;} /* Для кнопок "Подробнее" и "Добавить в корзину" на карточке */
-.btn-choose{background:#059669;color:#fff;padding:8px 10px;border-radius:8px;border:0;cursor:pointer;font-size:13px;white-space:nowrap;}
-.btn-search{background:#e6f4ea;color:#087f5b;padding:8px 10px;border-radius:8px;border:0;cursor:pointer;font-size:13px;white-space:nowrap;}
-
-
-/* Калькулятор на карточке */
-.calculator-in-card{border-top:1px solid #eee;padding-top:8px;margin-top:8px;font-size:13px}
-.calculator-in-card input{width:50px;padding:4px;border-radius:4px;border:1px solid #ddd;margin-left:4px;}
-.calculator-in-card label{display:block;margin-bottom:6px;}
-.calculator-in-card .calc-row{display:flex;justify-content:space-between;margin-bottom:4px;}
-
-
-/* Модальное окно (новое окно товара) */
-.modal{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;z-index:1000;overflow:auto;}
-.hidden{display:none}
-.modal-content{background:#fff;border-radius:10px;max-width:900px;width:95%;padding:12px;box-shadow:0 8px 30px rgba(0,0,0,0.2);margin: 20px 0;}
-.modal-body{display:flex;gap:16px;}
-.modal-left img{width:320px;height:320px;object-fit:contain;border-radius:8px;background:#f7f7f7;display:block;}
-.modal-right{flex:1}
-.modal-close{float:right;background:none;border:0;font-size:28px;cursor:pointer}
-.desc{color:#333}
-.props ul{padding-left:18px;font-size:14px}
-.back-btn{display:inline-block;margin-bottom:10px;} /* Стиль для кнопки "Назад" */
-
-/* Адаптивность для мобильных устройств (< 600px) */
-@media (max-width: 600px) {
-    body{padding: 0;}
-    .top{padding: 12px;}
-    main{padding: 0 12px 12px;}
-    .card{flex-direction: column; align-items: stretch;}
-    .card img{width: 100%; height: auto;}
-    
-    /* Модальное окно — делаем полноэкранным для маленьких экранов */
-    .modal-content{
-        width: 100%;
-        max-width: none;
-        height: 100%;
-        border-radius: 0;
-        padding: 10px;
-        box-sizing: border-box;
-        margin: 0;
-        overflow-y: auto;
-    }
-    .modal-body{flex-direction: column;}
-    .modal-left img{width: 100%; height: auto; max-height: 250px;} /* Ограничиваем высоту изображения */
-    .modal-left {order: 1;}
-    .modal-right {order: 2;}
-    .modal-close{position: absolute; right: 10px; top: 10px; z-index: 1010; color: #333;}
-    .back-btn{display: none;} /* На мобильном лучше использовать крестик для закрытия */
-    
-    /* Корзина */
-    .cart-panel{width: 95%; max-width: none; right: 2.5%; left: 2.5%; bottom: 12px;}
+/* Базовый сброс и стили */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    -webkit-tap-highlight-color: transparent; /* Убираем синюю подсветку при тапе на мобильных */
 }
 
-/* Корзина */
-.cart-panel{position:fixed;right:14px;bottom:14px;width:340px;background:#fff;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.2);z-index:1200;padding:12px;max-height: 90vh;}
-.cart-header{display:flex;justify-content:space-between;align-items:center}
-.cart-items{max-height:260px;overflow-y:auto;margin-top:10px;padding-right: 5px;}
-.cart-item{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #eee}
-.cart-item img{width:50px;height:50px;object-fit:cover;border-radius:6px}
-.cart-footer{margin-top:10px}
-.cart-footer input{width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #ddd;box-sizing: border-box;}
-.cart-actions{display:flex;gap:8px;margin-top:8px}
+/* Header */
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    height: 40px; /* Уменьшаем, чтобы было место */
+    margin-right: 15px;
+}
+
+.cart-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    white-space: nowrap; /* Чтобы текст не переносился */
+}
+
+.cart-btn:hover {
+    background-color: #218838;
+}
+
+/* Main content */
+main {
+    padding: 15px;
+}
+
+/* Search (оставим как есть, но может потребовать адаптации) */
+.search {
+    display: flex;
+    margin-bottom: 20px;
+    gap: 10px; /* Промежуток между инпутом и кнопкой */
+}
+
+.search input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px; /* Скругляем с обеих сторон */
+    font-size: 16px;
+}
+
+.search button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px; /* Скругляем с обеих сторон */
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.search button:hover {
+    background-color: #0056b3;
+}
+
+/* Results grid - как на примере (2 колонки) */
+.results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* 2 колонки на большинстве мобильных */
+    gap: 15px; /* Уменьшаем отступы */
+}
+
+/* Card item - компактный дизайн */
+.card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); /* Менее выраженная тень */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: center; /* Центрируем текст */
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.card img {
+    width: 100%;
+    height: 120px; /* Меньшая высота изображения */
+    object-fit: contain; /* Чтобы изображение полностью вмещалось */
+    border-bottom: 1px solid #eee;
+    padding: 10px 0; /* Отступ сверху/снизу для изображения */
+}
+
+.card .info {
+    padding: 10px; /* Уменьшаем отступы */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Растягиваем, чтобы кнопка была внизу */
+    justify-content: space-between; /* Распределяем контент */
+}
+
+.card h3 {
+    margin: 0 0 5px 0; /* Меньший отступ снизу */
+    font-size: 1em; /* Уменьшаем размер шрифта */
+    line-height: 1.2;
+    min-height: 2.4em; /* Фиксированная высота для 2 строк */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Ограничиваем 2 строками */
+    -webkit-box-orient: vertical;
+}
+
+.card p {
+    display: none; /* Описание убираем полностью */
+}
+
+.card .price {
+    font-size: 1em;
+    font-weight: 700;
+    color: #333; /* Не такой яркий цвет, как основной */
+    margin-bottom: 10px;
+}
+
+/* Кнопка "Savatchaga" на карточке */
+.add-to-cart-card {
+    background-color: #f0f0f0; /* Светлый фон */
+    color: #333; /* Темный текст */
+    padding: 8px; /* Уменьшаем padding */
+    border-radius: 8px; /* Сильнее скругляем */
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+    width: 100%; /*
