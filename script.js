@@ -5,123 +5,58 @@ if (tg) {
   tg.MainButton?.hide?.();
 }
 
-// === Настройки (Возвращаем настройки Bitrix) ===
+// === Настройки ===
 const BITRIX_WEBHOOK_URL = "https://rebar.bitrix24.kz/rest/1/njvrqx0snxon2xw3/crm.lead.add.json"; 
 const DEFAULT_PRICE_PER_METER = 24000; // сум / метр
 
-// === Данные товаров (РАЗДЕЛЕНЫ НА КАТЕГОРИИ) ===
-
-const ABK_PRODUCTS = [
+// === Данные товаров ===
+const PRODUCTS = [
   {
     id: "p-bas-4",
-    type: "ABK",
-    name: "Базальто-композитная арматура 4 мм (АБК)",
-    description: `Базальто-композитная арматура считается альтернативой металлопроката. Используется для армирования фундаментов, мостов и сооружений.`,
+    name: "Базальто-композитная арматура 4 мм",
+    description: `Базальто-композитная арматура считается альтернативой металлопроката. Ее используют для армирования основных строительных конструкций при возведении фундаментов зданий жилого и нежилого назначения, строительстве мостов и прочих инфраструктурных сооружений.`,
     properties: [
       { k: "Вес 1-го погонного метра", v: "0.85 кг" },
-      { k: "Сырье", v: "Базальт" }
+      { k: "Вес 50-метровой бухты", v: "2.55 кг" },
+      { k: "Вес 100-метровой бухты", v: "5.1 кг" }
     ],
     pricePerMeter: DEFAULT_PRICE_PER_METER,
     image: "https://rebar.uz/wp-content/uploads/2024/08/artboard-13.png"
   },
-  // Добавьте больше товаров АБК здесь, если нужно
+  // можно добавить другие товары
 ];
 
-const ASK_PRODUCTS = [
-    {
-        id: "p-glass-6",
-        type: "ASK",
-        name: "Стеклокомпозитная арматура 6 мм (АСК)",
-        description: `Стеклокомпозитная арматура легкая, не подвержена коррозии. Используется для армирования дорожных покрытий, полов, и садовых конструкций.`,
-        properties: [
-            { k: "Вес 1-го погонного метра", v: "0.95 кг" },
-            { k: "Сырье", v: "Стекловолокно" }
-        ],
-        pricePerMeter: 18000, // Пример другой цены
-        image: "https://rebar.uz/wp-content/uploads/2024/08/artboard-1.png" // Пример другого изображения
-    },
-    // Добавьте больше товаров АСК здесь, если нужно
-];
-
-// === ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ===
+// === Cart ===
 let cart = [];
-let currentProductType = 'ABK'; // По умолчанию показываем АБК
 
-// === UI и ИНИЦИАЛИЗАЦИЯ ===
-
+// === UI ===
 const resultsRoot = document.getElementById("results");
 const qInput = document.getElementById("q");
-const switchABKBtn = document.getElementById("switchABK");
-const switchASKBtn = document.getElementById("switchASK");
-
-
-// --- Обработчики переключения ---
-switchABKBtn.addEventListener("click", () => {
-    setCurrentProductType('ABK');
-});
-
-switchASKBtn.addEventListener("click", () => {
-    setCurrentProductType('ASK');
-});
-
-
-// Функция смены типа продукта
-function setCurrentProductType(type) {
-    if (currentProductType === type) return;
-
-    currentProductType = type;
-    
-    // Обновляем внешний вид кнопок
-    switchABKBtn.classList.remove('active');
-    switchASKBtn.classList.remove('active');
-    
-    if (type === 'ABK') {
-        switchABKBtn.classList.add('active');
-    } else {
-        switchASKBtn.classList.add('active');
-    }
-
-    // Очищаем поиск и перерисовываем каталог
-    qInput.value = '';
-    renderResults(searchProducts(qInput.value));
-}
-
-// Получение текущего каталога
-function getCurrentCatalog() {
-    return currentProductType === 'ABK' ? ABK_PRODUCTS : ASK_PRODUCTS;
-}
-
-// Обработчик поиска
 document.getElementById("btnSearch").addEventListener("click", () => {
   renderResults(searchProducts(qInput.value));
 });
 
 // render initial
-renderResults(getCurrentCatalog());
+renderResults(PRODUCTS);
 
 // Search
 function searchProducts(q) {
   const s = (q || "").trim().toLowerCase();
-  const currentCatalog = getCurrentCatalog();
-  if (!s) return currentCatalog;
-  
-  // Ищем только в текущем активном каталоге
-  return currentCatalog.filter(p => p.name.toLowerCase().includes(s));
+  if (!s) return PRODUCTS;
+  return PRODUCTS.filter(p => p.name.toLowerCase().includes(s));
 }
 
 // Render listing
 function renderResults(list) {
   resultsRoot.innerHTML = "";
   if (!list.length) {
-    resultsRoot.innerHTML = `<div style="color:#777">Ничего не найдено в категории ${currentProductType}</div>`;
+    resultsRoot.innerHTML = `<div style="color:#777">Ничего не найдено</div>`;
     return;
   }
   list.forEach(p => {
     const el = document.createElement("div");
     el.className = "card";
-    // Ищем свойство "Вес 1-го погонного метра" в массиве properties
-    const weightProp = p.properties.find(prop => prop.k.includes('Вес 1-го погонного метра'));
-    const weightPerMeterText = (weightProp?.v.replace('кг','') || "—").trim();
+    const weightPerMeterText = (p.properties[0] ? p.properties[0].v.replace('кг','') : "—").trim();
     
     // Калькулятор на карточке товара
     const price = p.pricePerMeter || DEFAULT_PRICE_PER_METER;
@@ -188,6 +123,7 @@ function handleProductCardCalc(cardElement, product) {
     addToCartBtn.onclick = function() {
         const meters = parseFloat(metersInput.value) || 1;
         addToCart(product, meters);
+        // можно сбросить значение после добавления, но оставим для удобства
         openCart();
     };
     
@@ -198,14 +134,13 @@ function handleProductCardCalc(cardElement, product) {
 // Product modal
 const modal = document.getElementById("productModal");
 const modalClose = document.getElementById("modalClose");
-const modalBackBtn = document.getElementById("modalBackBtn"); 
+const modalBackBtn = document.getElementById("modalBackBtn"); // Новая кнопка "Назад"
 
 modalClose.addEventListener("click", () => closeModal());
-modalBackBtn.addEventListener("click", () => closeModal()); 
+modalBackBtn.addEventListener("click", () => closeModal()); // Обработчик для "Назад"
 
 function showProductModal(productId) {
-  // Ищем продукт во всех каталогах для модального окна
-  const p = [...ABK_PRODUCTS, ...ASK_PRODUCTS].find(x => x.id === productId);
+  const p = PRODUCTS.find(x => x.id === productId);
   if (!p) return;
   
   document.getElementById("modalImage").src = p.image;
@@ -295,7 +230,7 @@ function updateCartTotal(){
   renderCartCount();
 }
 
-// === ФУНКЦИЯ ОТПРАВКИ В BITRIX24 (Вернулась к исходному JSON-POST) ===
+// Send order to Bitrix
 document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
   const name = document.getElementById("buyerName").value.trim();
   const phone = document.getElementById("buyerPhone").value.trim();
@@ -319,7 +254,7 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
     Телефон: ${phone}
   `;
 
-  // Структура JSON, которая ранее выдавала ошибку 400
+  // --- ФИНАЛЬНАЯ УПРОЩЕННАЯ СТРУКТУРА JSON ---
   const payload = {
       fields: {
           TITLE: leadTitle,
@@ -360,15 +295,13 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
     renderCartPanel();
     renderCartCount();
     updateCartTotal();
-    
-    window.Telegram?.WebApp?.close(); 
   } catch (err) {
     console.error(err);
-    alert("Ошибка при отправке в Bitrix (Статус 400). Проверьте URL вебхука: " + err.message);
+    alert("Ошибка при отправке в Bitrix. Проверьте актуальность вебхука: " + err.message);
   }
 });
 
-// send order to bot via tg.sendData (осталась как отдельная кнопка, чтобы не ломать структуру)
+// send order to bot via tg.sendData (если запущено в Telegram)
 document.getElementById("sendToBot").addEventListener("click", ()=>{
   if (!tg || typeof tg.sendData !== "function") {
     alert("WebApp API недоступен — откройте приложение внутри Telegram.");
