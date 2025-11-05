@@ -24,7 +24,44 @@ const PRODUCTS = [
     image: "https://rebar.uz/wp-content/uploads/2024/08/artboard-13.png"
   },
   // можно добавить другие товары
+  {
+    id: "p-bas-6",
+    name: "Базальто-композитная арматура 6 мм",
+    description: `Базальто-композитная арматура 6мм, прочнее 4мм. Идеально подходит для усиленных бетонных конструкций, таких как балки, колонны и перекрытия.`,
+    properties: [
+      { k: "Вес 1-го погонного метра", v: "1.2 кг" },
+      { k: "Вес 50-метровой бухты", v: "6.0 кг" },
+      { k: "Вес 100-метровой бухты", v: "12.0 кг" }
+    ],
+    pricePerMeter: 36000,
+    image: "https://rebar.uz/wp-content/uploads/2024/08/artboard-1.png"
+  },
+  {
+    id: "p-bas-8",
+    name: "Базальто-композитная арматура 8 мм",
+    description: `Базальто-композитная арматура 8мм, максимальная прочность. Применяется для самых нагруженных конструкций, мостов и высокоэтажного строительства.`,
+    properties: [
+      { k: "Вес 1-го погонного метра", v: "1.8 кг" },
+      { k: "Вес 50-метровой бухты", v: "9.0 кг" },
+      { k: "Вес 100-метровой бухты", v: "18.0 кг" }
+    ],
+    pricePerMeter: 54000,
+    image: "https://rebar.uz/wp-content/uploads/2024/08/artboard-2.png"
+  },
+  {
+    id: "p-bas-10",
+    name: "Базальто-композитная арматура 10 мм",
+    description: `Базальто-композитная арматура 10мм, экстра прочность. Для особо ответственных и тяжелых строительных объектов, где требуется максимальная нагрузочная способность.`,
+    properties: [
+      { k: "Вес 1-го погонного метра", v: "2.5 кг" },
+      { k: "Вес 50-метровой бухты", v: "12.5 кг" },
+      { k: "Вес 100-метровой бухты", v: "25.0 кг" }
+    ],
+    pricePerMeter: 75000,
+    image: "https://rebar.uz/wp-content/uploads/2024/08/artboard-3.png"
+  },
 ];
+
 
 // === Cart ===
 let cart = [];
@@ -56,88 +93,41 @@ function renderResults(list) {
   list.forEach(p => {
     const el = document.createElement("div");
     el.className = "card";
-    const weightPerMeterText = (p.properties[0] ? p.properties[0].v.replace('кг','') : "—").trim();
-    
-    // Калькулятор на карточке товара
-    const price = p.pricePerMeter || DEFAULT_PRICE_PER_METER;
+    // Убираем описание и калькулятор из основной карточки
     el.innerHTML = `
       <img src="${p.image}" alt="${escapeHtml(p.name)}" />
       <div class="info">
         <h3>${escapeHtml(p.name)}</h3>
-        <p>${escapeHtml(p.description.substring(0,120))}...</p>
-        <div class="price">от ${formatCurrency(price)} сум/м</div>
-        
-        <div class="calculator-in-card" data-id="${p.id}" data-price="${price}" data-weight="${weightPerMeterText}">
-            <label>Длина (м): <input type="number" min="1" step="1" value="1" class="calc-meters-input"></label>
-            <div class="calc-row">
-                <div>Итого: <strong class="calc-total-price">${formatCurrency(price)} сум</strong></div>
-                <div>Вес: <strong class="calc-total-weight">${weightPerMeterText} кг</strong></div>
-            </div>
-            <div class="actions">
-                <button class="btn-choose add-to-cart-card">Добавить в корзину</button>
-                <button class="btn-search btn-details" data-id="${p.id}">Подробнее</button>
-            </div>
-        </div>
-      </div>
+        <div class="price">${formatCurrency(p.pricePerMeter || DEFAULT_PRICE_PER_METER)} сум</div>
+        <button class="btn-choose add-to-cart-card" data-id="${p.id}" data-price="${p.pricePerMeter || DEFAULT_PRICE_PER_METER}">Savatchaga</button>
+        <button class="btn-details hidden" data-id="${p.id}">Подробнее</button> </div>
     `;
     resultsRoot.appendChild(el);
     
-    // Инициализация калькулятора и обработчика кнопки "Добавить в корзину" на карточке
-    handleProductCardCalc(el, p);
+    // Обработчик кнопки "Savatchaga"
+    el.querySelector(".add-to-cart-card").addEventListener("click", (e) => {
+      const productId = e.currentTarget.getAttribute("data-id");
+      const product = PRODUCTS.find(prod => prod.id === productId);
+      if (product) {
+        addToCart(product, 1); // Добавляем по 1 метру/штуке
+        openCart();
+      }
+    });
 
-    // Обработчик кнопки "Подробнее"
+    // Обработчик кнопки "Подробнее" (если решите ее показывать)
     el.querySelector(".btn-details").addEventListener("click", () => {
       showProductModal(p.id);
     });
   });
 }
 
-// Логика калькулятора на карточке товара
-function handleProductCardCalc(cardElement, product) {
-    const calcRoot = cardElement.querySelector(".calculator-in-card");
-    const metersInput = calcRoot.querySelector(".calc-meters-input");
-    const totalPriceStrong = calcRoot.querySelector(".calc-total-price");
-    const totalWeightStrong = calcRoot.querySelector(".calc-total-weight");
-    const addToCartBtn = calcRoot.querySelector(".add-to-cart-card");
-    
-    const pricePerMeter = parseFloat(calcRoot.getAttribute("data-price"));
-    const weightPerMeterRaw = calcRoot.getAttribute("data-weight");
-    let weightPerMeter = 0;
-    
-    // Извлечение числа из строки веса (если есть)
-    const raw = weightPerMeterRaw.replace(",", ".").match(/[\d.]+/);
-    if (raw) weightPerMeter = parseFloat(raw[0]);
-    
-    function updateCardCalc() {
-        const meters = parseFloat(metersInput.value) || 0;
-        const total = pricePerMeter * meters;
-        const totalWeight = weightPerMeter * meters;
-        
-        totalPriceStrong.innerText = formatCurrency(total) + " сум";
-        totalWeightStrong.innerText = totalWeight ? totalWeight.toFixed(3) + " кг" : "—";
-    }
-
-    metersInput.oninput = updateCardCalc;
-    metersInput.onchange = updateCardCalc; // Добавим и change
-
-    addToCartBtn.onclick = function() {
-        const meters = parseFloat(metersInput.value) || 1;
-        addToCart(product, meters);
-        // можно сбросить значение после добавления, но оставим для удобства
-        openCart();
-    };
-    
-    updateCardCalc(); // Обновить при инициализации
-}
-
-
 // Product modal
 const modal = document.getElementById("productModal");
 const modalClose = document.getElementById("modalClose");
-const modalBackBtn = document.getElementById("modalBackBtn"); // Новая кнопка "Назад"
+const modalBackBtn = document.getElementById("modalBackBtn"); 
 
 modalClose.addEventListener("click", () => closeModal());
-modalBackBtn.addEventListener("click", () => closeModal()); // Обработчик для "Назад"
+modalBackBtn.addEventListener("click", () => closeModal()); 
 
 function showProductModal(productId) {
   const p = PRODUCTS.find(x => x.id === productId);
@@ -145,7 +135,7 @@ function showProductModal(productId) {
   
   document.getElementById("modalImage").src = p.image;
   document.getElementById("modalTitle").innerText = p.name;
-  document.getElementById("modalDesc").innerText = p.description;
+  document.getElementById("modalDesc").innerText = p.description; // Описание теперь только здесь
   
   const propsList = document.getElementById("modalProps");
   propsList.innerHTML = "";
@@ -154,8 +144,6 @@ function showProductModal(productId) {
     li.innerText = `${it.k}: ${it.v}`;
     propsList.appendChild(li);
   });
-  
-  // Калькулятор и кнопка "Добавить в корзину" были удалены из модального окна
   
   modal.classList.remove("hidden");
 }
@@ -239,35 +227,65 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
   if (!phone) return alert("Укажите телефон");
   if (!cart.length) return alert("Корзина пуста");
 
-  // Формируем описание заказа
-  const items = cart.map(i => `${i.product.name} — ${i.meters} м — ${formatCurrency((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER)*i.meters)} сум`).join("\n");
+  const itemsDescription = cart.map(i => {
+    const price = (i.product.pricePerMeter || DEFAULT_PRICE_PER_METER);
+    const totalItemPrice = price * i.meters;
+    return `${i.product.name} — ${i.meters} м — ${formatCurrency(totalItemPrice)} сум (Цена за 1 м: ${formatCurrency(price)})`;
+  }).join("\n");
+  
   const total = cart.reduce((s,i)=> s + ((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER) * i.meters), 0);
+  const leadTitle = `Заказ из Telegram WebApp на сумму ${formatCurrency(total)} сум`;
+  const comments = `
+    --- ДЕТАЛИ ЗАКАЗА ---
+    ${itemsDescription}
+    
+    Имя клиента: ${name || "Не указано"}
+    Телефон: ${phone}
+  `;
 
   const payload = {
-    // Структура универсальная — подставь под свой webhook Bitrix (см. инструкцию ниже)
-    name: name || "Клиент Telegram WebApp",
-    phone,
-    items,
-    total
+      fields: {
+          TITLE: leadTitle,
+          NAME: name || "Клиент Telegram WebApp",
+          OPPORTUNITY: total,
+          CURRENCY_ID: 'SUM',
+          COMMENTS: comments.trim(),
+          PHONE: [{
+              VALUE: phone,
+              VALUE_TYPE: 'WORK'
+          }]
+      },
   };
 
-  // Отправляем на Bitrix webhook (замени URL на свой)
   try {
     const res = await fetch(BITRIX_WEBHOOK_URL, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(payload)
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json' 
+      },
+      body: JSON.stringify(payload) 
     });
-    if (!res.ok) throw new Error("Ошибка отправки");
-    alert("Заказ отправлен в Bitrix!");
-    // очистка корзины
+    
+    if (!res.ok) throw new Error(`Ошибка отправки. Статус: ${res.status}`); 
+    
+    const result = await res.json();
+    if (result.error) {
+        throw new Error("Bitrix API Error: " + result.error_description);
+    }
+    
+    alert(`Заказ отправлен в Bitrix! ID Лида: ${result.result}`);
+    
     cart = [];
+    document.getElementById("buyerName").value = ''; 
+    document.getElementById("buyerPhone").value = '';
     renderCartPanel();
     renderCartCount();
     updateCartTotal();
+    
+    window.Telegram?.WebApp?.close(); 
   } catch (err) {
     console.error(err);
-    alert("Ошибка при отправке в Bitrix. Проверьте BITRIX_WEBHOOK_URL.");
+    alert("Ошибка при отправке в Bitrix (Статус 400). Проверьте URL вебхука: " + err.message);
   }
 });
 
@@ -284,6 +302,7 @@ document.getElementById("sendToBot").addEventListener("click", ()=>{
   tg.sendData(JSON.stringify(out));
   tg.close();
 });
+
 
 // Helpers
 function formatCurrency(n){
