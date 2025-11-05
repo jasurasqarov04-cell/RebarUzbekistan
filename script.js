@@ -259,8 +259,67 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
   // --- Форматируем данные для Bitrix24 через URLSearchParams ---
   const urlParams = new URLSearchParams();
   
-  // Основные поля Лида
-  urlParams.append(`FIELDS[TITLE]`, leadTitle);
-  urlParams.append(`FIELDS[NAME]`, name || "Клиент Telegram WebApp");
-  urlParams.append(`FIELDS[OPPORTUNITY]`, total);
-  urlParams.append(`FIELDS
+  // Основные поля Лида (используем нижний регистр для fields для надежности)
+  urlParams.append(`fields[TITLE]`, leadTitle);
+  urlParams.append(`fields[NAME]`, name || "Клиент Telegram WebApp");
+  urlParams.append(`fields[OPPORTUNITY]`, total);
+  urlParams.append(`fields[CURRENCY_ID]`, 'SUM'); // Валюта
+  urlParams.append(`fields[COMMENTS]`, comments.trim()); // Комментарий с деталями заказа
+
+  // Телефон: используем альтернативный синтаксис для массива
+  urlParams.append(`fields[PHONE][0][VALUE]`, phone);
+  urlParams.append(`fields[PHONE][0][VALUE_TYPE]`, 'WORK'); // Тип телефона
+
+  urlParams.append('params[REGISTER_SONET_EVENT]', 'Y'); // Дополнительный параметр
+
+  // Отправляем на Bitrix webhook
+  try {
+    // Отправляем данные в формате x-www-form-urlencoded
+    const res = await fetch(BITRIX_WEBHOOK_URL, {
+      method: 'POST',
+      body: urlParams // Передаем URLSearchParams в качестве тела запроса
+    });
+    
+    if (!res.ok) throw new Error("Ошибка отправки. Статус: " + res.status);
+    
+    const result = await res.json();
+    if (result.error) {
+        throw new Error("Bitrix API Error: " + result.error_description);
+    }
+    
+    alert(`Заказ отправлен в Bitrix! ID Лида: ${result.result}`);
+    
+    // очистка корзины и полей ввода
+    cart = [];
+    document.getElementById("buyerName").value = ''; // Очистка полей ввода
+    document.getElementById("buyerPhone").value = '';
+    renderCartPanel();
+    renderCartCount();
+    updateCartTotal();
+  } catch (err) {
+    console.error(err);
+    alert("Ошибка при отправке в Bitrix. Проверьте URL вебхука и права доступа: " + err.message);
+  }
+});
+
+// send order to bot via tg.sendData (если запущено в Telegram)
+document.getElementById("sendToBot").addEventListener("click", ()=>{
+  if (!tg || typeof tg.sendData !== "function") {
+    alert("WebApp API недоступен — откройте приложение внутри Telegram.");
+    return;
+  }
+  const name = document.getElementById("buyerName").value.trim() || "Клиент";
+  const phone = document.getElementById("buyerPhone").value.trim() || "";
+  const items = cart.map(i => ({name:i.product.name, meters:i.meters, pricePerMeter:i.product.pricePerMeter || DEFAULT_PRICE_PER_METER}));
+  const out = {action:"order", buyer:{name, phone}, items, total: cart.reduce((s,i)=> s + ((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER) * i.meters), 0)};
+  tg.sendData(JSON.stringify(out));
+  tg.close();
+});
+
+// Helpers
+function formatCurrency(n){
+  return Number(n).toLocaleString('ru-RU');
+}
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#039;"}[m]));
+}
