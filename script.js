@@ -259,7 +259,7 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
       body: JSON.stringify(payload)
     });
     if (!res.ok) throw new Error("Ошибка отправки");
-    alert("Заказ отправлен в Bitrix!");
+    alert("Заказ отправлен в скором времени с вами свяжутся!");
     // очистка корзины
     cart = [];
     renderCartPanel();
