@@ -1,76 +1,107 @@
-/* Улучшенное расположение для HEADER */
-.top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Распределяем элементы по краям */
-    padding: 10px 15px;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
 }
 
-.logo {
-    height: 40px; /* Уменьшаем, чтобы было место */
-    margin-right: 15px;
+.product-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 320px;
+  padding: 20px;
+  text-align: center;
 }
 
-/* Стили для переключателя типов, теперь он в центре шапки */
-.type-switcher-header {
-    display: flex;
-    flex-shrink: 0; /* Чтобы не сжимался */
-    align-items: center;
-    margin-left: auto; /* Сдвигает блок корзины вправо */
-    margin-right: 15px; /* Отступ от корзины */
-    border-radius: 6px; /* Более мягкие края */
-    overflow: hidden;
-    border: 1px solid #ddd; /* Рамка для выделения блока */
+.product-image {
+  width: 100%;
+  border-radius: 12px;
 }
 
-/* Более интерактивный стиль кнопок-переключателей */
-.type-switcher-header .btn-switcher {
-    padding: 7px 12px;
-    border: none;
-    background-color: #f9f9f9;
-    color: #555;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s, color 0.2s, transform 0.1s;
+.product-title {
+  font-size: 20px;
+  margin-top: 10px;
 }
 
-/* Эффект наведения */
-.type-switcher-header .btn-switcher:hover:not(.active) {
-    background-color: #eaeaea;
-    color: #222;
+.product-desc {
+  color: #555;
+  font-size: 14px;
+  margin: 10px 0;
 }
 
-/* Эффект нажатия */
-.type-switcher-header .btn-switcher:active {
-    transform: scale(0.98);
+.price-section {
+  font-size: 16px;
+  margin: 10px 0;
 }
 
-/* Активная кнопка */
-.type-switcher-header .btn-switcher.active {
-    background-color: #28a745; 
-    color: white;
-    font-weight: 600;
+.quantity-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
 }
 
-/* Границы между кнопками */
-.type-switcher-header .btn-switcher:first-child {
-    border-right: 1px solid #ddd;
-}
-.type-switcher-header .btn-switcher.active:first-child {
-    border-right-color: #28a745;
-}
-.type-switcher-header .btn-switcher.active + .btn-switcher {
-    border-left: 1px solid #28a745;
+.quantity-control button {
+  background-color: #008f39;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 18px;
 }
 
-/* Корзина */
-.cart-btn {
-    /* Обеспечиваем, что корзина будет справа */
-    margin-left: 0; 
-    flex-shrink: 0;
+.quantity-control input {
+  width: 60px;
+  text-align: center;
+  font-size: 16px;
+  margin: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.total {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.actions button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.actions button:hover {
+  background-color: #0056b3;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+  background: white;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+}
+
+.close {
+  float: right;
+  font-size: 22px;
+  cursor: pointer;
 }
