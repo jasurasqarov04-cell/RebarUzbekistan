@@ -5,8 +5,8 @@ if (tg) {
   tg.MainButton?.hide?.();
 }
 
-// === Настройки ===
-const GAS_WEBHOOK_URL = "ВАШ_URL_GAS_WEBHOOK"; // <-- URL для Google Apps Script (Используем этот вместо tg.sendData)
+// === Настройки (Возвращаем настройки Bitrix) ===
+const BITRIX_WEBHOOK_URL = "https://rebar.bitrix24.kz/rest/1/njvrqx0snxon2xw3/crm.lead.add.json"; 
 const DEFAULT_PRICE_PER_METER = 24000; // сум / метр
 
 // === Данные товаров (РАЗДЕЛЕНЫ НА КАТЕГОРИИ) ===
@@ -83,7 +83,7 @@ function setCurrentProductType(type) {
 
     // Очищаем поиск и перерисовываем каталог
     qInput.value = '';
-    renderResults(getCurrentCatalog());
+    renderResults(searchProducts(qInput.value));
 }
 
 // Получение текущего каталога
@@ -105,6 +105,7 @@ function searchProducts(q) {
   const currentCatalog = getCurrentCatalog();
   if (!s) return currentCatalog;
   
+  // Ищем только в текущем активном каталоге
   return currentCatalog.filter(p => p.name.toLowerCase().includes(s));
 }
 
@@ -118,7 +119,9 @@ function renderResults(list) {
   list.forEach(p => {
     const el = document.createElement("div");
     el.className = "card";
-    const weightPerMeterText = (p.properties.find(prop => prop.k.includes('Вес'))?.v.replace('кг','') || "—").trim();
+    // Ищем свойство "Вес 1-го погонного метра" в массиве properties
+    const weightProp = p.properties.find(prop => prop.k.includes('Вес 1-го погонного метра'));
+    const weightPerMeterText = (weightProp?.v.replace('кг','') || "—").trim();
     
     // Калькулятор на карточке товара
     const price = p.pricePerMeter || DEFAULT_PRICE_PER_METER;
@@ -185,7 +188,6 @@ function handleProductCardCalc(cardElement, product) {
     addToCartBtn.onclick = function() {
         const meters = parseFloat(metersInput.value) || 1;
         addToCart(product, meters);
-        // можно сбросить значение после добавления, но оставим для удобства
         openCart();
     };
     
@@ -202,7 +204,7 @@ modalClose.addEventListener("click", () => closeModal());
 modalBackBtn.addEventListener("click", () => closeModal()); 
 
 function showProductModal(productId) {
-  // Ищем продукт во всех каталогах
+  // Ищем продукт во всех каталогах для модального окна
   const p = [...ABK_PRODUCTS, ...ASK_PRODUCTS].find(x => x.id === productId);
   if (!p) return;
   
@@ -293,51 +295,65 @@ function updateCartTotal(){
   renderCartCount();
 }
 
-// === ФУНКЦИЯ ОТПРАВКИ В GOOGLE APPS SCRIPT (Заменяет Bitrix) ===
+// === ФУНКЦИЯ ОТПРАВКИ В BITRIX24 (Вернулась к исходному JSON-POST) ===
 document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
   const name = document.getElementById("buyerName").value.trim();
   const phone = document.getElementById("buyerPhone").value.trim();
   if (!phone) return alert("Укажите телефон");
   if (!cart.length) return alert("Корзина пуста");
-  if (!GAS_WEBHOOK_URL || GAS_WEBHOOK_URL.includes("ВАШ_URL_GAS_WEBHOOK")) {
-      return alert("ОШИБКА НАСТРОЙКИ: Не указан или не обновлен GAS_WEBHOOK_URL!");
-  }
 
+  // Формируем описание заказа для поля КОММЕНТАРИЙ (COMMENTS)
+  const itemsDescription = cart.map(i => {
+    const price = (i.product.pricePerMeter || DEFAULT_PRICE_PER_METER);
+    const totalItemPrice = price * i.meters;
+    return `${i.product.name} — ${i.meters} м — ${formatCurrency(totalItemPrice)} сум (Цена за 1 м: ${formatCurrency(price)})`;
+  }).join("\n");
+  
   const total = cart.reduce((s,i)=> s + ((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER) * i.meters), 0);
-  
-  const itemsForApp = cart.map(i => ({
-      name: i.product.name,
-      meters: i.meters,
-      pricePerMeter: i.product.pricePerMeter || DEFAULT_PRICE_PER_METER,
-      totalPrice: (i.product.pricePerMeter || DEFAULT_PRICE_PER_METER) * i.meters
-  }));
-  
+  const leadTitle = `Заказ из Telegram WebApp на сумму ${formatCurrency(total)} сум`;
+  const comments = `
+    --- ДЕТАЛИ ЗАКАЗА ---
+    ${itemsDescription}
+    
+    Имя клиента: ${name || "Не указано"}
+    Телефон: ${phone}
+  `;
+
+  // Структура JSON, которая ранее выдавала ошибку 400
   const payload = {
-      action: "new_order_from_webapp",
-      buyer: {
-          name: name || "Клиент Telegram WebApp",
-          phone: phone,
-          telegram_user_id: window.Telegram?.WebApp?.initDataUnsafe?.user?.id || 'N/A' 
+      fields: {
+          TITLE: leadTitle,
+          NAME: name || "Клиент Telegram WebApp",
+          OPPORTUNITY: total,
+          CURRENCY_ID: 'SUM',
+          COMMENTS: comments.trim(),
+          PHONE: [{
+              VALUE: phone,
+              VALUE_TYPE: 'WORK'
+          }]
       },
-      items: itemsForApp,
-      total: total,
-      totalFormatted: formatCurrency(total) + " сум"
   };
 
+  // Отправляем на Bitrix webhook
   try {
-    const res = await fetch(GAS_WEBHOOK_URL, {
+    const res = await fetch(BITRIX_WEBHOOK_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json' 
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload) 
     });
     
     if (!res.ok) throw new Error(`Ошибка отправки. Статус: ${res.status}`); 
     
-    alert(`Заказ отправлен! Менеджер скоро свяжется.`);
+    const result = await res.json();
+    if (result.error) {
+        throw new Error("Bitrix API Error: " + result.error_description);
+    }
     
-    // Очистка
+    alert(`Заказ отправлен в Bitrix! ID Лида: ${result.result}`);
+    
+    // очистка
     cart = [];
     document.getElementById("buyerName").value = ''; 
     document.getElementById("buyerPhone").value = '';
@@ -346,14 +362,25 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
     updateCartTotal();
     
     window.Telegram?.WebApp?.close(); 
-
   } catch (err) {
     console.error(err);
-    alert("Ошибка при отправке заказа: " + err.message);
+    alert("Ошибка при отправке в Bitrix (Статус 400). Проверьте URL вебхука: " + err.message);
   }
 });
 
-// УДАЛЕНА ИЛИ ИЗМЕНЕНА старая кнопка sendToBot (так как sendToBitrix теперь делает то же самое через GAS)
+// send order to bot via tg.sendData (осталась как отдельная кнопка, чтобы не ломать структуру)
+document.getElementById("sendToBot").addEventListener("click", ()=>{
+  if (!tg || typeof tg.sendData !== "function") {
+    alert("WebApp API недоступен — откройте приложение внутри Telegram.");
+    return;
+  }
+  const name = document.getElementById("buyerName").value.trim() || "Клиент";
+  const phone = document.getElementById("buyerPhone").value.trim() || "";
+  const items = cart.map(i => ({name:i.product.name, meters:i.meters, pricePerMeter:i.product.pricePerMeter || DEFAULT_PRICE_PER_METER}));
+  const out = {action:"order", buyer:{name, phone}, items, total: cart.reduce((s,i)=> s + ((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER) * i.meters), 0)};
+  tg.sendData(JSON.stringify(out));
+  tg.close();
+});
 
 // Helpers
 function formatCurrency(n){
