@@ -7,7 +7,7 @@ if (tg) {
 
 // === Настройки ===
 // Замените на ваш URL входящего webhook Bitrix (пример: https://your-domain.bitrix24.ru/rest/1/XXXX/crm.lead.add.json )
-const BITRIX_WEBHOOK_URL = "https://rebar.bitrix24.kz/rest/1/njvrqx0snxon2xw3/crm.lead.add.json"; // <- подставь сюда реальный URL
+const BITRIX_WEBHOOK_URL = "https://your-bitrix-webhook-url.example/api"; // <- подставь сюда реальный URL
 
 // Цена за метр (пример). Можно указать perProduct.pricePerMeter в объекте.
 const DEFAULT_PRICE_PER_METER = 24000; // сум / метр
@@ -24,7 +24,7 @@ const PRODUCTS = [
       { k: "Вес 100-метровой бухты", v: "5.1 кг" }
     ],
     pricePerMeter: DEFAULT_PRICE_PER_METER,
-    image: "https://github.com/jasurasqarov04-cell/RebarUzbekistan/blob/c403b306beacce2873b3f7b235936958f4211477/artboard-13.png"
+    image: "https://via.placeholder.com/600x600.png?text=Basalto+4mm"
   },
 
   // можно добавить другие товары
