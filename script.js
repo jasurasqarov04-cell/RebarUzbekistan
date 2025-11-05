@@ -256,34 +256,38 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
     Телефон: ${phone}
   `;
 
-  // --- Форматируем данные для Bitrix24 через URLSearchParams ---
-  const urlParams = new URLSearchParams();
-  
-  // Основные поля Лида (используем нижний регистр для fields для надежности)
-  urlParams.append(`fields[TITLE]`, leadTitle);
-  urlParams.append(`fields[NAME]`, name || "Клиент Telegram WebApp");
-  urlParams.append(`fields[OPPORTUNITY]`, total);
-  urlParams.append(`fields[CURRENCY_ID]`, 'SUM'); // Валюта
-  urlParams.append(`fields[COMMENTS]`, comments.trim()); // Комментарий с деталями заказа
+  // --- Форматируем данные для Bitrix24 в виде объекта (JSON) ---
+  const payload = {
+      // Структура полей, которую Bitrix24 ожидает в JSON-формате
+      fields: {
+          TITLE: leadTitle,
+          NAME: name || "Клиент Telegram WebApp",
+          OPPORTUNITY: total,
+          CURRENCY_ID: 'SUM', // Валюта
+          COMMENTS: comments.trim(),
+          PHONE: [{
+              VALUE: phone,
+              VALUE_TYPE: 'WORK'
+          }]
+      },
+      // Дополнительные параметры API
+      params: {
+          REGISTER_SONET_EVENT: 'Y'
+      }
+  };
 
-  // Телефон: используем альтернативный синтаксис для массива
-  urlParams.append(`fields[PHONE][0][VALUE]`, phone);
-  urlParams.append(`fields[PHONE][0][VALUE_TYPE]`, 'WORK'); // Тип телефона
-
-  urlParams.append('params[REGISTER_SONET_EVENT]', 'Y'); // Дополнительный параметр
 
   // Отправляем на Bitrix webhook
   try {
-    // Явно указываем Content-Type: application/x-www-form-urlencoded
+    // Отправляем JSON-объект с соответствующим заголовком
     const res = await fetch(BITRIX_WEBHOOK_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded' // Самый надежный заголовок
+        'Content-Type': 'application/json' // Переключаемся на JSON для стабильной работы с кириллицей
       },
-      body: urlParams.toString() // Передаем URLSearchParams как строку
+      body: JSON.stringify(payload) // Превращаем объект в JSON-строку
     });
     
-    // ИСПРАВЛЕНА ОШИБКА: Удален лишний 'new'
     if (!res.ok) throw new Error(`Ошибка отправки. Статус: ${res.status}`); 
     
     const result = await res.json();
@@ -302,7 +306,7 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
     updateCartTotal();
   } catch (err) {
     console.error(err);
-    alert("Ошибка при отправке в Bitrix. Проверьте URL вебхука и права доступа: " + err.message);
+    alert("Ошибка при отправке в Bitrix. Проверьте URL вебхука: " + err.message);
   }
 });
 
