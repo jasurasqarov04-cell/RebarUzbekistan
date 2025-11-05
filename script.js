@@ -6,58 +6,119 @@ if (tg) {
 }
 
 // === Настройки ===
-// *** ОБЯЗАТЕЛЬНО ПРОВЕРЬТЕ И ОБНОВИТЕ ЭТОТ URL! ***
-const BITRIX_WEBHOOK_URL = "https://rebar.bitrix24.kz/rest/1/njvrqx0snxon2xw3/crm.lead.add.json"; 
+const GAS_WEBHOOK_URL = "ВАШ_URL_GAS_WEBHOOK"; // <-- URL для Google Apps Script (Используем этот вместо tg.sendData)
 const DEFAULT_PRICE_PER_METER = 24000; // сум / метр
 
-// === Данные товаров ===
-const PRODUCTS = [
+// === Данные товаров (РАЗДЕЛЕНЫ НА КАТЕГОРИИ) ===
+
+const ABK_PRODUCTS = [
   {
     id: "p-bas-4",
-    name: "Базальто-композитная арматура 4 мм",
-    description: `Базальто-композитная арматура считается альтернативой металлопроката. Ее используют для армирования основных строительных конструкций при возведении фундаментов зданий жилого и нежилого назначения, строительстве мостов и прочих инфраструктурных сооружений.`,
+    type: "ABK",
+    name: "Базальто-композитная арматура 4 мм (АБК)",
+    description: `Базальто-композитная арматура считается альтернативой металлопроката. Используется для армирования фундаментов, мостов и сооружений.`,
     properties: [
       { k: "Вес 1-го погонного метра", v: "0.85 кг" },
-      { k: "Вес 50-метровой бухты", v: "2.55 кг" },
-      { k: "Вес 100-метровой бухты", v: "5.1 кг" }
+      { k: "Сырье", v: "Базальт" }
     ],
     pricePerMeter: DEFAULT_PRICE_PER_METER,
     image: "https://rebar.uz/wp-content/uploads/2024/08/artboard-13.png"
   },
-  // можно добавить другие товары
+  // Добавьте больше товаров АБК здесь, если нужно
 ];
 
-// === Cart ===
-let cart = [];
+const ASK_PRODUCTS = [
+    {
+        id: "p-glass-6",
+        type: "ASK",
+        name: "Стеклокомпозитная арматура 6 мм (АСК)",
+        description: `Стеклокомпозитная арматура легкая, не подвержена коррозии. Используется для армирования дорожных покрытий, полов, и садовых конструкций.`,
+        properties: [
+            { k: "Вес 1-го погонного метра", v: "0.95 кг" },
+            { k: "Сырье", v: "Стекловолокно" }
+        ],
+        pricePerMeter: 18000, // Пример другой цены
+        image: "https://rebar.uz/wp-content/uploads/2024/08/artboard-1.png" // Пример другого изображения
+    },
+    // Добавьте больше товаров АСК здесь, если нужно
+];
 
-// === UI ===
+// === ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ===
+let cart = [];
+let currentProductType = 'ABK'; // По умолчанию показываем АБК
+
+// === UI и ИНИЦИАЛИЗАЦИЯ ===
+
 const resultsRoot = document.getElementById("results");
 const qInput = document.getElementById("q");
+const switchABKBtn = document.getElementById("switchABK");
+const switchASKBtn = document.getElementById("switchASK");
+
+
+// --- Обработчики переключения ---
+switchABKBtn.addEventListener("click", () => {
+    setCurrentProductType('ABK');
+});
+
+switchASKBtn.addEventListener("click", () => {
+    setCurrentProductType('ASK');
+});
+
+
+// Функция смены типа продукта
+function setCurrentProductType(type) {
+    if (currentProductType === type) return;
+
+    currentProductType = type;
+    
+    // Обновляем внешний вид кнопок
+    switchABKBtn.classList.remove('active');
+    switchASKBtn.classList.remove('active');
+    
+    if (type === 'ABK') {
+        switchABKBtn.classList.add('active');
+    } else {
+        switchASKBtn.classList.add('active');
+    }
+
+    // Очищаем поиск и перерисовываем каталог
+    qInput.value = '';
+    renderResults(getCurrentCatalog());
+}
+
+// Получение текущего каталога
+function getCurrentCatalog() {
+    return currentProductType === 'ABK' ? ABK_PRODUCTS : ASK_PRODUCTS;
+}
+
+// Обработчик поиска
 document.getElementById("btnSearch").addEventListener("click", () => {
   renderResults(searchProducts(qInput.value));
 });
 
 // render initial
-renderResults(PRODUCTS);
+renderResults(getCurrentCatalog());
 
 // Search
 function searchProducts(q) {
   const s = (q || "").trim().toLowerCase();
-  if (!s) return PRODUCTS;
-  return PRODUCTS.filter(p => p.name.toLowerCase().includes(s));
+  const currentCatalog = getCurrentCatalog();
+  if (!s) return currentCatalog;
+  
+  return currentCatalog.filter(p => p.name.toLowerCase().includes(s));
 }
 
 // Render listing
 function renderResults(list) {
   resultsRoot.innerHTML = "";
   if (!list.length) {
-    resultsRoot.innerHTML = `<div style="color:#777">Ничего не найдено</div>`;
+    resultsRoot.innerHTML = `<div style="color:#777">Ничего не найдено в категории ${currentProductType}</div>`;
     return;
   }
   list.forEach(p => {
     const el = document.createElement("div");
     el.className = "card";
-    const weightPerMeterText = (p.properties[0] ? p.properties[0].v.replace('кг','') : "—").trim();
+    const weightPerMeterText = (p.properties.find(prop => prop.k.includes('Вес'))?.v.replace('кг','') || "—").trim();
     
     // Калькулятор на карточке товара
     const price = p.pricePerMeter || DEFAULT_PRICE_PER_METER;
@@ -135,13 +196,14 @@ function handleProductCardCalc(cardElement, product) {
 // Product modal
 const modal = document.getElementById("productModal");
 const modalClose = document.getElementById("modalClose");
-const modalBackBtn = document.getElementById("modalBackBtn"); // Новая кнопка "Назад"
+const modalBackBtn = document.getElementById("modalBackBtn"); 
 
 modalClose.addEventListener("click", () => closeModal());
-modalBackBtn.addEventListener("click", () => closeModal()); // Обработчик для "Назад"
+modalBackBtn.addEventListener("click", () => closeModal()); 
 
 function showProductModal(productId) {
-  const p = PRODUCTS.find(x => x.id === productId);
+  // Ищем продукт во всех каталогах
+  const p = [...ABK_PRODUCTS, ...ASK_PRODUCTS].find(x => x.id === productId);
   if (!p) return;
   
   document.getElementById("modalImage").src = p.image;
@@ -155,8 +217,6 @@ function showProductModal(productId) {
     li.innerText = `${it.k}: ${it.v}`;
     propsList.appendChild(li);
   });
-  
-  // Калькулятор и кнопка "Добавить в корзину" были удалены из модального окна
   
   modal.classList.remove("hidden");
 }
@@ -233,92 +293,67 @@ function updateCartTotal(){
   renderCartCount();
 }
 
-// Send order to Bitrix
+// === ФУНКЦИЯ ОТПРАВКИ В GOOGLE APPS SCRIPT (Заменяет Bitrix) ===
 document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
   const name = document.getElementById("buyerName").value.trim();
   const phone = document.getElementById("buyerPhone").value.trim();
   if (!phone) return alert("Укажите телефон");
   if (!cart.length) return alert("Корзина пуста");
+  if (!GAS_WEBHOOK_URL || GAS_WEBHOOK_URL.includes("ВАШ_URL_GAS_WEBHOOK")) {
+      return alert("ОШИБКА НАСТРОЙКИ: Не указан или не обновлен GAS_WEBHOOK_URL!");
+  }
 
-  // Формируем описание заказа для поля КОММЕНТАРИЙ (COMMENTS)
-  const itemsDescription = cart.map(i => {
-    const price = (i.product.pricePerMeter || DEFAULT_PRICE_PER_METER);
-    const totalItemPrice = price * i.meters;
-    return `${i.product.name} — ${i.meters} м — ${formatCurrency(totalItemPrice)} сум (Цена за 1 м: ${formatCurrency(price)})`;
-  }).join("\n");
-  
   const total = cart.reduce((s,i)=> s + ((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER) * i.meters), 0);
-  const leadTitle = `Заказ из Telegram WebApp на сумму ${formatCurrency(total)} сум`;
-  const comments = `
-    --- ДЕТАЛИ ЗАКАЗА ---
-    ${itemsDescription}
-    
-    Имя клиента: ${name || "Не указано"}
-    Телефон: ${phone}
-  `;
-
-  // --- ФИНАЛЬНАЯ УПРОЩЕННАЯ СТРУКТУРА JSON (ТОЛЬКО ПОЛЕ fields) ---
+  
+  const itemsForApp = cart.map(i => ({
+      name: i.product.name,
+      meters: i.meters,
+      pricePerMeter: i.product.pricePerMeter || DEFAULT_PRICE_PER_METER,
+      totalPrice: (i.product.pricePerMeter || DEFAULT_PRICE_PER_METER) * i.meters
+  }));
+  
   const payload = {
-      // Отправляем только поля. Структура, максимально похожая на рабочий пример из Make.
-      fields: {
-          TITLE: leadTitle,
-          NAME: name || "Клиент Telegram WebApp",
-          OPPORTUNITY: total,
-          CURRENCY_ID: 'SUM',
-          COMMENTS: comments.trim(),
-          PHONE: [{
-              VALUE: phone,
-              VALUE_TYPE: 'WORK'
-          }]
+      action: "new_order_from_webapp",
+      buyer: {
+          name: name || "Клиент Telegram WebApp",
+          phone: phone,
+          telegram_user_id: window.Telegram?.WebApp?.initDataUnsafe?.user?.id || 'N/A' 
       },
+      items: itemsForApp,
+      total: total,
+      totalFormatted: formatCurrency(total) + " сум"
   };
 
-
-  // Отправляем на Bitrix webhook
   try {
-    const res = await fetch(BITRIX_WEBHOOK_URL, {
+    const res = await fetch(GAS_WEBHOOK_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json' 
       },
-      body: JSON.stringify(payload) 
+      body: JSON.stringify(payload)
     });
     
     if (!res.ok) throw new Error(`Ошибка отправки. Статус: ${res.status}`); 
     
-    const result = await res.json();
-    if (result.error) {
-        throw new Error("Bitrix API Error: " + result.error_description);
-    }
+    alert(`Заказ отправлен! Менеджер скоро свяжется.`);
     
-    alert(`Заказ отправлен в Bitrix! ID Лида: ${result.result}`);
-    
-    // очистка
+    // Очистка
     cart = [];
     document.getElementById("buyerName").value = ''; 
     document.getElementById("buyerPhone").value = '';
     renderCartPanel();
     renderCartCount();
     updateCartTotal();
+    
+    window.Telegram?.WebApp?.close(); 
+
   } catch (err) {
     console.error(err);
-    alert("Ошибка при отправке в Bitrix. Проверьте актуальность вебхука: " + err.message);
+    alert("Ошибка при отправке заказа: " + err.message);
   }
 });
 
-// send order to bot via tg.sendData (если запущено в Telegram)
-document.getElementById("sendToBot").addEventListener("click", ()=>{
-  if (!tg || typeof tg.sendData !== "function") {
-    alert("WebApp API недоступен — откройте приложение внутри Telegram.");
-    return;
-  }
-  const name = document.getElementById("buyerName").value.trim() || "Клиент";
-  const phone = document.getElementById("buyerPhone").value.trim() || "";
-  const items = cart.map(i => ({name:i.product.name, meters:i.meters, pricePerMeter:i.product.pricePerMeter || DEFAULT_PRICE_PER_METER}));
-  const out = {action:"order", buyer:{name, phone}, items, total: cart.reduce((s,i)=> s + ((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER) * i.meters), 0)};
-  tg.sendData(JSON.stringify(out));
-  tg.close();
-});
+// УДАЛЕНА ИЛИ ИЗМЕНЕНА старая кнопка sendToBot (так как sendToBitrix теперь делает то же самое через GAS)
 
 // Helpers
 function formatCurrency(n){
