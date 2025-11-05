@@ -6,10 +6,7 @@ if (tg) {
 }
 
 // === Настройки ===
-// Замените на ваш URL входящего webhook Bitrix (пример: https://your-domain.bitrix24.ru/rest/1/XXXX/crm.lead.add.json )
-const BITRIX_WEBHOOK_URL = "https://rebar.bitrix24.kz/rest/1/njvrqx0snxon2xw3/crm.lead.add.json"; // <- подставь сюда реальный URL
-
-// Цена за метр (пример). Можно указать perProduct.pricePerMeter в объекте.
+const BITRIX_WEBHOOK_URL = "https://rebar.bitrix24.kz/rest/1/njvrqx0snxon2xw3/crm.lead.add.json"; 
 const DEFAULT_PRICE_PER_METER = 24000; // сум / метр
 
 // === Данные товаров ===
@@ -26,7 +23,6 @@ const PRODUCTS = [
     pricePerMeter: DEFAULT_PRICE_PER_METER,
     image: "https://via.placeholder.com/600x600.png?text=Basalto+4mm"
   },
-
   // можно добавить другие товары
 ];
 
@@ -60,34 +56,97 @@ function renderResults(list) {
   list.forEach(p => {
     const el = document.createElement("div");
     el.className = "card";
+    const weightPerMeterText = (p.properties[0] ? p.properties[0].v.replace('кг','') : "—").trim();
+    
+    // Калькулятор на карточке товара
+    const price = p.pricePerMeter || DEFAULT_PRICE_PER_METER;
     el.innerHTML = `
       <img src="${p.image}" alt="${escapeHtml(p.name)}" />
       <div class="info">
         <h3>${escapeHtml(p.name)}</h3>
         <p>${escapeHtml(p.description.substring(0,120))}...</p>
-        <div class="price">от ${formatCurrency(p.pricePerMeter)} сум/м</div>
-      </div>
-      <div class="actions">
-        <button class="btn-choose" data-id="${p.id}">Подробнее</button>
+        <div class="price">от ${formatCurrency(price)} сум/м</div>
+        
+        <div class="calculator-in-card" data-id="${p.id}" data-price="${price}" data-weight="${weightPerMeterText}">
+            <label>Длина (м): <input type="number" min="1" step="1" value="1" class="calc-meters-input"></label>
+            <div class="calc-row">
+                <div>Итого: <strong class="calc-total-price">${formatCurrency(price)} сум</strong></div>
+                <div>Вес: <strong class="calc-total-weight">${weightPerMeterText} кг</strong></div>
+            </div>
+            <div class="actions">
+                <button class="btn-choose add-to-cart-card">Добавить в корзину</button>
+                <button class="btn-search btn-details" data-id="${p.id}">Подробнее</button>
+            </div>
+        </div>
       </div>
     `;
     resultsRoot.appendChild(el);
-    el.querySelector(".btn-choose").addEventListener("click", () => {
+    
+    // Инициализация калькулятора и обработчика кнопки "Добавить в корзину" на карточке
+    handleProductCardCalc(el, p);
+
+    // Обработчик кнопки "Подробнее"
+    el.querySelector(".btn-details").addEventListener("click", () => {
       showProductModal(p.id);
     });
   });
 }
 
+// Логика калькулятора на карточке товара
+function handleProductCardCalc(cardElement, product) {
+    const calcRoot = cardElement.querySelector(".calculator-in-card");
+    const metersInput = calcRoot.querySelector(".calc-meters-input");
+    const totalPriceStrong = calcRoot.querySelector(".calc-total-price");
+    const totalWeightStrong = calcRoot.querySelector(".calc-total-weight");
+    const addToCartBtn = calcRoot.querySelector(".add-to-cart-card");
+    
+    const pricePerMeter = parseFloat(calcRoot.getAttribute("data-price"));
+    const weightPerMeterRaw = calcRoot.getAttribute("data-weight");
+    let weightPerMeter = 0;
+    
+    // Извлечение числа из строки веса (если есть)
+    const raw = weightPerMeterRaw.replace(",", ".").match(/[\d.]+/);
+    if (raw) weightPerMeter = parseFloat(raw[0]);
+    
+    function updateCardCalc() {
+        const meters = parseFloat(metersInput.value) || 0;
+        const total = pricePerMeter * meters;
+        const totalWeight = weightPerMeter * meters;
+        
+        totalPriceStrong.innerText = formatCurrency(total) + " сум";
+        totalWeightStrong.innerText = totalWeight ? totalWeight.toFixed(3) + " кг" : "—";
+    }
+
+    metersInput.oninput = updateCardCalc;
+    metersInput.onchange = updateCardCalc; // Добавим и change
+
+    addToCartBtn.onclick = function() {
+        const meters = parseFloat(metersInput.value) || 1;
+        addToCart(product, meters);
+        // можно сбросить значение после добавления, но оставим для удобства
+        openCart();
+    };
+    
+    updateCardCalc(); // Обновить при инициализации
+}
+
+
 // Product modal
 const modal = document.getElementById("productModal");
 const modalClose = document.getElementById("modalClose");
+const modalBackBtn = document.getElementById("modalBackBtn"); // Новая кнопка "Назад"
+
 modalClose.addEventListener("click", () => closeModal());
+modalBackBtn.addEventListener("click", () => closeModal()); // Обработчик для "Назад"
+
 function showProductModal(productId) {
   const p = PRODUCTS.find(x => x.id === productId);
   if (!p) return;
+  
   document.getElementById("modalImage").src = p.image;
   document.getElementById("modalTitle").innerText = p.name;
   document.getElementById("modalDesc").innerText = p.description;
+  
   const propsList = document.getElementById("modalProps");
   propsList.innerHTML = "";
   p.properties.forEach(it => {
@@ -95,44 +154,10 @@ function showProductModal(productId) {
     li.innerText = `${it.k}: ${it.v}`;
     propsList.appendChild(li);
   });
-
-  document.getElementById("pricePerMeter").innerText = formatCurrency(p.pricePerMeter) + " сум";
-  document.getElementById("weightPerMeter").innerText = (p.properties[0] ? p.properties[0].v : "—");
-  const metersInput = document.getElementById("calcMeters");
-  metersInput.value = 1;
-  updateCalcValues(p, 1);
-
-  // пересчёт при изменении метров
-  metersInput.oninput = function() {
-    const meters = parseFloat(metersInput.value) || 0;
-    updateCalcValues(p, meters);
-  };
-
-  // добавление в корзину
-  const addBtn = document.getElementById("addToCartBtn");
-  addBtn.onclick = function() {
-    const meters = parseFloat(metersInput.value) || 0;
-    addToCart(p, meters);
-    closeModal();
-    openCart();
-  };
-
+  
+  // Калькулятор и кнопка "Добавить в корзину" были удалены из модального окна
+  
   modal.classList.remove("hidden");
-}
-
-function updateCalcValues(p, meters) {
-  const price = (p.pricePerMeter || DEFAULT_PRICE_PER_METER) * meters;
-  document.getElementById("calcTotalPrice").innerText = formatCurrency(price) + " сум";
-
-  // рассчитываем вес — берем свойство Вес 1-го погонного метра если есть
-  let wPer = 0;
-  if (p.properties && p.properties.length) {
-    // пытаемся извлечь число из строки "0.85кг" или "0.85 кг"
-    const raw = p.properties[0].v.replace(",", ".").match(/[\d.]+/);
-    if (raw) wPer = parseFloat(raw[0]);
-  }
-  const totalWeight = (wPer * meters);
-  document.getElementById("calcTotalWeight").innerText = totalWeight ? totalWeight.toFixed(3) + " кг" : "—";
 }
 
 function closeModal() {
@@ -267,4 +292,3 @@ function formatCurrency(n){
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#039;"}[m]));
 }
-
