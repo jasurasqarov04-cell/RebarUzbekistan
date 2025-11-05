@@ -239,56 +239,28 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
   if (!phone) return alert("Укажите телефон");
   if (!cart.length) return alert("Корзина пуста");
 
-  // Формируем описание заказа
-  const items = cart.map(i => `${i.product.name} — ${i.meters} м — ${formatCurrency((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER)*i.meters)} сум`).join("\n");
+  // Формируем описание заказа для поля КОММЕНТАРИЙ (COMMENTS)
+  const itemsDescription = cart.map(i => {
+    const price = (i.product.pricePerMeter || DEFAULT_PRICE_PER_METER);
+    const totalItemPrice = price * i.meters;
+    return `${i.product.name} — ${i.meters} м — ${formatCurrency(totalItemPrice)} сум (Цена за 1 м: ${formatCurrency(price)})`;
+  }).join("\n");
+  
   const total = cart.reduce((s,i)=> s + ((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER) * i.meters), 0);
+  const leadTitle = `Заказ из Telegram WebApp на сумму ${formatCurrency(total)} сум`;
+  const comments = `
+    --- ДЕТАЛИ ЗАКАЗА ---
+    ${itemsDescription}
+    
+    Имя клиента: ${name || "Не указано"}
+    Телефон: ${phone}
+  `;
 
-  const payload = {
-    // Структура универсальная — подставь под свой webhook Bitrix (см. инструкцию ниже)
-    name: name || "Клиент Telegram WebApp",
-    phone,
-    items,
-    total
-  };
-
-  // Отправляем на Bitrix webhook (замени URL на свой)
-  try {
-    const res = await fetch(BITRIX_WEBHOOK_URL, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(payload)
-    });
-    if (!res.ok) throw new Error("Ошибка отправки");
-    alert("Заказ отправлен в Bitrix!");
-    // очистка корзины
-    cart = [];
-    renderCartPanel();
-    renderCartCount();
-    updateCartTotal();
-  } catch (err) {
-    console.error(err);
-    alert("Ошибка при отправке в Bitrix. Проверьте BITRIX_WEBHOOK_URL.");
-  }
-});
-
-// send order to bot via tg.sendData (если запущено в Telegram)
-document.getElementById("sendToBot").addEventListener("click", ()=>{
-  if (!tg || typeof tg.sendData !== "function") {
-    alert("WebApp API недоступен — откройте приложение внутри Telegram.");
-    return;
-  }
-  const name = document.getElementById("buyerName").value.trim() || "Клиент";
-  const phone = document.getElementById("buyerPhone").value.trim() || "";
-  const items = cart.map(i => ({name:i.product.name, meters:i.meters, pricePerMeter:i.product.pricePerMeter || DEFAULT_PRICE_PER_METER}));
-  const out = {action:"order", buyer:{name, phone}, items, total: cart.reduce((s,i)=> s + ((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER) * i.meters), 0)};
-  tg.sendData(JSON.stringify(out));
-  tg.close();
-});
-
-// Helpers
-function formatCurrency(n){
-  return Number(n).toLocaleString('ru-RU');
-}
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#039;"}[m]));
-}
+  // --- Форматируем данные для Bitrix24 через URLSearchParams ---
+  const urlParams = new URLSearchParams();
+  
+  // Основные поля Лида
+  urlParams.append(`FIELDS[TITLE]`, leadTitle);
+  urlParams.append(`FIELDS[NAME]`, name || "Клиент Telegram WebApp");
+  urlParams.append(`FIELDS[OPPORTUNITY]`, total);
+  urlParams.append(`FIELDS
