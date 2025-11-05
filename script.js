@@ -16,7 +16,7 @@ const PRODUCTS = [
     name: "Базальто-композитная арматура 4 мм",
     description: `Базальто-композитная арматура считается альтернативой металлопроката. Используется для армирования фундаментов, мостов и сооружений.`,
     properties: [
-      { k: "Вес 1-го погонного метра", v: "0.085 кг" }, // Исправил вес
+      { k: "Вес 1-го погонного метра", v: "0.085 кг" }, 
       { k: "Сырье", v: "Базальт" }
     ],
     pricePerMeter: DEFAULT_PRICE_PER_METER,
@@ -96,7 +96,7 @@ function renderResults(list) {
     let weightPerMeter = parseFloat(weightPerMeterRaw) || 0;
 
 
-    // --- НОВАЯ СТРУКТУРА КАРТОЧКИ ---
+    // --- СТРУКТУРА КАРТОЧКИ ---
     el.innerHTML = `
       <img src="${p.image}" alt="${escapeHtml(p.name)}" />
       <div class="info">
@@ -124,10 +124,16 @@ function renderResults(list) {
     // Инициализация калькулятора и обработчиков кнопок
     handleProductCardCalc(el, p);
 
+    // --- ИСПРАВЛЕНИЕ ОШИБКИ: ДОБАВЛЕНИЕ ОБРАБОТЧИКА "ПОДРОБНЕЕ" ---
     // Обработчик кнопки "Подробнее"
-    el.querySelector(".btn-details").addEventListener("click", () => {
-      showProductModal(p.id);
-    });
+    const detailsButton = el.querySelector(".btn-details");
+    if (detailsButton) {
+      detailsButton.addEventListener("click", () => {
+        // Мы открываем модальное окно, не переходим на новую страницу
+        showProductModal(p.id); 
+      });
+    }
+    // --- КОНЕЦ ИСПРАВЛЕНИЯ ---
   });
 }
 
@@ -145,7 +151,7 @@ function handleProductCardCalc(cardElement, product) {
     // 1. Функция обновления цены и корзины
     function updateCardCalc() {
         let meters = parseInt(metersInput.value) || 1;
-        if (meters < 1) meters = 1;
+        if (meters < 1 || isNaN(meters)) meters = 1;
         metersInput.value = meters; 
 
         const total = pricePerMeter * meters;
@@ -153,7 +159,7 @@ function handleProductCardCalc(cardElement, product) {
         totalPriceStrong.innerText = formatCurrency(total) + " сум";
         
         // Автоматическое добавление/обновление в корзине при изменении
-        addToCart(product, meters, true); // true для обновления
+        addToCart(product, meters, true); 
         
         // Обновляем счетчик корзины в шапке
         renderCartCount(); 
@@ -178,12 +184,19 @@ function handleProductCardCalc(cardElement, product) {
 
     // 3. Обработчик прямого ввода
     metersInput.oninput = function() {
-        // Убеждаемся, что значение не меньше 1
-        if (parseInt(metersInput.value) < 1) {
-            metersInput.value = 1;
+        if (parseInt(metersInput.value) < 1 || metersInput.value === "") {
+            // Не сразу сбрасываем, даем пользователю ввести
         }
         updateCardCalc();
     };
+
+    metersInput.onblur = function() {
+        // Проверка при уходе фокуса
+        if (parseInt(metersInput.value) < 1 || isNaN(parseInt(metersInput.value))) {
+             metersInput.value = 1;
+        }
+        updateCardCalc();
+    }
     
     // 4. Инициализация (загружаем, если уже есть в корзине)
     const existingCartItem = cart.find(i => i.product.id === product.id);
@@ -194,8 +207,6 @@ function handleProductCardCalc(cardElement, product) {
     updateCardCalc(); // Обновить при инициализации
 }
 
-
-// Product modal, Cart Panel, Bitrix logic etc. (остаются как в предыдущей версии)
 
 // Product modal
 const modal = document.getElementById("productModal");
@@ -221,6 +232,7 @@ function showProductModal(productId) {
     propsList.appendChild(li);
   });
   
+  // Убеждаемся, что модальное окно открывается в одном листе
   modal.classList.remove("hidden");
 }
 
@@ -229,43 +241,47 @@ function closeModal() {
 }
 
 // Cart functions
-// Обновленная функция корзины для поддержки обновления
 function addToCart(product, meters, update = false) {
   const existingIndex = cart.findIndex(i => i.product.id === product.id);
 
   if (meters < 1) {
       if (existingIndex !== -1) {
-          cart.splice(existingIndex, 1); // Удаляем, если количество стало < 1
+          cart.splice(existingIndex, 1);
       }
       return;
   }
   
   if (existingIndex !== -1) {
     if (update) {
-      cart[existingIndex].meters = meters; // Просто обновляем
+      cart[existingIndex].meters = meters; 
     } else {
-      cart[existingIndex].meters += meters; // Добавляем к существующему
+      cart[existingIndex].meters += meters; 
     }
   } else {
     cart.push({ product, meters });
   }
-  // Обновляем счетчик корзины, но не рендерим всю панель корзины
-  // (это замедлит работу карточек)
   renderCartCount(); 
 }
 
 function renderCartCount() {
   // Фильтруем пустые элементы
   cart = cart.filter(i => i.meters > 0); 
-  // Считаем уникальные товары в корзине (не общее количество метров)
-  document.getElementById("cartCount").innerText = cart.length;
+  // ИСПРАВЛЕНИЕ: Используем длину массива для подсчета уникальных товаров
+  document.getElementById("cartCount").innerText = cart.length; 
 }
 
 
 // Cart panel
 const cartPanel = document.getElementById("cartPanel");
-document.getElementById("openCartBtn").addEventListener("click", openCart);
-document.getElementById("closeCartBtn").addEventListener("click", closeCart);
+
+// ИСПРАВЛЕНИЕ: Убеждаемся, что эти элементы существуют и прикрепляем обработчики
+const openCartBtn = document.getElementById("openCartBtn");
+const closeCartBtn = document.getElementById("closeCartBtn");
+
+if (openCartBtn) openCartBtn.addEventListener("click", openCart);
+if (closeCartBtn) closeCartBtn.addEventListener("click", closeCart);
+// --- КОНЕЦ ИСПРАВЛЕНИЯ ---
+
 
 function openCart(){
   renderCartPanel();
@@ -317,7 +333,7 @@ function updateCartTotal(){
   renderCartCount();
 }
 
-// Send order to Bitrix (оставляем как было)
+// Send order to Bitrix
 document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
   const name = document.getElementById("buyerName").value.trim();
   const phone = document.getElementById("buyerPhone").value.trim();
@@ -331,84 +347,4 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
   }).join("\n");
   
   const total = cart.reduce((s,i)=> s + ((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER) * i.meters), 0);
-  const leadTitle = `Заказ из Telegram WebApp на сумму ${formatCurrency(total)} сум`;
-  const comments = `
-    --- ДЕТАЛИ ЗАКАЗА ---
-    ${itemsDescription}
-    
-    Имя клиента: ${name || "Не указано"}
-    Телефон: ${phone}
-  `;
-
-  const payload = {
-      fields: {
-          TITLE: leadTitle,
-          NAME: name || "Клиент Telegram WebApp",
-          OPPORTUNITY: total,
-          CURRENCY_ID: 'SUM',
-          COMMENTS: comments.trim(),
-          PHONE: [{
-              VALUE: phone,
-              VALUE_TYPE: 'WORK'
-          }]
-      },
-  };
-
-  try {
-    const res = await fetch(BITRIX_WEBHOOK_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json' 
-      },
-      body: JSON.stringify(payload) 
-    });
-    
-    if (!res.ok) throw new Error(`Ошибка отправки. Статус: ${res.status}`); 
-    
-    const result = await res.json();
-    if (result.error) {
-        throw new Error("Bitrix API Error: " + result.error_description);
-    }
-    
-    alert(`Заказ отправлен в Bitrix! ID Лида: ${result.result}`);
-    
-    // очистка
-    cart = [];
-    document.getElementById("buyerName").value = ''; 
-    document.getElementById("buyerPhone").value = '';
-    renderCartPanel();
-    renderCartCount();
-    updateCartTotal();
-    
-    // Перерисовываем главный экран, чтобы сбросить калькуляторы
-    renderResults(searchProducts(qInput.value)); 
-    
-    window.Telegram?.WebApp?.close(); 
-  } catch (err) {
-    console.error(err);
-    alert("Ошибка при отправке в Bitrix (Статус 400). Проверьте URL вебхука: " + err.message);
-  }
-});
-
-// send order to bot via tg.sendData (оставляем как было)
-document.getElementById("sendToBot").addEventListener("click", ()=>{
-  if (!tg || typeof tg.sendData !== "function") {
-    alert("WebApp API недоступен — откройте приложение внутри Telegram.");
-    return;
-  }
-  const name = document.getElementById("buyerName").value.trim() || "Клиент";
-  const phone = document.getElementById("buyerPhone").value.trim() || "";
-  const items = cart.map(i => ({name:i.product.name, meters:i.meters, pricePerMeter:i.product.pricePerMeter || DEFAULT_PRICE_PER_METER}));
-  const out = {action:"order", buyer:{name, phone}, items, total: cart.reduce((s,i)=> s + ((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER) * i.meters), 0)};
-  tg.sendData(JSON.stringify(out));
-  tg.close();
-});
-
-
-// Helpers
-function formatCurrency(n){
-  return Number(n).toLocaleString('ru-RU');
-}
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#039;"}[m]));
-}
+  const leadTitle = `Заказ из Telegram
