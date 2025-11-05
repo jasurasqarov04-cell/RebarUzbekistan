@@ -6,7 +6,7 @@ if (tg) {
 }
 
 // === Настройки ===
-const BITRIX_WEBHOOK_URL = "https://rebar.bitrix24.kz/rest/1/slgm6bd5z4cq971h/crm.lead.add.json"; 
+const BITRIX_WEBHOOK_URL = "https://rebar.bitrix24.kz/rest/1/njvrqx0snxon2xw3/crm.lead.add.json"; 
 const DEFAULT_PRICE_PER_METER = 24000; // сум / метр
 
 // === Данные товаров ===
