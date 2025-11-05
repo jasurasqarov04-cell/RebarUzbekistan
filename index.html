@@ -1,9 +1,12 @@
-<header class="top">
-  <img src="Rebar.png" alt="RebarUzbekistan" class="logo" />
-  
-  <div class="type-switcher-header">
-    <button id="switchABK" class="btn-switcher active">АБК</button>
-    <button id="switchASK" class="btn-switcher">АСК</button>
+<main>
+  <div class="search">
+    <input id="q" placeholder="Поиск товара" />
+    <button id="btnSearch">Поиск</button>
   </div>
-  <div class="cart-btn" id="openCartBtn">Корзина (<span id="cartCount">0</span>)</div>
-</header>
+
+  <div class="product-type-switcher">
+    <button id="switchABK" class="btn-switcher active">АБК (Базальтовая)</button>
+    <button id="switchASK" class="btn-switcher">АСК (Стекловолокно)</button>
+  </div>
+  <div id="results" class="results"></div>
+</main>
