@@ -347,4 +347,84 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
   }).join("\n");
   
   const total = cart.reduce((s,i)=> s + ((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER) * i.meters), 0);
-  const leadTitle = `Заказ из Telegram
+  const leadTitle = `Заказ из Telegram WebApp на сумму ${formatCurrency(total)} сум`;
+  const comments = `
+    --- ДЕТАЛИ ЗАКАЗА ---
+    ${itemsDescription}
+    
+    Имя клиента: ${name || "Не указано"}
+    Телефон: ${phone}
+  `;
+
+  const payload = {
+      fields: {
+          TITLE: leadTitle,
+          NAME: name || "Клиент Telegram WebApp",
+          OPPORTUNITY: total,
+          CURRENCY_ID: 'SUM',
+          COMMENTS: comments.trim(),
+          PHONE: [{
+              VALUE: phone,
+              VALUE_TYPE: 'WORK'
+          }]
+      },
+  };
+
+  try {
+    const res = await fetch(BITRIX_WEBHOOK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json' 
+      },
+      body: JSON.stringify(payload) 
+    });
+    
+    if (!res.ok) throw new Error(`Ошибка отправки. Статус: ${res.status}`); 
+    
+    const result = await res.json();
+    if (result.error) {
+        throw new Error("Bitrix API Error: " + result.error_description);
+    }
+    
+    alert(`Заказ отправлен в Bitrix! ID Лида: ${result.result}`);
+    
+    // очистка
+    cart = [];
+    document.getElementById("buyerName").value = ''; 
+    document.getElementById("buyerPhone").value = '';
+    renderCartPanel();
+    renderCartCount();
+    updateCartTotal();
+    
+    // Перерисовываем главный экран, чтобы сбросить калькуляторы
+    renderResults(searchProducts(qInput.value)); 
+    
+    window.Telegram?.WebApp?.close(); 
+  } catch (err) {
+    console.error(err);
+    alert("Ошибка при отправке в Bitrix (Статус 400). Проверьте URL вебхука: " + err.message);
+  }
+});
+
+// send order to bot via tg.sendData
+document.getElementById("sendToBot").addEventListener("click", ()=>{
+  if (!tg || typeof tg.sendData !== "function") {
+    alert("WebApp API недоступен — откройте приложение внутри Telegram.");
+    return;
+  }
+  const name = document.getElementById("buyerName").value.trim() || "Клиент";
+  const phone = document.getElementById("buyerPhone").value.trim() || "";
+  const items = cart.map(i => ({name:i.product.name, meters:i.meters, pricePerMeter:i.product.pricePerMeter || DEFAULT_PRICE_PER_METER}));
+  const out = {action:"order", buyer:{name, phone}, items, total: cart.reduce((s,i)=> s + ((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER) * i.meters), 0)};
+  tg.sendData(JSON.stringify(out));
+  tg.close();
+});
+
+
+// Helpers
+function formatCurrency(n){
+  return Number(n).toLocaleString('ru-RU');
+}
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#039;"}[m]));
+}
