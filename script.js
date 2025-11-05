@@ -271,13 +271,17 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
   urlParams.append(`fields[PHONE][0][VALUE_TYPE]`, 'WORK'); // Тип телефона
 
   urlParams.append('params[REGISTER_SONET_EVENT]', 'Y'); // Дополнительный параметр
+  
+  // Создаем полный URL с параметрами
+  const finalUrl = BITRIX_WEBHOOK_URL + "?" + urlParams.toString();
 
   // Отправляем на Bitrix webhook
   try {
-    // Отправляем данные в формате x-www-form-urlencoded
-    const res = await fetch(BITRIX_WEBHOOK_URL, {
-      method: 'POST',
-      body: urlParams // Передаем URLSearchParams в качестве тела запроса
+    // Отправляем POST-запрос с пустым телом, но все данные уже в URL,
+    // что часто решает проблемы с кодировкой и парсингом в Bitrix24.
+    const res = await fetch(finalUrl, {
+      method: 'POST'
+      // body не нужен, так как данные в URL
     });
     
     if (!res.ok) throw new Error("Ошибка отправки. Статус: " + res.status);
@@ -298,7 +302,7 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
     updateCartTotal();
   } catch (err) {
     console.error(err);
-    alert("Ошибка при отправке в Bitrix. Проверьте URL вебхука и права доступа: " + err.message);
+    alert("Ошибка при отправке в Bitrix. Проверьте URL вебхука: " + err.message);
   }
 });
 
