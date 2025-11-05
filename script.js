@@ -9,29 +9,26 @@ if (tg) {
 const BITRIX_WEBHOOK_URL = "https://rebar.bitrix24.kz/rest/1/njvrqx0snxon2xw3/crm.lead.add.json"; 
 const DEFAULT_PRICE_PER_METER = 24000; // сум / метр
 
-// === Данные товаров ===
+// === Данные товаров (Добавил больше примеров для тестирования) ===
 const PRODUCTS = [
   {
     id: "p-bas-4",
     name: "Базальто-композитная арматура 4 мм",
-    description: `Базальто-композитная арматура считается альтернативой металлопроката. Ее используют для армирования основных строительных конструкций при возведении фундаментов зданий жилого и нежилого назначения, строительстве мостов и прочих инфраструктурных сооружений.`,
+    description: `Базальто-композитная арматура считается альтернативой металлопроката. Используется для армирования фундаментов, мостов и сооружений.`,
     properties: [
-      { k: "Вес 1-го погонного метра", v: "0.85 кг" },
-      { k: "Вес 50-метровой бухты", v: "2.55 кг" },
-      { k: "Вес 100-метровой бухты", v: "5.1 кг" }
+      { k: "Вес 1-го погонного метра", v: "0.085 кг" }, // Исправил вес
+      { k: "Сырье", v: "Базальт" }
     ],
     pricePerMeter: DEFAULT_PRICE_PER_METER,
     image: "https://rebar.uz/wp-content/uploads/2024/08/artboard-13.png"
   },
-  // можно добавить другие товары
   {
     id: "p-bas-6",
     name: "Базальто-композитная арматура 6 мм",
-    description: `Базальто-композитная арматура 6мм, прочнее 4мм. Идеально подходит для усиленных бетонных конструкций, таких как балки, колонны и перекрытия.`,
+    description: `Базальто-композитная арматура 6мм, прочнее 4мм. Идеально подходит для усиленных бетонных конструкций.`,
     properties: [
-      { k: "Вес 1-го погонного метра", v: "1.2 кг" },
-      { k: "Вес 50-метровой бухты", v: "6.0 кг" },
-      { k: "Вес 100-метровой бухты", v: "12.0 кг" }
+      { k: "Вес 1-го погонного метра", v: "0.120 кг" },
+      { k: "Сырье", v: "Базальт" }
     ],
     pricePerMeter: 36000,
     image: "https://rebar.uz/wp-content/uploads/2024/08/artboard-1.png"
@@ -39,11 +36,10 @@ const PRODUCTS = [
   {
     id: "p-bas-8",
     name: "Базальто-композитная арматура 8 мм",
-    description: `Базальто-композитная арматура 8мм, максимальная прочность. Применяется для самых нагруженных конструкций, мостов и высокоэтажного строительства.`,
+    description: `Базальто-композитная арматура 8мм, максимальная прочность. Применяется для самых нагруженных конструкций.`,
     properties: [
-      { k: "Вес 1-го погонного метра", v: "1.8 кг" },
-      { k: "Вес 50-метровой бухты", v: "9.0 кг" },
-      { k: "Вес 100-метровой бухты", v: "18.0 кг" }
+      { k: "Вес 1-го погонного метра", v: "0.180 кг" },
+      { k: "Сырье", v: "Базальт" }
     ],
     pricePerMeter: 54000,
     image: "https://rebar.uz/wp-content/uploads/2024/08/artboard-2.png"
@@ -51,17 +47,15 @@ const PRODUCTS = [
   {
     id: "p-bas-10",
     name: "Базальто-композитная арматура 10 мм",
-    description: `Базальто-композитная арматура 10мм, экстра прочность. Для особо ответственных и тяжелых строительных объектов, где требуется максимальная нагрузочная способность.`,
+    description: `Базальто-композитная арматура 10мм, экстра прочность. Для особо ответственных и тяжелых строительных объектов.`,
     properties: [
-      { k: "Вес 1-го погонного метра", v: "2.5 кг" },
-      { k: "Вес 50-метровой бухты", v: "12.5 кг" },
-      { k: "Вес 100-метровой бухты", v: "25.0 кг" }
+      { k: "Вес 1-го погонного метра", v: "0.250 кг" },
+      { k: "Сырье", v: "Базальт" }
     ],
     pricePerMeter: 75000,
     image: "https://rebar.uz/wp-content/uploads/2024/08/artboard-3.png"
   },
 ];
-
 
 // === Cart ===
 let cart = [];
@@ -93,33 +87,115 @@ function renderResults(list) {
   list.forEach(p => {
     const el = document.createElement("div");
     el.className = "card";
-    // Убираем описание и калькулятор из основной карточки
+    
+    const price = p.pricePerMeter || DEFAULT_PRICE_PER_METER;
+    
+    // Ищем свойство "Вес 1-го погонного метра" в массиве properties
+    const weightProp = p.properties.find(prop => prop.k.includes('Вес 1-го погонного метра'));
+    const weightPerMeterRaw = weightProp ? weightProp.v.replace('кг', '').trim() : "0";
+    let weightPerMeter = parseFloat(weightPerMeterRaw) || 0;
+
+
+    // --- НОВАЯ СТРУКТУРА КАРТОЧКИ ---
     el.innerHTML = `
       <img src="${p.image}" alt="${escapeHtml(p.name)}" />
       <div class="info">
         <h3>${escapeHtml(p.name)}</h3>
-        <div class="price">${formatCurrency(p.pricePerMeter || DEFAULT_PRICE_PER_METER)} сум</div>
-        <button class="btn-choose add-to-cart-card" data-id="${p.id}" data-price="${p.pricePerMeter || DEFAULT_PRICE_PER_METER}">Savatchaga</button>
-        <button class="btn-details hidden" data-id="${p.id}">Подробнее</button> </div>
+        <div class="price">${formatCurrency(price)} сум/м</div>
+        
+        <div class="calculator-in-card" data-id="${p.id}" data-price="${price}" data-weight="${weightPerMeter}">
+            
+            <div class="calc-output">
+                Итого: <strong class="calc-total-price">${formatCurrency(price)} сум</strong>
+            </div>
+
+            <div class="calc-controls">
+                <button class="btn-calc minus" data-step="-1">–</button>
+                <input type="number" min="1" step="1" value="1" class="calc-meters-input">
+                <button class="btn-calc plus" data-step="1">+</button>
+            </div>
+        </div>
+
+        <button class="btn-details btn-search" data-id="${p.id}">Подробнее</button>
+      </div>
     `;
     resultsRoot.appendChild(el);
     
-    // Обработчик кнопки "Savatchaga"
-    el.querySelector(".add-to-cart-card").addEventListener("click", (e) => {
-      const productId = e.currentTarget.getAttribute("data-id");
-      const product = PRODUCTS.find(prod => prod.id === productId);
-      if (product) {
-        addToCart(product, 1); // Добавляем по 1 метру/штуке
-        openCart();
-      }
-    });
+    // Инициализация калькулятора и обработчиков кнопок
+    handleProductCardCalc(el, p);
 
-    // Обработчик кнопки "Подробнее" (если решите ее показывать)
+    // Обработчик кнопки "Подробнее"
     el.querySelector(".btn-details").addEventListener("click", () => {
       showProductModal(p.id);
     });
   });
 }
+
+// Логика калькулятора на карточке товара
+function handleProductCardCalc(cardElement, product) {
+    const calcRoot = cardElement.querySelector(".calculator-in-card");
+    const metersInput = calcRoot.querySelector(".calc-meters-input");
+    const totalPriceStrong = calcRoot.querySelector(".calc-total-price");
+    const pricePerMeter = parseFloat(calcRoot.getAttribute("data-price"));
+    const weightPerMeter = parseFloat(calcRoot.getAttribute("data-weight"));
+    
+    const plusBtn = calcRoot.querySelector(".plus");
+    const minusBtn = calcRoot.querySelector(".minus");
+    
+    // 1. Функция обновления цены и корзины
+    function updateCardCalc() {
+        let meters = parseInt(metersInput.value) || 1;
+        if (meters < 1) meters = 1;
+        metersInput.value = meters; 
+
+        const total = pricePerMeter * meters;
+        
+        totalPriceStrong.innerText = formatCurrency(total) + " сум";
+        
+        // Автоматическое добавление/обновление в корзине при изменении
+        addToCart(product, meters, true); // true для обновления
+        
+        // Обновляем счетчик корзины в шапке
+        renderCartCount(); 
+        
+        // Деактивируем минус, если количество 1
+        minusBtn.disabled = (meters <= 1);
+    }
+    
+    // 2. Обработчики для + и -
+    plusBtn.onclick = function() {
+        metersInput.value = parseInt(metersInput.value) + 1;
+        updateCardCalc();
+    };
+
+    minusBtn.onclick = function() {
+        let current = parseInt(metersInput.value);
+        if (current > 1) {
+            metersInput.value = current - 1;
+            updateCardCalc();
+        }
+    };
+
+    // 3. Обработчик прямого ввода
+    metersInput.oninput = function() {
+        // Убеждаемся, что значение не меньше 1
+        if (parseInt(metersInput.value) < 1) {
+            metersInput.value = 1;
+        }
+        updateCardCalc();
+    };
+    
+    // 4. Инициализация (загружаем, если уже есть в корзине)
+    const existingCartItem = cart.find(i => i.product.id === product.id);
+    if (existingCartItem) {
+        metersInput.value = existingCartItem.meters;
+    }
+    
+    updateCardCalc(); // Обновить при инициализации
+}
+
+
+// Product modal, Cart Panel, Bitrix logic etc. (остаются как в предыдущей версии)
 
 // Product modal
 const modal = document.getElementById("productModal");
@@ -135,7 +211,7 @@ function showProductModal(productId) {
   
   document.getElementById("modalImage").src = p.image;
   document.getElementById("modalTitle").innerText = p.name;
-  document.getElementById("modalDesc").innerText = p.description; // Описание теперь только здесь
+  document.getElementById("modalDesc").innerText = p.description; 
   
   const propsList = document.getElementById("modalProps");
   propsList.innerHTML = "";
@@ -153,19 +229,38 @@ function closeModal() {
 }
 
 // Cart functions
-function addToCart(product, meters) {
-  const existing = cart.find(i => i.product.id === product.id);
-  if (existing) {
-    existing.meters += meters;
+// Обновленная функция корзины для поддержки обновления
+function addToCart(product, meters, update = false) {
+  const existingIndex = cart.findIndex(i => i.product.id === product.id);
+
+  if (meters < 1) {
+      if (existingIndex !== -1) {
+          cart.splice(existingIndex, 1); // Удаляем, если количество стало < 1
+      }
+      return;
+  }
+  
+  if (existingIndex !== -1) {
+    if (update) {
+      cart[existingIndex].meters = meters; // Просто обновляем
+    } else {
+      cart[existingIndex].meters += meters; // Добавляем к существующему
+    }
   } else {
     cart.push({ product, meters });
   }
-  renderCartCount();
+  // Обновляем счетчик корзины, но не рендерим всю панель корзины
+  // (это замедлит работу карточек)
+  renderCartCount(); 
 }
 
 function renderCartCount() {
-  document.getElementById("cartCount").innerText = cart.reduce((s,i)=>s+ (i.meters?1:0), 0);
+  // Фильтруем пустые элементы
+  cart = cart.filter(i => i.meters > 0); 
+  // Считаем уникальные товары в корзине (не общее количество метров)
+  document.getElementById("cartCount").innerText = cart.length;
 }
+
 
 // Cart panel
 const cartPanel = document.getElementById("cartPanel");
@@ -208,6 +303,8 @@ function renderCartPanel(){
       cart.splice(idx,1);
       renderCartPanel();
       renderCartCount();
+      // Перерисовываем главный экран, чтобы обновить калькуляторы
+      renderResults(searchProducts(qInput.value)); 
       updateCartTotal();
     });
   });
@@ -220,7 +317,7 @@ function updateCartTotal(){
   renderCartCount();
 }
 
-// Send order to Bitrix
+// Send order to Bitrix (оставляем как было)
 document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
   const name = document.getElementById("buyerName").value.trim();
   const phone = document.getElementById("buyerPhone").value.trim();
@@ -275,12 +372,16 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
     
     alert(`Заказ отправлен в Bitrix! ID Лида: ${result.result}`);
     
+    // очистка
     cart = [];
     document.getElementById("buyerName").value = ''; 
     document.getElementById("buyerPhone").value = '';
     renderCartPanel();
     renderCartCount();
     updateCartTotal();
+    
+    // Перерисовываем главный экран, чтобы сбросить калькуляторы
+    renderResults(searchProducts(qInput.value)); 
     
     window.Telegram?.WebApp?.close(); 
   } catch (err) {
@@ -289,7 +390,7 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
   }
 });
 
-// send order to bot via tg.sendData (если запущено в Telegram)
+// send order to bot via tg.sendData (оставляем как было)
 document.getElementById("sendToBot").addEventListener("click", ()=>{
   if (!tg || typeof tg.sendData !== "function") {
     alert("WebApp API недоступен — откройте приложение внутри Telegram.");
