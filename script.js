@@ -7,7 +7,7 @@ if (tg) {
 
 // === Настройки ===
 // Используем ваш URL вебхука
-const BITRIX_WEBHOOK_URL = "https://rebar.bitrix24.kz/rest/1/slgm6bd5z4cq971h/crm.lead.add.json"; 
+const BITRIX_WEBHOOK_URL = "https://sagrroup.bitrix24.ru/rest/848/8z0suk01p1pmhqdh/crm.lead.add.json"; 
 const DEFAULT_PRICE_PER_METER = 24000; // сум / метр
 
 // === Данные товаров ===
