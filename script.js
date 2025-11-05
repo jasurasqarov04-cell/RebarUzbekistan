@@ -278,12 +278,13 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
     const res = await fetch(BITRIX_WEBHOOK_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded' // КЛЮЧЕВОЕ ИЗМЕНЕНИЕ
+        'Content-Type': 'application/x-www-form-urlencoded' // Самый надежный заголовок
       },
       body: urlParams.toString() // Передаем URLSearchParams как строку
     });
     
-    if (!res.ok) throw new new Error(`Ошибка отправки. Статус: ${res.status}`);
+    // ИСПРАВЛЕНА ОШИБКА: Удален лишний 'new'
+    if (!res.ok) throw new Error(`Ошибка отправки. Статус: ${res.status}`); 
     
     const result = await res.json();
     if (result.error) {
