@@ -23,13 +23,12 @@
     <div id="results" class="results"></div>
   </main>
 
-  <!-- Модальное "новое окно" товара -->
   <div id="productModal" class="modal hidden">
     <div class="modal-content">
       <button class="modal-close" id="modalClose">&times;</button>
       <div class="modal-body">
         <div class="modal-left">
-          <img id="modalImage" src="" alt="product" />
+          <button id="modalBackBtn" class="btn-choose back-btn">← Назад</button> <img id="modalImage" src="" alt="product" />
         </div>
         <div class="modal-right">
           <h2 id="modalTitle"></h2>
@@ -39,29 +38,11 @@
             <h4>Свойства</h4>
             <ul id="modalProps"></ul>
           </div>
-
-          <div class="calculator">
-            <h4>Калькулятор — расчёт по метрам</h4>
-            <label>Длина (м): <input id="calcMeters" type="number" min="0" step="1" value="1"></label>
-            <div class="calc-row">
-              <div>Цена за метр: <strong id="pricePerMeter"></strong></div>
-              <div>Итого: <strong id="calcTotalPrice"></strong></div>
-            </div>
-            <div class="calc-row">
-              <div>Вес 1 м: <strong id="weightPerMeter"></strong></div>
-              <div>Итоговый вес: <strong id="calcTotalWeight"></strong></div>
-            </div>
-            <div class="modal-actions">
-              <button id="addToCartBtn" class="btn-choose">Добавить в корзину</button>
-            </div>
           </div>
-
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- Панель Корзины -->
   <div id="cartPanel" class="cart-panel hidden">
     <div class="cart-header">
       <h3>Корзина</h3>
@@ -75,8 +56,6 @@
       <div class="cart-actions">
         <button id="sendToBitrix" class="btn-choose">Заказать</button>
         <button id="sendToBot" class="btn-search">Отправить боту (tg.sendData)</button>
-
-
       </div>
     </div>
   </div>
