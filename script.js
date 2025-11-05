@@ -6,8 +6,7 @@ if (tg) {
 }
 
 // === Настройки ===
-// Используем ваш URL вебхука
-const BITRIX_WEBHOOK_URL = "https://sagrroup.bitrix24.ru/rest/848/8z0suk01p1pmhqdh/crm.lead.add.json"; 
+const BITRIX_WEBHOOK_URL = "https://rebar.bitrix24.kz/rest/1/slgm6bd5z4cq971h/crm.lead.add.json"; 
 const DEFAULT_PRICE_PER_METER = 24000; // сум / метр
 
 // === Данные товаров ===
@@ -22,7 +21,7 @@ const PRODUCTS = [
       { k: "Вес 100-метровой бухты", v: "5.1 кг" }
     ],
     pricePerMeter: DEFAULT_PRICE_PER_METER,
-    image: "https://rebar.uz/wp-content/uploads/2024/08/artboard-13.png"
+    image: "https://via.placeholder.com/600x600.png?text=Basalto+4mm"
   },
   // можно добавить другие товары
 ];
@@ -240,71 +239,35 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
   if (!phone) return alert("Укажите телефон");
   if (!cart.length) return alert("Корзина пуста");
 
-  // Формируем описание заказа для поля КОММЕНТАРИЙ (COMMENTS)
-  const itemsDescription = cart.map(i => {
-    const price = (i.product.pricePerMeter || DEFAULT_PRICE_PER_METER);
-    const totalItemPrice = price * i.meters;
-    return `${i.product.name} — ${i.meters} м — ${formatCurrency(totalItemPrice)} сум (Цена за 1 м: ${formatCurrency(price)})`;
-  }).join("\n");
-  
+  // Формируем описание заказа
+  const items = cart.map(i => `${i.product.name} — ${i.meters} м — ${formatCurrency((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER)*i.meters)} сум`).join("\n");
   const total = cart.reduce((s,i)=> s + ((i.product.pricePerMeter||DEFAULT_PRICE_PER_METER) * i.meters), 0);
-  const leadTitle = `Заказ из Telegram WebApp на сумму ${formatCurrency(total)} сум`;
-  const comments = `
-    --- ДЕТАЛИ ЗАКАЗА ---
-    ${itemsDescription}
-    
-    Имя клиента: ${name || "Не указано"}
-    Телефон: ${phone}
-  `;
 
-  // --- ФИНАЛЬНАЯ УПРОЩЕННАЯ СТРУКТУРА JSON (ТОЛЬКО ПОЛЕ fields) ---
   const payload = {
-      // Отправляем только поля. Исключаем params для максимальной совместимости.
-      fields: {
-          TITLE: leadTitle,
-          NAME: name || "Клиент Telegram WebApp",
-          OPPORTUNITY: total,
-          CURRENCY_ID: 'SUM',
-          COMMENTS: comments.trim(),
-          PHONE: [{
-              VALUE: phone,
-              VALUE_TYPE: 'WORK'
-          }]
-      },
-      // Мы исключили блок "params"
+    // Структура универсальная — подставь под свой webhook Bitrix (см. инструкцию ниже)
+    name: name || "Клиент Telegram WebApp",
+    phone,
+    items,
+    total
   };
 
-
-  // Отправляем на Bitrix webhook
+  // Отправляем на Bitrix webhook (замени URL на свой)
   try {
     const res = await fetch(BITRIX_WEBHOOK_URL, {
-      method: 'POST',
-      headers: {
-        // Заголовок JSON. Он лучше обрабатывает кириллицу.
-        'Content-Type': 'application/json' 
-      },
-      body: JSON.stringify(payload) 
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
     });
-    
-    if (!res.ok) throw new Error(`Ошибка отправки. Статус: ${res.status}`); 
-    
-    const result = await res.json();
-    if (result.error) {
-        throw new Error("Bitrix API Error: " + result.error_description);
-    }
-    
-    alert(`Заказ отправлен в Bitrix! ID Лида: ${result.result}`);
-    
-    // очистка
+    if (!res.ok) throw new Error("Ошибка отправки");
+    alert("Заказ отправлен в Bitrix!");
+    // очистка корзины
     cart = [];
-    document.getElementById("buyerName").value = ''; 
-    document.getElementById("buyerPhone").value = '';
     renderCartPanel();
     renderCartCount();
     updateCartTotal();
   } catch (err) {
     console.error(err);
-    alert("Ошибка при отправке в Bitrix. Проверьте актуальность вебхука: " + err.message);
+    alert("Ошибка при отправке в Bitrix. Проверьте BITRIX_WEBHOOK_URL.");
   }
 });
 
