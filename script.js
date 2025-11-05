@@ -6,6 +6,7 @@ if (tg) {
 }
 
 // === Настройки ===
+// Используем ваш URL вебхука
 const BITRIX_WEBHOOK_URL = "https://rebar.bitrix24.kz/rest/1/njvrqx0snxon2xw3/crm.lead.add.json"; 
 const DEFAULT_PRICE_PER_METER = 24000; // сум / метр
 
@@ -256,36 +257,33 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
     Телефон: ${phone}
   `;
 
-  // --- Форматируем данные для Bitrix24 в виде объекта (JSON) ---
+  // --- ФИНАЛЬНАЯ УПРОЩЕННАЯ СТРУКТУРА JSON (ТОЛЬКО ПОЛЕ fields) ---
   const payload = {
-      // Структура полей, которую Bitrix24 ожидает в JSON-формате
+      // Отправляем только поля. Исключаем params для максимальной совместимости.
       fields: {
           TITLE: leadTitle,
           NAME: name || "Клиент Telegram WebApp",
           OPPORTUNITY: total,
-          CURRENCY_ID: 'SUM', // Валюта
+          CURRENCY_ID: 'SUM',
           COMMENTS: comments.trim(),
           PHONE: [{
               VALUE: phone,
               VALUE_TYPE: 'WORK'
           }]
       },
-      // Дополнительные параметры API
-      params: {
-          REGISTER_SONET_EVENT: 'Y'
-      }
+      // Мы исключили блок "params"
   };
 
 
   // Отправляем на Bitrix webhook
   try {
-    // Отправляем JSON-объект с соответствующим заголовком
     const res = await fetch(BITRIX_WEBHOOK_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json' // Переключаемся на JSON для стабильной работы с кириллицей
+        // Заголовок JSON. Он лучше обрабатывает кириллицу.
+        'Content-Type': 'application/json' 
       },
-      body: JSON.stringify(payload) // Превращаем объект в JSON-строку
+      body: JSON.stringify(payload) 
     });
     
     if (!res.ok) throw new Error(`Ошибка отправки. Статус: ${res.status}`); 
@@ -297,16 +295,16 @@ document.getElementById("sendToBitrix").addEventListener("click", async ()=>{
     
     alert(`Заказ отправлен в Bitrix! ID Лида: ${result.result}`);
     
-    // очистка корзины и полей ввода
+    // очистка
     cart = [];
-    document.getElementById("buyerName").value = ''; // Очистка полей ввода
+    document.getElementById("buyerName").value = ''; 
     document.getElementById("buyerPhone").value = '';
     renderCartPanel();
     renderCartCount();
     updateCartTotal();
   } catch (err) {
     console.error(err);
-    alert("Ошибка при отправке в Bitrix. Проверьте URL вебхука: " + err.message);
+    alert("Ошибка при отправке в Bitrix. Проверьте актуальность вебхука: " + err.message);
   }
 });
 
