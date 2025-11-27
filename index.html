@@ -3,22 +3,27 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>ArzonApteka Mini</title>
+  <title>Rebar Market – доставка продуктов</title>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <h1>Каталог</h1>
-  <div id="catalog"></div>
+  <header>
+    <h1>Rebar Market</h1>
+    <input id="search" type="text" placeholder="Поиск товаров…"/>
+  </header>
 
-  <h2>Корзина <span id="total"></span></h2>
-  <ul id="cart"></ul>
+  <section id="catalog"></section>
 
-  <button id="checkout">Оформить заказ</button>
+  <aside id="cartBlock">
+    <h2>Корзина <span id="total">0 сум</span></h2>
+    <ul id="cartList"></ul>
+    <button id="checkout">Оформить заказ</button>
+  </aside>
 
   <form id="orderForm" style="display:none;">
     <input id="name"  placeholder="Имя" required/>
     <input id="phone" placeholder="Телефон" required/>
-    <button type="submit">Отправить</button>
+    <button type="submit">Отправить заказ</button>
   </form>
 
   <script src="app.js"></script>
