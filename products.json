@@ -1,14 +1,47 @@
 [
   {
     "id": 1,
-    "name": "Парацетамол, 500 мг, таб. N500",
-    "price": 109300,
-    "currency": "сум"
+    "name": "Говядина охлаждённая (кости)",
+    "price": 75000,
+    "currency": "сум",
+    "category": "Мясо",
+    "unit": "1 кг",
+    "img": "https://rebar.uz/wp-content/uploads/2023/05/beef-bones.jpg"
   },
   {
     "id": 2,
-    "name": "Детралекс 1000 мг, таб. N30",
-    "price": 238000,
-    "currency": "сум"
+    "name": "Филе куриное охлаждённое",
+    "price": 52000,
+    "currency": "сум",
+    "category": "Мясо",
+    "unit": "1 кг",
+    "img": "https://rebar.uz/wp-content/uploads/2023/05/chicken-fille.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Грудка индейки охлаждённая",
+    "price": 89000,
+    "currency": "сум",
+    "category": "Мясо",
+    "unit": "1 кг",
+    "img": "https://rebar.uz/wp-content/uploads/2023/05/turkey-breast.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Сыр Моцарелла",
+    "price": 68000,
+    "currency": "сум",
+    "category": "Молочка",
+    "unit": "250 г",
+    "img": "https://rebar.uz/wp-content/uploads/2023/05/mozzarella.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Масло сливочное 82,5 %",
+    "price": 48000,
+    "currency": "сум",
+    "category": "Молочка",
+    "unit": "200 г",
+    "img": "https://rebar.uz/wp-content/uploads/2023/05/butter.jpg"
   }
 ]
