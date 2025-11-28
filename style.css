@@ -27,7 +27,10 @@ body{
 }
 .logo-wrap{height:40px} #logo{height:100%;width:auto}
 .cart-link{display:flex;align-items:center;gap:.25rem;text-decoration:none;color:var(--text)}
-.cart-icon{font-size:1.4rem;color:var(--accent);filter:drop-shadow(0 0 1px #fff)}
+
+/* 1. чёткая иконка на ПК и телефоне */
+.cart-icon{font-size:1.4rem; color:var(--accent); filter:drop-shadow(0 0 2px rgba(0,0,0,.25))}
+
 .cart-badge{background:var(--accent);color:#fff;font-size:.7rem;padding:2px 5px;border-radius:10px}
 .back-link{text-decoration:none;color:var(--accent);font-weight:600}
 #search{
@@ -93,7 +96,6 @@ body{
 }
 .cp-input::-webkit-inner-spin-button,
 .cp-input::-webkit-outer-spin-button{display:none}
-/* красивая красная кнопка */
 .detail-btn{
   display:inline-flex;
   align-items:center;
@@ -109,7 +111,7 @@ body{
   white-space:nowrap;
   box-shadow:0 1px 3px rgba(0,0,0,.15);
   transition:background .2s;
-  margin-left:6px;   /* ← отступ от счётчика */
+  margin-left:6px;
 }
 .detail-btn:active{background:#b71515}
 
@@ -120,3 +122,6 @@ body{
 #orderForm{padding:1rem}
 #orderForm input{width:100%;margin-bottom:.5rem;padding:.6rem;border:1px solid var(--border);border-radius:4px}
 #orderForm button{width:100%;background:var(--accent);color:#fff;border:none;padding:.6rem;border-radius:4px;cursor:pointer}
+
+/* 2. «Корзина» на экране checkout ниже на 1 строку */
+#orderForm h2{margin-top:1.2rem}
