@@ -1,12 +1,13 @@
 [
   {
     "id": 1,
-    "name": "Базальт-композитная арматура Ø3 мм",
+    "name": "Базальт-композитная арматура Ø4 мм",
     "price": 1080,
     "currency": "сум",
     "category": "Базальт композит",
     "unit": "пог.м.",
     "img": "АБК.jpg"
+    "url":https://rebar.uz/products/bazalto-kompozitnaya-armatura-4-mm/
   },
     {
     "id": 9,
@@ -16,6 +17,7 @@
     "category": "Стекло композит",
     "unit": "пог.м.",
     "img": "АСК.jpg"
+    "url":https://rebar.uz/products/bazalto-kompozitnaya-armatura-6-mm/
   },
    {
     "id": 2,
@@ -25,6 +27,7 @@
     "category": "Базальт композит",
     "unit": "пог.м.",
     "img": "АБК.jpg"
+     "url":https://rebar.uz/products/bazalto-kompozitnaya-armatura-4-mm/
   },
   {
     "id": 3,
@@ -34,6 +37,7 @@
     "category": "Базальт композит",
     "unit": "пог.м.",
     "img": "АБК.jpg"
+    "url":https://rebar.uz/products/bazalto-kompozitnaya-armatura-6-mm/
   },
   {
     "id": 4,
@@ -43,6 +47,7 @@
     "category": "Базальт композит",
     "unit": "пог.м.",
     "img": "АБК.jpg"
+    "url":
   },
   {
     "id": 5,
@@ -52,6 +57,7 @@
     "category": "Базальт композит",
     "unit": "пог.м.",
     "img": "АБК.jpg"
+    "url":
   },
   {
     "id": 6,
@@ -61,6 +67,7 @@
     "category": "Базальт композит",
     "unit": "пог.м.",
     "img": "АБК.jpg"
+    "url":
   },
   {
     "id": 7,
@@ -79,6 +86,7 @@
     "category": "Стекло композит",
     "unit": "пог.м.",
     "img": "АСК.jpg"
+    "url":
   },
   {
     "id": 10,
@@ -88,6 +96,7 @@
     "category": "Стекло композит",
     "unit": "пог.м.",
     "img": "АСК.jpg"
+    "url":
   },
   {
     "id": 11,
@@ -97,6 +106,7 @@
     "category": "Стекло композит",
     "unit": "пог.м.",
     "img": "АСК.jpg"
+    "url":
   },
   {
     "id": 12,
@@ -106,6 +116,7 @@
     "category": "Стекло композит",
     "unit": "пог.м.",
     "img": "АСК.jpg"
+    "url":
   },
   {
     "id": 13,
@@ -115,6 +126,7 @@
     "category": "Сетка базальт композит",
     "unit": "м²",
     "img": "АБК сетка.jpg"
+    "url":
   },
   {
     "id": 14,
@@ -124,6 +136,7 @@
     "category": "Сетка базальт композит",
     "unit": "м²",
     "img": "АБК сетка.jpg"
+    "url":
   },
   {
     "id": 15,
@@ -133,6 +146,7 @@
     "category": "Сетка базальт композит",
     "unit": "м²",
     "img": "АБК сетка.jpg"
+    "url":
   },
   {
     "id": 16,
@@ -142,6 +156,7 @@
     "category": "Сетка базальт композит",
     "unit": "м²",
     "img": "АБК сетка.jpg"
+    "url":
   },
   {
     "id": 17,
@@ -151,6 +166,7 @@
     "category": "Сетка стекло композит",
     "unit": "м²",
     "img": "АСК сетка.jpg"
+    "url":
   },
   {
     "id": 18,
@@ -160,6 +176,7 @@
     "category": "Сетка стекло композит",
     "unit": "м²",
     "img": "АСК сетка.jpg"
+    "url":
   },
   {
     "id": 19,
@@ -169,6 +186,7 @@
     "category": "Сетка стекло композит",
     "unit": "м²",
     "img": "АСК сетка.jpg"
+    "url":
   },
   {
     "id": 20,
@@ -178,5 +196,6 @@
     "category": "Сетка стекло композит",
     "unit": "м²",
     "img": "АСК сетка.jpg"
+    "url":
   }
 ]
