@@ -1,6 +1,5 @@
 const CART_KEY = 'rebar_cart';
 const BX_WEBHOOK = 'https://rebar.bitrix24.kz/rest/1/slgm6bd5z4cq971h/crm.lead.add.json';
-
 let cart = [];
 try{ cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; }catch{cart=[]}
 
@@ -42,4 +41,3 @@ function renderCheckout(){
   const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
   document.getElementById('checkoutCart').innerHTML = html + `<div class="checkout-total">Итого: ${total.toLocaleString('ru-RU')} сум</div>`;
 }
-
