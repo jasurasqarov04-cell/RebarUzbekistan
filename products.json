@@ -6,28 +6,18 @@
     "currency": "сум",
     "category": "Базальт композит",
     "unit": "пог.м.",
-    "img": "АБК.jpg"
-    "url":"https://rebar.uz/products/bazalto-kompozitnaya-armatura-4-mm/"
+    "img": "АБК.jpg",
+    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-4-mm/"
   },
-    {
-    "id": 9,
-    "name": "Стекло-композитная арматура Ø6 мм",
-    "price": 1990,
-    "currency": "сум",
-    "category": "Стекло композит",
-    "unit": "пог.м.",
-    "img": "АСК.jpg"
-    "url":"https://rebar.uz/products/bazalto-kompozitnaya-armatura-6-mm/"
-  },
-   {
+  {
     "id": 2,
     "name": "Базальт-композитная арматура Ø4 мм",
     "price": 1350,
     "currency": "сум",
     "category": "Базальт композит",
     "unit": "пог.м.",
-    "img": "АБК.jpg"
-     "url":"https://rebar.uz/products/bazalto-kompozitnaya-armatura-4-mm/"
+    "img": "АБК.jpg",
+    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-4-mm/"
   },
   {
     "id": 3,
@@ -36,8 +26,8 @@
     "currency": "сум",
     "category": "Базальт композит",
     "unit": "пог.м.",
-    "img": "АБК.jpg"
-    "url":"https://rebar.uz/products/bazalto-kompozitnaya-armatura-6-mm/"
+    "img": "АБК.jpg",
+    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-6-mm/"
   },
   {
     "id": 4,
@@ -46,8 +36,8 @@
     "currency": "сум",
     "category": "Базальт композит",
     "unit": "пог.м.",
-    "img": "АБК.jpg"
-    "url":"https://rebar.uz/products/bazalto-kompozitnaya-armatura-8-mm/"
+    "img": "АБК.jpg",
+    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-8-mm/"
   },
   {
     "id": 5,
@@ -56,8 +46,8 @@
     "currency": "сум",
     "category": "Базальт композит",
     "unit": "пог.м.",
-    "img": "АБК.jpg"
-    "url":
+    "img": "АБК.jpg",
+    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-10-mm/"
   },
   {
     "id": 6,
@@ -66,8 +56,8 @@
     "currency": "сум",
     "category": "Базальт композит",
     "unit": "пог.м.",
-    "img": "АБК.jpg"
-    "url":
+    "img": "АБК.jpg",
+    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-12-mm/"
   },
   {
     "id": 7,
@@ -76,7 +66,8 @@
     "currency": "сум",
     "category": "Стекло композит",
     "unit": "пог.м.",
-    "img": "АСК.jpg"
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/steklo-kompozitnaya-armatura-3-mm/"
   },
   {
     "id": 8,
@@ -85,8 +76,18 @@
     "currency": "сум",
     "category": "Стекло композит",
     "unit": "пог.м.",
-    "img": "АСК.jpg"
-    "url":
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/steklo-kompozitnaya-armatura-4-mm/"
+  },
+  {
+    "id": 9,
+    "name": "Стекло-композитная арматура Ø6 мм",
+    "price": 1990,
+    "currency": "сум",
+    "category": "Стекло композит",
+    "unit": "пог.м.",
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/steklo-kompozitnaya-armatura-6-mm/"
   },
   {
     "id": 10,
@@ -95,8 +96,8 @@
     "currency": "сум",
     "category": "Стекло композит",
     "unit": "пог.м.",
-    "img": "АСК.jpg"
-    "url":
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/steklo-kompozitnaya-armatura-8-mm/"
   },
   {
     "id": 11,
@@ -105,8 +106,8 @@
     "currency": "сум",
     "category": "Стекло композит",
     "unit": "пог.м.",
-    "img": "АСК.jpg"
-    "url":
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/steklo-kompozitnaya-armatura-10-mm/"
   },
   {
     "id": 12,
@@ -115,8 +116,8 @@
     "currency": "сум",
     "category": "Стекло композит",
     "unit": "пог.м.",
-    "img": "АСК.jpg"
-    "url":
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/steklo-kompozitnaya-armatura-12-mm/"
   },
   {
     "id": 13,
@@ -125,8 +126,8 @@
     "currency": "сум",
     "category": "Сетка базальт композит",
     "unit": "м²",
-    "img": "АБК сетка.jpg"
-    "url":
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/setka-bazalt-kompozitnaya-50x50/"
   },
   {
     "id": 14,
@@ -135,8 +136,8 @@
     "currency": "сум",
     "category": "Сетка базальт композит",
     "unit": "м²",
-    "img": "АБК сетка.jpg"
-    "url":
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/setka-bazalt-kompozitnaya-100x100/"
   },
   {
     "id": 15,
@@ -145,8 +146,8 @@
     "currency": "сум",
     "category": "Сетка базальт композит",
     "unit": "м²",
-    "img": "АБК сетка.jpg"
-    "url":
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/setka-bazalt-kompozitnaya-150x150/"
   },
   {
     "id": 16,
@@ -155,8 +156,8 @@
     "currency": "сум",
     "category": "Сетка базальт композит",
     "unit": "м²",
-    "img": "АБК сетка.jpg"
-    "url":
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/setka-bazalt-kompozitnaya-200x200/"
   },
   {
     "id": 17,
@@ -165,8 +166,8 @@
     "currency": "сум",
     "category": "Сетка стекло композит",
     "unit": "м²",
-    "img": "АСК сетка.jpg"
-    "url":
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/setka-steklo-kompozitnaya-50x50/"
   },
   {
     "id": 18,
@@ -175,8 +176,8 @@
     "currency": "сум",
     "category": "Сетка стекло композит",
     "unit": "м²",
-    "img": "АСК сетка.jpg"
-    "url":
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/setka-steklo-kompozitnaya-100x100/"
   },
   {
     "id": 19,
@@ -185,8 +186,8 @@
     "currency": "сум",
     "category": "Сетка стекло композит",
     "unit": "м²",
-    "img": "АСК сетка.jpg"
-    "url":
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/setka-steklo-kompozitnaya-150x150/"
   },
   {
     "id": 20,
@@ -195,7 +196,7 @@
     "currency": "сум",
     "category": "Сетка стекло композит",
     "unit": "м²",
-    "img": "АСК сетка.jpg"
-    "url":
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/setka-steklo-kompozitnaya-200x200/"
   }
 ]
