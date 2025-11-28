@@ -1,67 +1,78 @@
-const BX_WEBHOOK = 'https://rebar.bitrix24.kz/rest/1/slgm6bd5z4cq971h/crm.lead.add.json';
+const CART_KEY = 'rebar_cart';
 
 let catalog = [];
-let cart    = [];
-
-// загрузка каталога
-fetch('products.json').then(r=>r.json()).then(data=>{
-  catalog = data;
-  renderCatalog(data);
-});
+loadCart();                 // восстановить корзину при старте
+fetch('products.json')
+  .then(r=>r.json())
+  .then(data=>{
+     catalog = data;
+     renderCatalog(data);
+     updateBadge();
+  });
 
 document.getElementById('search').oninput = (e)=>{
   const q = e.target.value.toLowerCase();
-  const filtered = catalog.filter(p=>p.name.toLowerCase().includes(q));
-  renderCatalog(filtered);
+  renderCatalog(catalog.filter(p=>p.name.toLowerCase().includes(q)));
 };
 
 function renderCatalog(list){
   const html = list.map(p=>`
     <div class="card">
-      <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+      <img src="${p.img}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
       <div class="info">
         <div class="name">${p.name}</div>
         <div class="price">${p.price.toLocaleString('ru-RU')} ${p.currency} / ${p.unit}</div>
-        <button class="add" onclick="addToCart(${p.id}, '${p.name}', ${p.price})">+ Добавить</button>
+
+        <div class="counter" data-id="${p.id}">
+          <button class="minus">−</button>
+          <input type="number" class="qty-input" value="${getQty(p.id)}" min="0" inputmode="numeric">
+          <button class="plus">+</button>
+        </div>
       </div>
     </div>`).join('');
   document.getElementById('catalog').innerHTML = html;
-}
 
-function addToCart(id,name,price){
-  const line = cart.find(x=>x.id===id);
-  line ? line.qty++ : cart.push({id,name,price,qty:1});
-  renderCart();
-}
-
-function renderCart(){
-  const list = cart.map(c=>`<li>${c.name} ×${c.qty}</li>`).join('');
-  document.getElementById('cartList').innerHTML = list;
-  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  document.getElementById('total').textContent = total.toLocaleString('ru-RU')+' сум';
-}
-
-document.getElementById('checkout').onclick = ()=>{
-  document.getElementById('orderForm').style.display = 'block';
-};
-
-document.getElementById('orderForm').onsubmit = async (e)=>{
-  e.preventDefault();
-  const name  = document.getElementById('name').value;
-  const phone = document.getElementById('phone').value;
-  const comment = cart.map(i=>`${i.name} ×${i.qty}`).join('; ');
-
-  await fetch(BX_WEBHOOK,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({fields:{
-      TITLE:`Заказ из Telegram Mini App`,
-      NAME:name,
-      PHONE:[{VALUE:phone,VALUE_TYPE:'WORK'}],
-      COMMENTS:comment
-    }})
+  // повесить события
+  document.querySelectorAll('.counter').forEach(el=>{
+    const id  = +el.dataset.id;
+    const inp = el.querySelector('.qty-input');
+    const min = el.querySelector('.minus');
+    const pl  = el.querySelector('.plus');
+    const set = v=>{
+      v = Math.max(0, +v);
+      inp.value = v;
+      updateCart(id, catalog.find(p=>p.id===id), v);
+      updateBadge();
+    };
+    min.onclick = ()=> set(+inp.value - 1);
+    pl.onclick  = ()=> set(+inp.value + 1);
+    inp.oninput = ()=> set(inp.value);
   });
+}
 
-  alert('Заказ принят! Мы скоро свяжемся.');
-  window.Telegram.WebApp.close();
-};
+/* ---------- корзина ---------- */
+function loadCart(){
+  try{ cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; }catch{e=>cart=[];}
+}
+function saveCart(){
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
+function getQty(id){
+  const line = cart.find(x=>x.id===id);
+  return line ? line.qty : 0;
+}
+function updateCart(id, product, newQty){
+  let line = cart.find(x=>x.id===id);
+  if(newQty === 0){
+    cart = cart.filter(x=>x.id!==id);
+  }else if(line){
+    line.qty = newQty;
+  }else{
+    cart.push({id, name:product.name, price:product.price, qty:newQty});
+  }
+  saveCart();
+}
+function updateBadge(){
+  const items = cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cartBadge').textContent = items;
+}
