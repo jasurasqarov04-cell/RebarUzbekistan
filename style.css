@@ -27,10 +27,7 @@ body{
 }
 .logo-wrap{height:40px} #logo{height:100%;width:auto}
 .cart-link{display:flex;align-items:center;gap:.25rem;text-decoration:none;color:var(--text)}
-
-/* 1. чёткая иконка на ПК и телефоне */
-.cart-icon{font-size:1.4rem; color:var(--accent); filter:drop-shadow(0 0 2px rgba(0,0,0,.25))}
-
+.cart-icon{font-size:1.4rem;color:var(--accent);filter:drop-shadow(0 0 2px rgba(0,0,0,.25))}
 .cart-badge{background:var(--accent);color:#fff;font-size:.7rem;padding:2px 5px;border-radius:10px}
 .back-link{text-decoration:none;color:var(--accent);font-weight:600}
 #search{
@@ -40,7 +37,6 @@ body{
   border:1px solid var(--border);
   border-radius:6px;
 }
-/* каталог – 2 в ряд */
 #catalog{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -58,8 +54,6 @@ body{
 .info{padding:.75rem;display:flex;flex-direction:column;flex:1}
 .name{font-weight:600;font-size:.9rem;margin-bottom:.25rem}
 .price{font-size:.85rem;color:#555;margin-bottom:.5rem}
-
-/* счётчик + кнопка «Подробно» в одну строку */
 .row-btn{
   display:flex;
   align-items:center;
@@ -114,14 +108,10 @@ body{
   margin-left:6px;
 }
 .detail-btn:active{background:#b71515}
-
-/* checkout */
 #checkoutCart{padding:1rem}
 .checkout-item{display:flex;justify-content:space-between;padding:.4rem 0;font-size:.9rem}
 .checkout-total{font-weight:600;text-align:right;margin:1rem 0}
 #orderForm{padding:1rem}
 #orderForm input{width:100%;margin-bottom:.5rem;padding:.6rem;border:1px solid var(--border);border-radius:4px}
 #orderForm button{width:100%;background:var(--accent);color:#fff;border:none;padding:.6rem;border-radius:4px;cursor:pointer}
-
-/* 2. «Корзина» на экране checkout ниже на 1 строку */
-#orderForm h2{margin-top:1.2rem}
+#orderForm h2{margin-top:1.2rem}   /* опустили заголовок на 1 строку */
