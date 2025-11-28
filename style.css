@@ -19,3 +19,34 @@
 #orderForm{padding:1rem}
 #orderForm input{width:100%; margin-bottom:.5rem; padding:.6rem; border:1px solid #ccc; border-radius:4px}
 #orderForm button{width:100%; background:var(--accent); color:#fff; border:none; padding:.6rem; border-radius:4px; cursor:pointer}
+/* пилюля-счётчик */
+.counter-pill{
+  display:inline-flex;
+  align-items:center;
+  height:24px;
+  border:1px solid #d5d5d5;
+  border-radius:12px;
+  overflow:hidden;
+  background:#fff;
+}
+.cp-btn{
+  width:20px;
+  height:20px;
+  border:none;
+  background:none;
+  cursor:pointer;
+  font-size:13px;
+  line-height:1;
+  color:#555;
+}
+.cp-input{
+  width:28px;
+  height:20px;
+  text-align:center;
+  border:none;
+  font-size:12px;
+  outline:none;
+  -moz-appearance:textfield;
+}
+.cp-input::-webkit-inner-spin-button,
+.cp-input::-webkit-outer-spin-button{display:none}
