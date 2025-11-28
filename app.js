@@ -23,27 +23,29 @@ function renderCatalog(list){
         <div class="name">${p.name}</div>
         <div class="price">${p.price.toLocaleString('ru-RU')} ${p.currency} / ${p.unit}</div>
 
-        <div class="counter" data-id="${p.id}">
-          <button class="minus">−</button>
-          <input type="number" class="qty-input" value="${getQty(p.id)}" min="0" inputmode="numeric">
-          <button class="plus">+</button>
+        <div class="counter-pill" data-id="${p.id}">
+          <button class="cp-btn">−</button>
+          <input type="number" class="cp-input" value="${getQty(p.id)}" min="0">
+          <button class="cp-btn">+</button>
         </div>
       </div>
     </div>`).join('');
   document.getElementById('catalog').innerHTML = html;
 
-  // повесить события
-  document.querySelectorAll('.counter').forEach(el=>{
+  document.querySelectorAll('.counter-pill').forEach(el=>{
     const id  = +el.dataset.id;
-    const inp = el.querySelector('.qty-input');
-    const min = el.querySelector('.minus');
-    const pl  = el.querySelector('.plus');
+    const inp = el.querySelector('.cp-input');
     const set = v=>{
       v = Math.max(0, +v);
       inp.value = v;
       updateCart(id, catalog.find(p=>p.id===id), v);
       updateBadge();
     };
+    el.querySelector('.cp-btn:first-of-type').onclick = ()=> set(+inp.value - 1);
+    el.querySelector('.cp-btn:last-of-type').onclick  = ()=> set(+inp.value + 1);
+    inp.oninput = ()=> set(inp.value);
+  });
+}
     min.onclick = ()=> set(+inp.value - 1);
     pl.onclick  = ()=> set(+inp.value + 1);
     inp.oninput = ()=> set(inp.value);
