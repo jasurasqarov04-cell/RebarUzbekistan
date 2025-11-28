@@ -23,10 +23,13 @@ function renderCatalog(list){
         <div class="name">${p.name}</div>
         <div class="price">${p.price.toLocaleString('ru-RU')} ${p.currency} / ${p.unit}</div>
 
-        <div class="counter-pill" data-id="${p.id}">
-          <button class="cp-btn">−</button>
-          <input type="number" class="cp-input" value="${getQty(p.id)}" min="0">
-          <button class="cp-btn">+</button>
+        <div class="row-btn">
+          <div class="counter-pill" data-id="${p.id}">
+            <button class="cp-btn">−</button>
+            <input type="number" class="cp-input" value="${getQty(p.id)}" min="0">
+            <button class="cp-btn">+</button>
+          </div>
+          <a class="detail-btn" href="https://rebar.uz/product/${p.id}" target="_blank">Подробно</a>
         </div>
       </div>
     </div>`).join('');
