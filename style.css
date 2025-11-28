@@ -56,7 +56,13 @@ body{
 .name{font-weight:600;font-size:.9rem;margin-bottom:.25rem}
 .price{font-size:.85rem;color:#555;margin-bottom:.5rem}
 
-/* пилюля-счётчик */
+/* счётчик + кнопка «Подробно» в одну строку */
+.row-btn{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-top:auto;
+}
 .counter-pill{
   display:inline-flex;
   align-items:center;
@@ -65,7 +71,6 @@ body{
   border-radius:12px;
   overflow:hidden;
   background:#fff;
-  margin-top:auto;
 }
 .cp-btn{
   width:20px;
@@ -88,6 +93,24 @@ body{
 }
 .cp-input::-webkit-inner-spin-button,
 .cp-input::-webkit-outer-spin-button{display:none}
+/* красивая красная кнопка */
+.detail-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:24px;
+  padding:0 10px;
+  border-radius:12px;
+  background:var(--accent);
+  color:#fff;
+  font-size:12px;
+  font-weight:500;
+  text-decoration:none;
+  white-space:nowrap;
+  box-shadow:0 1px 3px rgba(0,0,0,.15);
+  transition:background .2s;
+}
+.detail-btn:active{background:#b71515}
 
 /* checkout */
 #checkoutCart{padding:1rem}
