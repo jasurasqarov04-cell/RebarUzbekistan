@@ -1,121 +1,21 @@
-:root{
-  --accent:#e21b1b;
-  --bg:#f7f7f7;
-  --card:#fff;
-  --text:#222;
+/* ===== шапка ===== */
+.top-bar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:.5rem 1rem; position:sticky; top:0; background:#f7f7f7; z-index:10;
 }
-*{
-  box-sizing:border-box;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  padding:1rem;
-}
-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:1rem;
-}
-header h1{
-  margin:0;
-  font-size:1.5rem;
-}
-#search{
-  width:50%;
-  max-width:250px;
-  padding:.5rem;
-  border:1px solid #ccc;
-  border-radius:4px;
-}
-#catalog{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-  gap:1rem;
-}
-.card{
-  background:var(--card);
-  border-radius:8px;
-  overflow:hidden;
-  box-shadow:0 2px 6px rgba(0,0,0,.08);
-  display:flex;
-  flex-direction:column;
-}
-.card img{
-  width:100%;
-  height:120px;
-  object-fit:cover;
-}
-.info{
-  padding:.75rem;
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
-.name{
-  font-weight:600;
-  margin-bottom:.25rem;
-  font-size:.9rem;
-}
-.price{
-  font-size:.85rem;
-  color:#555;
-  margin-bottom:.5rem;
-}
-.add{
-  align-self:flex-start;
-  background:var(--accent);
-  color:#fff;
-  border:none;
-  padding:.4rem .8rem;
-  border-radius:4px;
-  cursor:pointer;
-}
-aside{
-  margin-top:2rem;
-  background:var(--card);
-  padding:1rem;
-  border-radius:8px;
-}
-aside h2{
-  margin-top:0;
-}
-#cartList{
-  padding-left:1.2rem;
-}
-#checkout{
-  margin-top:.5rem;
-  width:100%;
-  background:var(--accent);
-  color:#fff;
-  border:none;
-  padding:.6rem;
-  border-radius:4px;
-  cursor:pointer;
-}
-form{
-  margin-top:1.5rem;
-  background:var(--card);
-  padding:1rem;
-  border-radius:8px;
-}
-form input{
-  width:100%;
-  margin-bottom:.5rem;
-  padding:.5rem;
-  border:1px solid #ccc;
-  border-radius:4px;
-}
-form button{
-  width:100%;
-  background:var(--accent);
-  color:#fff;
-  border:none;
-  padding:.6rem;
-  border-radius:4px;
-  cursor:pointer;
-}
+.logo-wrap{height:40px} #logo{height:100%;width:auto}
+.cart-link{display:flex; align-items:center; gap:.25rem; text-decoration:none; color:#222}
+.cart-icon{font-size:1.4rem}
+.cart-badge{background:var(--accent); color:#fff; font-size:.7rem; padding:2px 5px; border-radius:10px}
+
+/* счётчик в карточке (как просили – прежний стиль) */
+.counter{display:inline-flex; align-items:center; gap:4px; margin-top:.5rem}
+.counter button{width:28px; height:28px; border:1px solid #ccc; background:#fff; cursor:pointer; border-radius:4px; font-size:1rem}
+.qty-input{width:44px; text-align:center; border:1px solid #ccc; border-radius:4px; font-size:.9rem}
+
+/* страница корзины */
+.back-link{text-decoration:none; color:var(--accent); font-weight:600}
+#checkoutCart{padding:1rem}
+#orderForm{padding:1rem}
+#orderForm input{width:100%; margin-bottom:.5rem; padding:.6rem; border:1px solid #ccc; border-radius:4px}
+#orderForm button{width:100%; background:var(--accent); color:#fff; border:none; padding:.6rem; border-radius:4px; cursor:pointer}
