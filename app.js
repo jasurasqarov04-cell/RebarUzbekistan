@@ -1,6 +1,7 @@
 const CART_KEY = 'rebar_cart';
-
 let catalog = [];
+let cart    = [];
+
 loadCart();
 fetch('products.json')
   .then(r=>r.json())
@@ -29,7 +30,7 @@ function renderCatalog(list){
             <input type="number" class="cp-input" value="${getQty(p.id)}" min="0">
             <button class="cp-btn">+</button>
           </div>
-          <a class="detail-btn" href="https://rebar.uz/product/${p.id}" target="_blank">Подробно</a>
+          <a class="detail-btn" href="${p.url}" target="_blank" data-id="${p.id}">Подробно</a>
         </div>
       </div>
     </div>`).join('');
@@ -55,7 +56,7 @@ function loadCart(){
   try{ cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; }catch{cart=[];}
 }
 function saveCart(){
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  localStorage.setItem(CART_KEY, JSON.stringify(cART));
 }
 function getQty(id){
   const line = cart.find(x=>x.id===id);
