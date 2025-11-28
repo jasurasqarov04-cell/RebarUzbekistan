@@ -1,31 +1,30 @@
-<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Rebar Market – доставка продуктов</title>
-  <link rel="stylesheet" href="style.css"/>
-</head>
-<body>
-  <header>
-    <h1>Rebar Market</h1>
-    <input id="search" type="text" placeholder="Поиск товаров…"/>
-  </header>
+<!-- ========= ШАПКА ========= -->
+<header class="top-bar">
+  <div class="logo-wrap">
+    <img src="logo.png" alt="Logo" id="logo">
+  </div>
 
-  <section id="catalog"></section>
+  <div class="cart-widget" id="cartWidget">
+    <button class="cart-btn">
+      🛒 <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    <div class="cart-drop" id="cartDrop">
+      <div class="cart-head">Корзина</div>
+      <ul id="cartListDrop"></ul>
+      <div class="cart-total" id="cartTotalDrop">0 сум</div>
+      <button id="checkoutDrop">Оформить заказ</button>
+    </div>
+  </div>
+</header>
 
-  <aside id="cartBlock">
-    <h2>Корзина <span id="total">0 сум</span></h2>
-    <ul id="cartList"></ul>
-    <button id="checkout">Оформить заказ</button>
-  </aside>
+<!-- поиск остаётся -->
+<input id="search" type="text" placeholder="Поиск товаров…">
 
-  <form id="orderForm" style="display:none;">
-    <input id="name"  placeholder="Имя" required/>
-    <input id="phone" placeholder="Телефон" required/>
-    <button type="submit">Отправить заказ</button>
-  </form>
+<section id="catalog"></section>
 
-  <script src="app.js"></script>
-</body>
-</html>
+<!-- форма заказа (показывается по клику на кнопку в корзине) -->
+<form id="orderForm" style="display:none;">
+  <input id="name"  placeholder="Имя" required>
+  <input id="phone" placeholder="Телефон" required>
+  <button type="submit">Отправить заказ</button>
+</form>
