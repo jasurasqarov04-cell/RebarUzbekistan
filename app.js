@@ -1,7 +1,7 @@
 const CART_KEY = 'rebar_cart';
 
 let catalog = [];
-loadCart();                 // восстановить корзину при старте
+loadCart();
 fetch('products.json')
   .then(r=>r.json())
   .then(data=>{
@@ -46,15 +46,10 @@ function renderCatalog(list){
     inp.oninput = ()=> set(inp.value);
   });
 }
-    min.onclick = ()=> set(+inp.value - 1);
-    pl.onclick  = ()=> set(+inp.value + 1);
-    inp.oninput = ()=> set(inp.value);
-  });
-}
 
 /* ---------- корзина ---------- */
 function loadCart(){
-  try{ cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; }catch{e=>cart=[];}
+  try{ cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; }catch{cart=[];}
 }
 function saveCart(){
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
