@@ -114,4 +114,4 @@ body{
 #orderForm{padding:1rem}
 #orderForm input{width:100%;margin-bottom:.5rem;padding:.6rem;border:1px solid var(--border);border-radius:4px}
 #orderForm button{width:100%;background:var(--accent);color:#fff;border:none;padding:.6rem;border-radius:4px;cursor:pointer}
-#orderForm h2{margin-top:1.2rem}   /* опустили заголовок на 1 строку */
+#orderForm h2{margin-top:1.2rem}
