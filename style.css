@@ -145,3 +145,6 @@ body{
   margin-left:8px;   /* было 6px → стало 8px */
 }
 .detail-btn:active{background:#b71515}
+/* фиксируем ширину счётчика и убираем «дрожь» */
+.counter-pill{min-width:70px;justify-content:space-between}
+.detail-btn{margin-left:auto}   /* прижмёт кнопку к правому краю блока */
