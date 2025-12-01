@@ -56,7 +56,7 @@ function loadCart(){
   try{ cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; }catch{cart=[];}
 }
 function saveCart(){
-  localStorage.setItem(CART_KEY, JSON.stringify(cART));
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
 }
 function getQty(id){
   const line = cart.find(x=>x.id===id);
