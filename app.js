@@ -77,16 +77,3 @@ function updateBadge(){
   const items = cart.reduce((s,i)=>s+i.qty,0);
   document.getElementById('cartBadge').textContent = items;
 }
-/* ===== скрываем клавиатуру при клике/тапе вне инпута ===== */
-document.addEventListener('click', hideKB, true);   // мышь
-document.addEventListener('touchend', hideKB, true);// палец
-
-function hideKB(e) {
-  const tag = e.target.tagName;
-  if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
-    // убираем фокус → Telegram свернёт клавиатуру
-    if (document.activeElement) document.activeElement.blur();
-    // дополнительно сообщаем WebApp
-    if (window.Telegram && Telegram.WebApp) Telegram.WebApp.MainButton.hide();
-  }
-
