@@ -148,3 +148,35 @@ body{
 /* фиксируем ширину счётчика и убираем «дрожь» */
 .counter-pill{min-width:70px;justify-content:space-between}
 .detail-btn{margin-left:auto}   /* прижмёт кнопку к правому краю блока */
+/* вкладки рядом с корзиной */
+.top-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:.5rem 0;
+  position:sticky;
+  top:0;
+  background:var(--bg);
+  z-index:10;
+}
+.cats{
+  display:flex;
+  gap:4px;
+  margin-left:auto;   /* прижать к правому краю */
+}
+.cat-btn{
+  height:26px;
+  padding:0 10px;
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:12px;
+  font-size:12px;
+  cursor:pointer;
+  transition:.2s;
+}
+.cat-btn.active,
+.cat-btn:hover{
+  background:var(--accent);
+  color:#fff;
+  border-color:var(--accent);
+}
