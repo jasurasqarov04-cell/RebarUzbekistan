@@ -77,3 +77,10 @@ function updateBadge(){
   const items = cart.reduce((s,i)=>s+i.qty,0);
   document.getElementById('cartBadge').textContent = items;
 }
+/* прячем клавиатуру при клике вне инпута */
+document.addEventListener('touchend', e => {
+  if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+    window.Telegram.WebApp.MainButton.hide(); // если используете
+    document.activeElement.blur();            // убираем фокус → клавиатура уйдёт
+  }
+});
