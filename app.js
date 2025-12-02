@@ -89,8 +89,7 @@ function hideKB(e) {
     // дополнительно сообщаем WebApp
     if (window.Telegram && Telegram.WebApp) Telegram.WebApp.MainButton.hide();
   }
-}
-/* фильтр по категориям */
+/* фильтр по категориям (без кнопки «Все») */
 const catButtons = document.querySelectorAll('.cat-btn');
 const catalogEl  = document.getElementById('catalog');
 const searchEl   = document.getElementById('search');
@@ -106,8 +105,8 @@ function applyFilter(){
   const query = searchEl.value.toLowerCase();
   let list    = catalog;
 
-  if (cat !== 'all') list = list.filter(p => p.category === cat);
-  if (query)         list = list.filter(p => p.name.toLowerCase().includes(query));
+  if (cat) list = list.filter(p => p.category === cat);
+  if (query) list = list.filter(p => p.name.toLowerCase().includes(query));
 
   renderCatalog(list);
 }
