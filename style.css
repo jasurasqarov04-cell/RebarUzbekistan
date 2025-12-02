@@ -114,4 +114,41 @@ body{
 #orderForm{padding:1rem}
 #orderForm input{width:100%;margin-bottom:.5rem;padding:.6rem;border:1px solid var(--border);border-radius:4px}
 #orderForm button{width:100%;background:var(--accent);color:#fff;border:none;padding:.6rem;border-radius:4px;cursor:pointer}
-#orderForm h2{margin-top:1.2rem}   /* опустили заголовок на 1 строку */
+#orderForm h2{margin-top:1.2rem}
+/* чуть толще рамка счётчика */
+.counter-pill{
+  display:inline-flex;
+  align-items:center;
+  height:24px;
+  border:2px solid var(--border);   /* +1 px */
+  border-radius:12px;
+  overflow:hidden;
+  background:#fff;
+}
+
+/* отодвигаем кнопку «Подробно» */
+.detail-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:24px;
+  padding:0 10px;
+  border-radius:12px;
+  background:var(--accent);
+  color:#fff;
+  font-size:12px;
+  font-weight:500;
+  text-decoration:none;
+  white-space:nowrap;
+  box-shadow:0 1px 3px rgba(0,0,0,.15);
+  transition:background .2s;
+  margin-left:8px;   /* было 6px → стало 8px */
+}
+.detail-btn:active{background:#b71515}
+/* чуть толще рамка счётчика и отступ кнопки */
+.counter-pill{
+  border:2px solid var(--border);
+}
+.detail-btn{
+  margin-left:8px;
+}
