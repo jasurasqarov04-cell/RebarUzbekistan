@@ -89,24 +89,4 @@ function hideKB(e) {
     // дополнительно сообщаем WebApp
     if (window.Telegram && Telegram.WebApp) Telegram.WebApp.MainButton.hide();
   }
-/* фильтр по категориям (без кнопки «Все») */
-const catButtons = document.querySelectorAll('.cat-btn');
-const catalogEl  = document.getElementById('catalog');
-const searchEl   = document.getElementById('search');
 
-catButtons.forEach(btn => btn.addEventListener('click', () => {
-  catButtons.forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  applyFilter();
-}));
-
-function applyFilter(){
-  const cat   = document.querySelector('.cat-btn.active').dataset.cat;
-  const query = searchEl.value.toLowerCase();
-  let list    = catalog;
-
-  if (cat) list = list.filter(p => p.category === cat);
-  if (query) list = list.filter(p => p.name.toLowerCase().includes(query));
-
-  renderCatalog(list);
-}
