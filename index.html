@@ -9,20 +9,24 @@
 <body>
   <header class="top-bar">
     <div class="logo-wrap"><img src="Rebar.png" alt="Logo" id="logo"></div>
-    <a class="cart-link" href="checkout.html">
-      <span class="cart-icon">🛒</span>
-      <span class="cart-badge" id="cartBadge">0</span>
+
+    <div class="header-right">
       <nav class="cats">
-  <button class="cat-btn active" data-cat="all">Все</button>
-  <button class="cat-btn" data-cat="Базальт композит">Арматура</button>
-  <button class="cat-btn" data-cat="Сетка базальт композит">Сетки</button>
-</nav>
-    </a>
+        <button class="cat-btn active" data-cat="all">Все</button>
+        <button class="cat-btn" data-cat="Базальт композит">Арматура</button>
+        <button class="cat-btn" data-cat="Сетка базальт композит">Сетки</button>
+      </nav>
+
+      <a class="cart-link" href="checkout.html">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </a>
+    </div>
   </header>
 
- <form onsubmit="return false">
-  <input id="search" type="text" placeholder="Поиск товаров…"/>
-</form>
+  <form onsubmit="return false">
+    <input id="search" type="text" placeholder="Поиск товаров…"/>
+  </form>
 
   <section id="catalog"></section>
 
