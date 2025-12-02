@@ -148,31 +148,4 @@ body{
 /* фиксируем ширину счётчика и убираем «дрожь» */
 .counter-pill{min-width:70px;justify-content:space-between}
 .detail-btn{margin-left:auto}   /* прижмёт кнопку к правому краю блока */
-/* красивые кнопки-фильтры */
-.header-right{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.cats{
-  display:flex;
-  gap:6px;
-}
-.cat-btn{
-  height:26px;
-  padding:0 12px;
-  border:1px solid var(--border);
-  background:#fff;
-  border-radius:13px;
-  font-size:12px;
-  cursor:pointer;
-  transition:.2s;
-  color:var(--text);
-}
-.cat-btn.active,
-.cat-btn:hover{
-  background:var(--accent);
-  color:#fff;
-  border-color:var(--accent);
-  box-shadow:0 1px 3px rgba(0,0,0,.15);
-}
+
