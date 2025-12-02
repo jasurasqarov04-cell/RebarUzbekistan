@@ -1,13 +1,13 @@
 [
   {
     "id": 1,
-    "name": "Базальт-композитная арматура Ø4 мм",
+    "name": "Базальт-композитная арматура Ø3 мм",
     "price": 1080,
     "currency": "сум",
     "category": "Базальт композит",
     "unit": "пог.м.",
     "img": "АБК.jpg",
-    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-4-mm/"
+    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-3-mm/"
   },
   {
     "id": 2,
@@ -21,6 +21,16 @@
   },
   {
     "id": 3,
+    "name": "Базальт-композитная арматура Ø5 мм",
+    "price": 1800,
+    "currency": "сум",
+    "category": "Базальт композит",
+    "unit": "пог.м.",
+    "img": "АБК.jpg",
+    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-5-mm/"
+  },
+  {
+    "id": 4,
     "name": "Базальт-композитная арматура Ø6 мм",
     "price": 2250,
     "currency": "сум",
@@ -30,7 +40,17 @@
     "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-6-mm/"
   },
   {
-    "id": 4,
+    "id": 5,
+    "name": "Базальт-композитная арматура Ø7 мм",
+    "price": 3375,
+    "currency": "сум",
+    "category": "Базальт композит",
+    "unit": "пог.м.",
+    "img": "АБК.jpg",
+    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-7-mm/"
+  },
+  {
+    "id": 6,
     "name": "Базальт-композитная арматура Ø8 мм",
     "price": 4050,
     "currency": "сум",
@@ -40,7 +60,7 @@
     "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-8-mm/"
   },
   {
-    "id": 5,
+    "id": 7,
     "name": "Базальт-композитная арматура Ø10 мм",
     "price": 6300,
     "currency": "сум",
@@ -50,7 +70,7 @@
     "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-10-mm/"
   },
   {
-    "id": 6,
+    "id": 8,
     "name": "Базальт-композитная арматура Ø12 мм",
     "price": 9000,
     "currency": "сум",
@@ -60,143 +80,903 @@
     "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-12-mm/"
   },
   {
-    "id": 7,
-    "name": "Стекло-композитная арматура Ø3 мм",
-    "price": 900,
-    "currency": "сум",
-    "category": "Стекло композит",
-    "unit": "пог.м.",
-    "img": "АСК.jpg",
-    "url": "https://rebar.uz/products/steklo-kompozitnaya-armatura-3-mm/"
-  },
-  {
-    "id": 8,
-    "name": "Стекло-композитная арматура Ø4 мм",
-    "price": 1150,
-    "currency": "сум",
-    "category": "Стекло композит",
-    "unit": "пог.м.",
-    "img": "АСК.jpg",
-    "url": "https://rebar.uz/products/steklo-kompozitnaya-armatura-4-mm/"
-  },
-  {
     "id": 9,
-    "name": "Стекло-композитная арматура Ø6 мм",
-    "price": 1990,
+    "name": "Базальт-композитная арматура Ø14 мм",
+    "price": 13000,
     "currency": "сум",
-    "category": "Стекло композит",
+    "category": "Базальт композит",
     "unit": "пог.м.",
-    "img": "АСК.jpg",
-    "url": "https://rebar.uz/products/steklo-kompozitnaya-armatura-6-mm/"
+    "img": "АБК.jpg",
+    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-14-mm/"
   },
   {
     "id": 10,
-    "name": "Стекло-композитная арматура Ø8 мм",
-    "price": 3500,
+    "name": "Базальт-композитная арматура Ø16 мм",
+    "price": 17500,
     "currency": "сум",
-    "category": "Стекло композит",
+    "category": "Базальт композит",
     "unit": "пог.м.",
-    "img": "АСК.jpg",
-    "url": "https://rebar.uz/products/steklo-kompozitnaya-armatura-8-mm/"
+    "img": "АБК.jpg",
+    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-16-mm/"
   },
   {
     "id": 11,
-    "name": "Стекло-композитная арматура Ø10 мм",
-    "price": 5400,
+    "name": "Базальт-композитная арматура Ø18 мм",
+    "price": 22000,
     "currency": "сум",
-    "category": "Стекло композит",
+    "category": "Базальт композит",
     "unit": "пог.м.",
-    "img": "АСК.jpg",
-    "url": "https://rebar.uz/products/steklo-kompozitnaya-armatura-10-mm/"
+    "img": "АБК.jpg",
+    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-18-mm/"
   },
   {
     "id": 12,
-    "name": "Стекло-композитная арматура Ø12 мм",
-    "price": 7900,
+    "name": "Базальт-композитная арматура Ø20 мм",
+    "price": 25000,
     "currency": "сум",
-    "category": "Стекло композит",
+    "category": "Базальт композит",
     "unit": "пог.м.",
-    "img": "АСК.jpg",
-    "url": "https://rebar.uz/products/steklo-kompozitnaya-armatura-12-mm/"
+    "img": "АБК.jpg",
+    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-20-mm/"
   },
   {
     "id": 13,
-    "name": "Сетка базальт-композитная 50×50 мм, Ø2 мм",
-    "price": 22500,
+    "name": "Базальт-композитная арматура Ø22 мм",
+    "price": 30900,
     "currency": "сум",
-    "category": "Сетка базальт композит",
-    "unit": "м²",
-    "img": "АБК сетка.jpg",
-    "url": "https://rebar.uz/products/setka-bazalt-kompozitnaya-50x50/"
+    "category": "Базальт композит",
+    "unit": "пог.м.",
+    "img": "АБК.jpg",
+    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-22-mm/"
   },
   {
     "id": 14,
-    "name": "Сетка базальт-композитная 100×100 мм, Ø2 мм",
-    "price": 11200,
+    "name": "Базальт-композитная арматура Ø24 мм",
+    "price": 36000,
     "currency": "сум",
-    "category": "Сетка базальт композит",
-    "unit": "м²",
-    "img": "АБК сетка.jpg",
-    "url": "https://rebar.uz/products/setka-bazalt-kompozitnaya-100x100/"
+    "category": "Базальт композит",
+    "unit": "пог.м.",
+    "img": "АБК.jpg",
+    "url": "https://rebar.uz/products/bazalto-kompozitnaya-armatura-24-mm/"
   },
-  {
+ {
     "id": 15,
-    "name": "Сетка базальт-композитная 150×150 мм, Ø2 мм",
-    "price": 6780,
+    "name": "Стеклокомпозитная арматура Ø3 мм",
+    "price": 900,
     "currency": "сум",
-    "category": "Сетка базальт композит",
-    "unit": "м²",
-    "img": "АБК сетка.jpg",
-    "url": "https://rebar.uz/products/setka-bazalt-kompozitnaya-150x150/"
+    "category": "Стеклокомпозит",
+    "unit": "пог.м.",
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/3-mm/"
   },
   {
     "id": 16,
-    "name": "Сетка базальт-композитная 200×200 мм, Ø2 мм",
-    "price": 5500,
+    "name": "Стеклокомпозитная арматура Ø4 мм",
+    "price": 1150,
     "currency": "сум",
-    "category": "Сетка базальт композит",
-    "unit": "м²",
-    "img": "АБК сетка.jpg",
-    "url": "https://rebar.uz/products/setka-bazalt-kompozitnaya-200x200/"
+    "category": "Стеклокомпозит",
+    "unit": "пог.м.",
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/4-mm/"
   },
   {
     "id": 17,
-    "name": "Сетка стекло-композитная 50×50 мм, Ø2 мм",
-    "price": 15900,
+    "name": "Стеклокомпозитная арматура Ø5 мм",
+    "price": 1450,
     "currency": "сум",
-    "category": "Сетка стекло композит",
-    "unit": "м²",
-    "img": "АСК сетка.jpg",
-    "url": "https://rebar.uz/products/setka-steklo-kompozitnaya-50x50/"
+    "category": "Стеклокомпозит",
+    "unit": "пог.м.",
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/5-mm/"
   },
   {
     "id": 18,
-    "name": "Сетка стекло-композитная 100×100 мм, Ø2 мм",
-    "price": 9000,
+    "name": "Стеклокомпозитная арматура Ø6 мм",
+    "price": 2100,
     "currency": "сум",
-    "category": "Сетка стекло композит",
-    "unit": "м²",
-    "img": "АСК сетка.jpg",
-    "url": "https://rebar.uz/products/setka-steklo-kompozitnaya-100x100/"
+    "category": "Стеклокомпозит",
+    "unit": "пог.м.",
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/6-mm/"
   },
   {
     "id": 19,
-    "name": "Сетка стекло-композитная 150×150 мм, Ø2 мм",
-    "price": 5900,
+    "name": "Стеклокомпозитная арматура Ø7 мм",
+    "price": 2850,
     "currency": "сум",
-    "category": "Сетка стекло композит",
-    "unit": "м²",
-    "img": "АСК сетка.jpg",
-    "url": "https://rebar.uz/products/setka-steklo-kompozitnaya-150x150/"
+    "category": "Стеклокомпозит",
+    "unit": "пог.м.",
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/7-mm/"
   },
   {
     "id": 20,
-    "name": "Сетка стекло-композитная 200×200 мм, Ø2 мм",
+    "name": "Стеклокомпозитная арматура Ø8 мм",
+    "price": 3700,
+    "currency": "сум",
+    "category": "Стеклокомпозит",
+    "unit": "пог.м.",
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/8-mm/"
+  },
+  {
+    "id": 21,
+    "name": "Стеклокомпозитная арматура Ø10 мм",
+    "price": 5600,
+    "currency": "сум",
+    "category": "Стеклокомпозит",
+    "unit": "пог.м.",
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/10-mm/"
+  },
+  {
+    "id": 22,
+    "name": "Стеклокомпозитная арматура Ø12 мм",
+    "price": 7900,
+    "currency": "сум",
+    "category": "Стеклокомпозит",
+    "unit": "пог.м.",
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/12-mm/"
+  },
+  {
+    "id": 23,
+    "name": "Стеклокомпозитная арматура Ø14 мм",
+    "price": 12350,
+    "currency": "сум",
+    "category": "Стеклокомпозит",
+    "unit": "пог.м.",
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/14-mm/"
+  },
+  {
+    "id": 24,
+    "name": "Стеклокомпозитная арматура Ø16 мм",
+    "price": 16700,
+    "currency": "сум",
+    "category": "Стеклокомпозит",
+    "unit": "пог.м.",
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/16-mm/"
+  },
+  {
+    "id": 25,
+    "name": "Стеклокомпозитная арматура Ø18 мм",
+    "price": 20900,
+    "currency": "сум",
+    "category": "Стеклокомпозит",
+    "unit": "пог.м.",
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/18-mm/"
+  },
+  {
+    "id": 26,
+    "name": "Стеклокомпозитная арматура Ø20 мм",
+    "price": 23750,
+    "currency": "сум",
+    "category": "Стеклокомпозит",
+    "unit": "пог.м.",
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/20-mm/"
+  },
+  {
+    "id": 27,
+    "name": "Стеклокомпозитная арматура Ø22 мм",
+    "price": 29355,
+    "currency": "сум",
+    "category": "Стеклокомпозит",
+    "unit": "пог.м.",
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/22-mm/"
+  },
+  {
+    "id": 28,
+    "name": "Стеклокомпозитная арматура Ø24 мм",
+    "price": 34200,
+    "currency": "сум",
+    "category": "Стеклокомпозит",
+    "unit": "пог.м.",
+    "img": "АСК.jpg",
+    "url": "https://rebar.uz/products/24-mm/"
+  },
+  {
+    "id": 29,
+    "name": "Базальтовая кладочная сетка 5×5 мм, Ø2 мм",
+    "price": 22500,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/5h5mm-h2mm-2/"
+  },
+  {
+    "id": 30,
+    "name": "Базальтовая кладочная сетка 10×10 мм, Ø2 мм",
+    "price": 11200,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/10h10mm-h2mm-2/"
+  },
+  {
+    "id": 31,
+    "name": "Базальтовая кладочная сетка 15×15 мм, Ø2 мм",
+    "price": 6780,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/15h15mm-h2mm-2/"
+  },
+  {
+    "id": 32,
+    "name": "Базальтовая кладочная сетка 20×20 мм, Ø2 мм",
+    "price": 5500,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h2mm-2/"
+  },
+  {
+    "id": 33,
+    "name": "Базальтовая кладочная сетка 25×25 мм, Ø2 мм",
+    "price": 4400,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h2mm-2/"
+  },
+  {
+    "id": 34,
+    "name": "Базальтовая кладочная сетка 5×5 мм, Ø2,5 мм",
+    "price": 26000,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/5h5mm-h2-5mm-2/"
+  },
+  {
+    "id": 35,
+    "name": "Базальтовая кладочная сетка 10×10 мм, Ø2,5 мм",
+    "price": 13000,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/10h10mm-h2-5mm-2/"
+  },
+  {
+    "id": 36,
+    "name": "Базальтовая кладочная сетка 15×15 мм, Ø2,5 мм",
+    "price": 9100,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/15h15mm-h2-5mm-2/"
+  },
+  {
+    "id": 37,
+    "name": "Базальтовая кладочная сетка 20×20 мм, Ø2,5 мм",
+    "price": 6500,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h2-5mm-2/"
+  },
+  {
+    "id": 38,
+    "name": "Базальтовая кладочная сетка 25×25 мм, Ø2,5 мм",
+    "price": 5200,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h2-5mm-2/"
+  },
+  {
+    "id": 39,
+    "name": "Базальтовая кладочная сетка 5×5 мм, Ø3 мм",
+    "price": 33200,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/5h5mm-h3mm-2/"
+  },
+  {
+    "id": 40,
+    "name": "Базальтовая кладочная сетка 10×10 мм, Ø3 мм",
+    "price": 16500,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/10h10mm-h3mm-2/"
+  },
+  {
+    "id": 41,
+    "name": "Базальтовая кладочная сетка 15×15 мм, Ø3 мм",
+    "price": 10660,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/15h15mm-h3mm-2/"
+  },
+  {
+    "id": 42,
+    "name": "Базальтовая кладочная сетка 20×20 мм, Ø3 мм",
+    "price": 8500,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h3mm-2/"
+  },
+  {
+    "id": 43,
+    "name": "Базальтовая кладочная сетка 25×25 мм, Ø3 мм",
+    "price": 6900,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h3mm-2/"
+  },
+  {
+    "id": 44,
+    "name": "Базальтовая кладочная сетка 10×10 мм, Ø3,5 мм",
+    "price": 20000,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/10h10mm-h3-5mm-2/"
+  },
+  {
+    "id": 45,
+    "name": "Базальтовая кладочная сетка 15×15 мм, Ø3,5 мм",
+    "price": 14000,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/15h15mm-h3-5mm-2/"
+  },
+  {
+    "id": 46,
+    "name": "Базальтовая кладочная сетка 20×20 мм, Ø3,5 мм",
+    "price": 10000,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h3-5mm-2/"
+  },
+  {
+    "id": 47,
+    "name": "Базальтовая кладочная сетка 5×5 мм, Ø4 мм",
+    "price": 49500,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/5h5mm-h4mm-2/"
+  },
+  {
+    "id": 48,
+    "name": "Базальтовая кладочная сетка 10×10 мм, Ø4 мм",
+    "price": 24700,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/10h10mm-h4mm-2/"
+  },
+  {
+    "id": 49,
+    "name": "Базальтовая кладочная сетка 15×15 мм, Ø4 мм",
+    "price": 17120,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/15h15mm-h4mm-2/"
+  },
+  {
+    "id": 50,
+    "name": "Базальтовая кладочная сетка 20×20 мм, Ø4 мм",
+    "price": 12160,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h4mm-2/"
+  },
+  {
+    "id": 51,
+    "name": "Базальтовая кладочная сетка 25×25 мм, Ø4 мм",
+    "price": 9800,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h4mm-2/"
+  },
+  {
+    "id": 52,
+    "name": "Базальтовая кладочная сетка 10×10 мм, Ø5 мм",
+    "price": 31000,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/10h10mm-h5mm-2/"
+  },
+  {
+    "id": 53,
+    "name": "Базальтовая кладочная сетка 15×15 мм, Ø5 мм",
+    "price": 21700,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/15h15mm-h5mm-2/"
+  },
+  {
+    "id": 54,
+    "name": "Базальтовая кладочная сетка 20×20 мм, Ø5 мм",
+    "price": 15500,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h5mm-2/"
+  },
+  {
+    "id": 55,
+    "name": "Базальтовая кладочная сетка 25×25 мм, Ø5 мм",
+    "price": 12400,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h5mm-2/"
+  },
+  {
+    "id": 56,
+    "name": "Базальтовая кладочная сетка 10×10 мм, Ø6 мм",
+    "price": 46000,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/10h10mm-h6mm-2/"
+  },
+  {
+    "id": 57,
+    "name": "Базальтовая кладочная сетка 15×15 мм, Ø6 мм",
+    "price": 31600,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/15h15mm-h6mm-2/"
+  },
+  {
+    "id": 58,
+    "name": "Базальтовая кладочная сетка 20×20 мм, Ø6 мм",
+    "price": 23000,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h6mm-2/"
+  },
+  {
+    "id": 59,
+    "name": "Базальтовая кладочная сетка 25×25 мм, Ø6 мм",
+    "price": 18400,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h6mm-2/"
+  },
+  {
+    "id": 60,
+    "name": "Базальтовая кладочная сетка 20×20 мм, Ø7 мм",
+    "price": 40000,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h7mm-2/"
+  },
+  {
+    "id": 61,
+    "name": "Базальтовая кладочная сетка 25×25 мм, Ø7 мм",
+    "price": 32000,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h7mm-2/"
+  },
+  {
+    "id": 62,
+    "name": "Базальтовая кладочная сетка 20×20 мм, Ø8 мм",
+    "price": 50000,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h8mm-2/"
+  },
+  {
+    "id": 63,
+    "name": "Базальтовая кладочная сетка 25×25 мм, Ø8 мм",
+    "price": 40000,
+    "currency": "сум",
+    "category": "Базальтовая сетка",
+    "unit": "кв.м.",
+    "img": "АБК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h8mm-2/"
+  },
+  {
+    "id": 64,
+    "name": "Стеклокомпозитная кладочная сетка 5×5 мм, Ø2 мм",
+    "price": 15900,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/5h5mm-h2mm/"
+  },
+  {
+    "id": 65,
+    "name": "Стеклокомпозитная кладочная сетка 10×10 мм, Ø2 мм",
+    "price": 9000,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/10h10mm-h2mm/"
+  },
+  {
+    "id": 66,
+    "name": "Стеклокомпозитная кладочная сетка 15×15 мм, Ø2 мм",
+    "price": 5900,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/15h15mm-h2mm/"
+  },
+  {
+    "id": 67,
+    "name": "Стеклокомпозитная кладочная сетка 20×20 мм, Ø2 мм",
     "price": 4500,
     "currency": "сум",
-    "category": "Сетка стекло композит",
-    "unit": "м²",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
     "img": "АСК сетка.jpg",
-    "url": "https://rebar.uz/products/setka-steklo-kompozitnaya-200x200/"
+    "url": "https://rebar.uz/products/20h20mm-h2mm/"
+  },
+  {
+    "id": 68,
+    "name": "Стеклокомпозитная кладочная сетка 25×25 мм, Ø2 мм",
+    "price": 4000,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h2mm/"
+  },
+  {
+    "id": 69,
+    "name": "Стеклокомпозитная кладочная сетка 5×5 мм, Ø2,5 мм",
+    "price": 20000,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/5h5mm-h2-5mm/"
+  },
+  {
+    "id": 70,
+    "name": "Стеклокомпозитная кладочная сетка 10×10 мм, Ø2,5 мм",
+    "price": 10000,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/10h10mm-h2-5mm/"
+  },
+  {
+    "id": 71,
+    "name": "Стеклокомпозитная кладочная сетка 15×15 мм, Ø2,5 мм",
+    "price": 6500,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/15h15mm-h2-5mm/"
+  },
+  {
+    "id": 72,
+    "name": "Стеклокомпозитная кладочная сетка 20×20 мм, Ø2,5 мм",
+    "price": 5000,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h2-5mm/"
+  },
+  {
+    "id": 73,
+    "name": "Стеклокомпозитная кладочная сетка 25×25 мм, Ø2,5 мм",
+    "price": 4400,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h2-5mm/"
+  },
+  {
+    "id": 74,
+    "name": "Стеклокомпозитная кладочная сетка 5×5 мм, Ø3 мм",
+    "price": 29200,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/5h5mm-h3mm/"
+  },
+  {
+    "id": 75,
+    "name": "Стеклокомпозитная кладочная сетка 10×10 мм, Ø3 мм",
+    "price": 14600,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/10h10mm-h3mm/"
+  },
+  {
+    "id": 76,
+    "name": "Стеклокомпозитная кладочная сетка 15×15 мм, Ø3 мм",
+    "price": 10000,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/15h15mm-h3mm/"
+  },
+  {
+    "id": 77,
+    "name": "Стеклокомпозитная кладочная сетка 20×20 мм, Ø3 мм",
+    "price": 7300,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h3mm/"
+  },
+  {
+    "id": 78,
+    "name": "Стеклокомпозитная кладочная сетка 25×25 мм, Ø3 мм",
+    "price": 6000,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h3mm/"
+  },
+  {
+    "id": 79,
+    "name": "Стеклокомпозитная кладочная сетка 10×10 мм, Ø3,5 мм",
+    "price": 17000,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/10h10mm-h3-5mm/"
+  },
+  {
+    "id": 80,
+    "name": "Стеклокомпозитная кладочная сетка 15×15 мм, Ø3,5 мм",
+    "price": 11900,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/15h15mm-h3-5mm/"
+  },
+  {
+    "id": 81,
+    "name": "Стеклокомпозитная кладочная сетка 20×20 мм, Ø3,5 мм",
+    "price": 8500,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h3-5mm/"
+  },
+  {
+    "id": 82,
+    "name": "Стеклокомпозитная кладочная сетка 5×5 мм, Ø4 мм",
+    "price": 43600,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/5h5mm-h4mm/"
+  },
+  {
+    "id": 83,
+    "name": "Стеклокомпозитная кладочная сетка 10×10 мм, Ø4 мм",
+    "price": 21800,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/10h10mm-h4mm/"
+  },
+  {
+    "id": 84,
+    "name": "Стеклокомпозитная кладочная сетка 15×15 мм, Ø4 мм",
+    "price": 14900,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/15h15mm-h4mm/"
+  },
+  {
+    "id": 85,
+    "name": "Стеклокомпозитная кладочная сетка 20×20 мм, Ø4 мм",
+    "price": 10900,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h4mm/"
+  },
+  {
+    "id": 86,
+    "name": "Стеклокомпозитная кладочная сетка 25×25 мм, Ø4 мм",
+    "price": 8720,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h4mm/"
+  },
+  {
+    "id": 87,
+    "name": "Стеклокомпозитная кладочная сетка 10×10 мм, Ø5 мм",
+    "price": 29400,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/10h10mm-h5mm/"
+  },
+  {
+    "id": 88,
+    "name": "Стеклокомпозитная кладочная сетка 15×15 мм, Ø5 мм",
+    "price": 20200,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/15h15mm-h5mm/"
+  },
+  {
+    "id": 89,
+    "name": "Стеклокомпозитная кладочная сетка 20×20 мм, Ø5 мм",
+    "price": 14700,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h5mm/"
+  },
+  {
+    "id": 90,
+    "name": "Стеклокомпозитная кладочная сетка 25×25 мм, Ø5 мм",
+    "price": 11760,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h5mm/"
+  },
+  {
+    "id": 91,
+    "name": "Стеклокомпозитная кладочная сетка 10×10 мм, Ø6 мм",
+    "price": 43000,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/10h10mm-h6mm/"
+  },
+  {
+    "id": 92,
+    "name": "Стеклокомпозитная кладочная сетка 15×15 мм, Ø6 мм",
+    "price": 29900,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/15h15mm-h6mm/"
+  },
+  {
+    "id": 93,
+    "name": "Стеклокомпозитная кладочная сетка 20×20 мм, Ø6 мм",
+    "price": 21500,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h6mm/"
+  },
+  {
+    "id": 94,
+    "name": "Стеклокомпозитная кладочная сетка 25×25 мм, Ø6 мм",
+    "price": 17200,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h6mm/"
+  },
+  {
+    "id": 95,
+    "name": "Стеклокомпозитная кладочная сетка 20×20 мм, Ø7 мм",
+    "price": 35000,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h7mm/"
+  },
+  {
+    "id": 96,
+    "name": "Стеклокомпозитная кладочная сетка 25×25 мм, Ø7 мм",
+    "price": 28000,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h7mm/"
+  },
+  {
+    "id": 97,
+    "name": "Стеклокомпозитная кладочная сетка 20×20 мм, Ø8 мм",
+    "price": 44000,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/20h20mm-h8mm/"
+  },
+  {
+    "id": 98,
+    "name": "Стеклокомпозитная кладочная сетка 25×25 мм, Ø8 мм",
+    "price": 35200,
+    "currency": "сум",
+    "category": "Стеклокомпозитная сетка",
+    "unit": "кв.м.",
+    "img": "АСК сетка.jpg",
+    "url": "https://rebar.uz/products/25h25mm-h8mm/"
   }
 ]
