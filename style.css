@@ -14,7 +14,6 @@ body{
   background:var(--bg);
   color:var(--text);
   padding:.5rem .5rem 2rem;
-  /* запрещаем горизонтальный скролл */
   overflow-x:hidden;
 }
 .top-bar{
@@ -40,7 +39,7 @@ body{
   border-radius:6px;
 }
 
-/* ========== РЕЗИНОВЫЙ КАТАЛОГ ========== */
+/* ========== РЕЗИНОВЫЙ КАТАЛОГ (1-2-3 в ряд) ========== */
 #catalog{
   display:grid;
   grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
@@ -59,7 +58,7 @@ body{
 .name{font-weight:600;font-size:.9rem;margin-bottom:.25rem}
 .price{font-size:.85rem;color:#555;margin-bottom:.5rem}
 
-/* счётчик + кнопка – никогда не сжимаются */
+/* кнопки НЕ сжимаются и НЕ переносятся */
 .row-btn{
   display:flex;
   align-items:center;
@@ -99,7 +98,7 @@ body{
 .cp-input::-webkit-inner-spin-button,
 .cp-input::-webkit-outer-spin-button{display:none}
 .detail-btn{
-  flex-shrink:0;          /* не сжимается */
+  flex-shrink:0;          /* запрещаем сжиматься */
   white-space:nowrap;     /* текст в одну строку */
   min-width:fit-content;  /* ширина = контент + padding */
   height:24px;
