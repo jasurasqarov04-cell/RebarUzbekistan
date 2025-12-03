@@ -80,3 +80,12 @@ function updateBadge(){
 document.addEventListener('touchend', e => {
   if (e.target.tagName !== 'INPUT') document.activeElement.blur();
 });
+/* iOS: закрываем клавиатуру при тапе вне поля */
+document.addEventListener('touchend', e => {
+  if (e.target.tagName !== 'INPUT') {
+    document.activeElement.blur();                       // убираем фокус
+    if (window.Telegram && Telegram.WebApp) {
+      Telegram.WebApp.hideKeyboard();                    // официальный метод iOS
+    }
+  }
+});
