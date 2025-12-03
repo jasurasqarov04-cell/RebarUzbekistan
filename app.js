@@ -77,15 +77,3 @@ function updateBadge(){
   const items = cart.reduce((s,i)=>s+i.qty,0);
   document.getElementById('cartBadge').textContent = items;
 }
-document.addEventListener('touchend', e => {
-  if (e.target.tagName !== 'INPUT') document.activeElement.blur();
-});
-/* iOS: закрываем клавиатуру при тапе вне поля */
-document.addEventListener('touchend', e => {
-  if (e.target.tagName !== 'INPUT') {
-    document.activeElement.blur();                       // убираем фокус
-    if (window.Telegram && Telegram.WebApp) {
-      Telegram.WebApp.hideKeyboard();                    // официальный метод iOS
-    }
-  }
-});
