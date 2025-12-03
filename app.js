@@ -77,7 +77,7 @@ function updateBadge(){
   const items = cart.reduce((s,i)=>s+i.qty,0);
   document.getElementById('cartBadge').textContent = items;
 }
-/* прячем клавиатуру при тапе вне поля ввода */
+/* прячем клавиатуру при тапе вне поля */
 document.addEventListener('touchend', e => {
   if (e.target.tagName !== 'INPUT') document.activeElement.blur();
 });
