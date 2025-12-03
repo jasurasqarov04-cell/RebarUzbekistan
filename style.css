@@ -14,6 +14,8 @@ body{
   background:var(--bg);
   color:var(--text);
   padding:.5rem .5rem 2rem;
+  /* запрещаем горизонтальный скролл */
+  overflow-x:hidden;
 }
 .top-bar{
   display:flex;
@@ -37,9 +39,11 @@ body{
   border:1px solid var(--border);
   border-radius:6px;
 }
+
+/* ========== РЕЗИНОВЫЙ КАТАЛОГ ========== */
 #catalog{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
   gap:.75rem;
 }
 .card{
@@ -54,6 +58,8 @@ body{
 .info{padding:.75rem;display:flex;flex-direction:column;flex:1}
 .name{font-weight:600;font-size:.9rem;margin-bottom:.25rem}
 .price{font-size:.85rem;color:#555;margin-bottom:.5rem}
+
+/* счётчик + кнопка – никогда не сжимаются */
 .row-btn{
   display:flex;
   align-items:center;
@@ -93,9 +99,9 @@ body{
 .cp-input::-webkit-inner-spin-button,
 .cp-input::-webkit-outer-spin-button{display:none}
 .detail-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+  flex-shrink:0;          /* не сжимается */
+  white-space:nowrap;     /* текст в одну строку */
+  min-width:fit-content;  /* ширина = контент + padding */
   height:24px;
   padding:0 10px;
   border-radius:12px;
@@ -104,12 +110,13 @@ body{
   font-size:12px;
   font-weight:500;
   text-decoration:none;
-  white-space:nowrap;
   box-shadow:0 1px 3px rgba(0,0,0,.15);
   transition:background .2s;
   margin-left:8px;
 }
 .detail-btn:active{background:#b71515}
+
+/* ========== РЕЗИНОВАЯ КОРЗИНА ========== */
 #checkoutCart{padding:1rem}
 .checkout-item{display:flex;justify-content:space-between;padding:.4rem 0;font-size:.9rem}
 .checkout-total{font-weight:600;text-align:right;margin:1rem 0}
