@@ -77,11 +77,3 @@ function updateBadge(){
   const items = cart.reduce((s,i)=>s+i.qty,0);
   document.getElementById('cartBadge').textContent = items;
 }
-/* ===== скрываем клавиатуру при клике/тапе вне инпута ===== */
-document.addEventListener('click', hideKB, true);
-document.addEventListener('touchend', hideKB, true);
-function hideKB(e) { ... }
-/* прячем клавиатуру при тапе вне поля */
-document.addEventListener('touchend', e => {
-  if (e.target.tagName !== 'INPUT') document.activeElement.blur();
-});
