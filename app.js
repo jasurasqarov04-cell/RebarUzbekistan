@@ -81,10 +81,3 @@ function updateBadge(){
 document.addEventListener('touchend', e => {
   if (e.target.tagName !== 'INPUT') document.activeElement.blur();
 });
-/* закрываем клавиатуру при тапе вне поля */
-window.addEventListener('touchend', e => {
-  if (e.target.tagName !== 'INPUT') {
-    document.activeElement.blur();                 // убираем фокус
-    if (window.Telegram?.WebApp) Telegram.WebApp.MainButton.hide(); // просим Telegram свернуть клаву
-  }
-});
