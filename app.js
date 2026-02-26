@@ -112,11 +112,6 @@ function renderCatalog(list) {
       const product = catalog.find(p => p.id === id);
       updateCart(id, product, v);
       updateBadge();
-      // Pulse animation on cart badge
-      const badge = document.getElementById('cartBadge');
-      badge.classList.remove('pulse');
-      void badge.offsetWidth;
-      badge.classList.add('pulse');
     };
     el.querySelector('.cp-btn:first-of-type').addEventListener('click', () => set(+inp.value - 1));
     el.querySelector('.cp-btn:last-of-type').addEventListener('click', () => set(+inp.value + 1));
@@ -156,8 +151,6 @@ function updateCart(id, product, newQty) {
 }
 function updateBadge() {
   const total = cart.reduce((s, i) => s + i.qty, 0);
-  const badge = document.getElementById('cartBadge');
-  if (badge) badge.textContent = total;
   const navBadge = document.getElementById('navCartBadge');
   if (navBadge) {
     navBadge.textContent = total;
