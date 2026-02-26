@@ -269,44 +269,11 @@ body {
   gap: 6px;
   margin-top: auto;
 }
-.counter-pill {
-  display: inline-flex;
-  align-items: center;
-  height: 28px;
-  border: 1.5px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-  background: var(--bg);
-  flex: 1;
-  max-width: 90px;
-  justify-content: space-between;
-}
-.cp-btn {
-  width: 24px; height: 28px;
-  border: none; background: none;
-  cursor: pointer; font-size: 14px;
-  color: var(--text-muted);
-  display: flex; align-items: center; justify-content: center;
-  transition: color 0.15s;
-}
-.cp-btn:active { color: var(--accent); }
-.cp-input {
-  flex: 1; text-align: center;
-  border: none; background: none;
-  font-size: 13px; font-weight: 700;
-  font-family: 'Nunito', sans-serif;
-  outline: none;
-  -moz-appearance: textfield;
-  color: var(--text);
-}
-.cp-input::-webkit-inner-spin-button,
-.cp-input::-webkit-outer-spin-button { display: none; }
-
 .detail-btn {
   flex-shrink: 0;
-  height: 28px;
+  height: 30px;
   padding: 0 10px;
-  border-radius: 14px;
+  border-radius: 15px;
   background: var(--text);
   color: #fff;
   font-size: 11px;
@@ -318,6 +285,46 @@ body {
   white-space: nowrap;
 }
 .detail-btn:active { background: var(--accent); }
+.counter-pill {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  border: 1.5px solid var(--border);
+  border-radius: 15px;
+  background: var(--bg);
+  flex: 1;
+  max-width: 96px;
+  min-width: 84px;
+  justify-content: space-between;
+}
+.cp-btn {
+  width: 28px; height: 30px;
+  border: none; background: none;
+  cursor: pointer; font-size: 16px; font-weight: 700;
+  color: var(--text-muted);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: color 0.15s;
+  line-height: 1;
+  padding: 0;
+}
+.cp-btn:active { color: var(--accent); }
+.cp-input {
+  width: 28px;
+  text-align: center;
+  border: none; background: none;
+  font-size: 13px; font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  outline: none;
+  -moz-appearance: textfield;
+  color: var(--text);
+  flex-shrink: 0;
+  padding: 0;
+}
+.cp-input::-webkit-inner-spin-button,
+.cp-input::-webkit-outer-spin-button { display: none; }
+
+
 
 /* ===== BOTTOM NAVIGATION ===== */
 .bottom-nav {
