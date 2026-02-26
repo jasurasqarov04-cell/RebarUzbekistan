@@ -12,6 +12,11 @@ initLangSwitcher();
 applyLangUI();
 updateNavBadge();
 
+function pName(p)     { return typeof p.name     === 'object' ? (p.name[getLang()]     || p.name.ru)     : p.name; }
+function pCat(p)      { return typeof p.category === 'object' ? (p.category[getLang()] || p.category.ru) : p.category; }
+function pCurrency(p) { return typeof p.currency === 'object' ? (p.currency[getLang()] || p.currency.ru) : p.currency; }
+function pUnit(p)     { return typeof p.unit     === 'object' ? (p.unit[getLang()]     || p.unit.ru)     : p.unit; }
+
 fetch('products.json')
   .then(r => r.json())
   .then(data => {
@@ -32,20 +37,16 @@ function renderFavorites() {
     return;
   }
 
-  const html = favProducts.map(p => `
+  container.innerHTML = favProducts.map(p => `
     <div class="card">
       <div class="card-img-wrap">
-        <img src="${p.img}"
-          onerror="this.src='https://placehold.co/300x200/f2f3f5/9ca3af?text=Rebar'"
-          alt="${p.name}" loading="lazy">
+        <img src="${p.img}" onerror="this.src='https://placehold.co/300x200/f2f3f5/9ca3af?text=Rebar'" alt="${pName(p)}" loading="lazy">
         <button class="fav-btn active" data-fav-id="${p.id}">❤️</button>
       </div>
       <div class="card-body">
-        <div class="card-cat">${p.category}</div>
-        <div class="card-name">${p.name}</div>
-        <div class="card-price">
-          ${p.price.toLocaleString('ru-RU')} <span>${t('sum')} ${t('per')} ${p.unit}</span>
-        </div>
+        <div class="card-cat">${pCat(p)}</div>
+        <div class="card-name">${pName(p)}</div>
+        <div class="card-price">${p.price.toLocaleString('ru-RU')} <span>${pCurrency(p)} / ${pUnit(p)}</span></div>
         <div class="row-btn">
           <div class="counter-pill" data-id="${p.id}">
             <button class="cp-btn">−</button>
@@ -57,9 +58,6 @@ function renderFavorites() {
       </div>
     </div>`).join('');
 
-  container.innerHTML = html;
-
-  // Counter events
   container.querySelectorAll('.counter-pill').forEach(el => {
     const id = +el.dataset.id;
     const inp = el.querySelector('.cp-input');
@@ -70,11 +68,10 @@ function renderFavorites() {
       updateNavBadge();
     };
     el.querySelector('.cp-btn:first-of-type').addEventListener('click', () => set(+inp.value - 1));
-    el.querySelector('.cp-btn:last-of-type').addEventListener('click', () => set(+inp.value + 1));
+    el.querySelector('.cp-btn:last-of-type').addEventListener('click',  () => set(+inp.value + 1));
     inp.addEventListener('input', () => set(inp.value));
   });
 
-  // Remove from favorites
   container.querySelectorAll('.fav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = +btn.dataset.favId;
@@ -86,28 +83,16 @@ function renderFavorites() {
   });
 }
 
-function getQty(id) {
-  const line = cart.find(x => x.id === id);
-  return line ? line.qty : 0;
-}
-
+function getQty(id) { const l = cart.find(x => x.id === id); return l ? l.qty : 0; }
 function updateCart(id, product, newQty) {
   let line = cart.find(x => x.id === id);
-  if (newQty === 0) {
-    cart = cart.filter(x => x.id !== id);
-  } else if (line) {
-    line.qty = newQty;
-  } else {
-    cart.push({ id, name: product.name, price: product.price, qty: newQty, unit: product.unit });
-  }
+  if (newQty === 0) { cart = cart.filter(x => x.id !== id); }
+  else if (line) { line.qty = newQty; }
+  else { cart.push({ id, name: pName(product), price: product.price, qty: newQty, unit: pUnit(product) }); }
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
 }
-
 function updateNavBadge() {
   const total = cart.reduce((s, i) => s + i.qty, 0);
-  const navBadge = document.getElementById('navCartBadge');
-  if (navBadge) {
-    navBadge.textContent = total;
-    navBadge.style.display = total > 0 ? 'flex' : 'none';
-  }
+  const nb = document.getElementById('navCartBadge');
+  if (nb) { nb.textContent = total; nb.style.display = total > 0 ? 'flex' : 'none'; }
 }
