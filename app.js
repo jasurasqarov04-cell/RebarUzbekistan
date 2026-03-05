@@ -87,7 +87,7 @@ function renderCatalog(list) {
             <input type="number" class="cp-input" value="${getQty(p.id)}" min="0">
             <button class="cp-btn">+</button>
           </div>
-          <a class="detail-btn" href="${p.url}" target="_blank">${t('details')}</a>
+          <a class="detail-btn" href="detail.html?id=${p.id}">${t('details')}</a>
         </div>
       </div>
     </div>`;
