@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <title>Mahsulot – Rebar Market</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .detail-hero {
+      background: #fff;
+      box-shadow: var(--shadow);
+      margin-bottom: 10px;
+    }
+    .detail-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .detail-hero-body {
+      padding: 14px 16px 16px;
+    }
+    .detail-cat {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .detail-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.25;
+      margin: 0 0 10px;
+      color: var(--text);
+    }
+    .detail-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .detail-price {
+      font-family: 'Oswald', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .detail-price-unit {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .detail-add-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .detail-add-row .counter-pill {
+      max-width: 120px;
+      min-width: 100px;
+      height: 44px;
+      border-radius: 22px;
+    }
+    .detail-add-row .cp-btn {
+      width: 36px;
+      height: 44px;
+      font-size: 20px;
+    }
+    .detail-add-row .cp-input {
+      font-size: 15px;
+    }
+    .add-cart-btn {
+      flex: 1;
+      height: 44px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 22px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .add-cart-btn:active { background: var(--accent-dark); transform: scale(0.98); }
+
+    /* Description block */
+    .detail-section {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 0 10px 10px;
+      overflow: hidden;
+    }
+    .detail-section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 12px 14px 8px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .detail-description {
+      padding: 12px 14px;
+      font-size: 13px;
+      line-height: 1.65;
+      color: #374151;
+    }
+
+    /* Specs table */
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .specs-table tr:last-child td { border-bottom: none; }
+    .specs-table td {
+      padding: 10px 14px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .specs-table td:first-child {
+      color: var(--text-muted);
+      font-weight: 600;
+      width: 45%;
+    }
+    .specs-table td:last-child {
+      font-weight: 700;
+      color: var(--text);
+    }
+    .specs-table tr:nth-child(even) td { background: #fafafa; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="top-bar">
+    <a class="back-link" href="javascript:history.back()" id="backBtn">
+      <span>←</span>
+      <span data-i18n="back">← Ortga</span>
+    </a>
+    <h1 class="header-title" id="headerTitle">...</h1>
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="uz">UZ</button>
+      <button class="lang-btn" data-lang="ru">RU</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <div id="detailContent">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <a class="nav-item" data-page="home" href="index.html">
+      <span class="nav-icon">🏠</span>
+      <span data-i18n="nav_home">Asosiy</span>
+    </a>
+    <a class="nav-item" data-page="cart" href="checkout.html">
+      <span class="nav-icon">🛒</span>
+      <span data-i18n="nav_cart">Savat</span>
+      <span class="nav-badge" id="navCartBadge" style="display:none">0</span>
+    </a>
+    <a class="nav-item" data-page="favorites" href="favorites.html">
+      <span class="nav-icon">❤️</span>
+      <span data-i18n="nav_favorites">Sevimli</span>
+    </a>
+    <a class="nav-item" data-page="about" href="about.html">
+      <span class="nav-icon">ℹ️</span>
+      <span data-i18n="nav_about">Biz haqida</span>
+    </a>
+  </nav>
+
+  <script src="i18n.js"></script>
+  <script src="detail.js"></script>
+</body>
+</html>
