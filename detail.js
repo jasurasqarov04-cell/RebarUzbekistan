@@ -34,7 +34,8 @@ function pCat(p)      { return typeof p.category    === 'object' ? (p.category[g
 function pCurrency(p) { return typeof p.currency    === 'object' ? (p.currency[getLang()]    || p.currency.ru)    : p.currency; }
 function pUnit(p)     { return typeof p.unit        === 'object' ? (p.unit[getLang()]        || p.unit.ru)        : p.unit; }
 function pDesc(p)     { return p.description ? (typeof p.description === 'object' ? (p.description[getLang()] || p.description.ru) : p.description) : null; }
-function pSpecKey(s)  { return typeof s.key === 'object' ? (s.key[getLang()] || s.key.ru) : s.key; }
+function pSpecKey(s)  { return typeof s.key   === 'object' ? (s.key[getLang()]   || s.key.ru)   : s.key; }
+function pSpecVal(s)  { return typeof s.value === 'object' ? (s.value[getLang()] || s.value.ru) : s.value; }
 
 function renderDetail(p) {
   const lang = getLang();
@@ -52,7 +53,7 @@ function renderDetail(p) {
     const rows = p.specs.map(s => `
       <tr>
         <td>${pSpecKey(s)}</td>
-        <td>${s.value}</td>
+        <td>${pSpecVal(s)}</td>
       </tr>`).join('');
     specsHtml = `
       <div class="detail-section">
