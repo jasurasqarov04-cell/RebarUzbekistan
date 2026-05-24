@@ -16,13 +16,15 @@ updateNavBadge();
 const params = new URLSearchParams(location.search);
 const productId = parseInt(params.get('id'));
 
+document.getElementById('detailContent').innerHTML = `<div class="loading">${getIcon('loader', 'spinner')}</div>`;
+
 fetch('products.json')
   .then(r => r.json())
   .then(data => {
     product = data.find(p => p.id === productId);
     if (!product) {
       document.getElementById('detailContent').innerHTML =
-        `<div class="empty-state"><div class="es-icon">📦</div><p>Mahsulot topilmadi</p></div>`;
+        `<div class="empty-state"><div class="es-icon">${getIcon('box')}</div><p>Mahsulot topilmadi</p></div>`;
       return;
     }
     renderDetail(product);
@@ -58,6 +60,7 @@ function renderDetail(p) {
     specsHtml = `
       <div class="detail-section">
         <div class="detail-section-title" data-i18n-section="specs">
+          ${getIcon('clock', 'section-icon')}
           ${lang === 'uz' ? 'Texnik xarakteristikalar' : lang === 'en' ? 'Specifications' : 'Технические характеристики'}
         </div>
         <table class="specs-table">${rows}</table>
@@ -93,12 +96,12 @@ function renderDetail(p) {
         </div>
         <div class="detail-add-row">
           <div class="counter-pill" id="counterPill">
-            <button class="cp-btn" id="btnMinus">−</button>
+            <button class="cp-btn" id="btnMinus">${getIcon('minus')}</button>
             <input type="number" class="cp-input" id="qtyInput" value="${qty}" min="0">
-            <button class="cp-btn" id="btnPlus">+</button>
+            <button class="cp-btn" id="btnPlus">${getIcon('plus')}</button>
           </div>
           <button class="add-cart-btn" id="addCartBtn">
-            🛒 ${lang === 'uz' ? 'Savatga qo\'shish' : lang === 'en' ? 'Add to cart' : 'В корзину'}
+            ${getIcon('cart', 'btn-icon')} ${lang === 'uz' ? 'Savatga qo\'shish' : lang === 'en' ? 'Add to cart' : 'В корзину'}
           </button>
         </div>
       </div>
@@ -109,12 +112,12 @@ function renderDetail(p) {
 
     <!-- Fav + external link row -->
     <div style="display:flex;gap:10px;padding:0 10px 16px;">
-      <button id="favBtn" style="
+      <button id="favBtn" class="${isFav ? 'active' : ''}" style="
         flex:1; height:44px; border-radius:22px;
         border:1.5px solid var(--border); background:#fff;
         font-size:13px; font-weight:700; font-family:'Nunito',sans-serif;
         cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
-        ${isFav ? '❤️' : '🤍'}
+        ${getIcon(isFav ? 'heartFilled' : 'heart', 'fav-icon-main')}
         ${lang === 'uz' ? (isFav ? 'Sevimlilardan olib tashlash' : 'Sevimliga qo\'shish') :
           lang === 'en' ? (isFav ? 'Remove from favorites' : 'Add to favorites') :
           (isFav ? 'Из избранного' : 'В избранное')}
@@ -125,7 +128,7 @@ function renderDetail(p) {
         font-size:13px; font-weight:700; font-family:'Nunito',sans-serif;
         cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;
         text-decoration:none; color:var(--text);">
-        🌐 rebar.uz
+        ${getIcon('globe', 'btn-icon')} rebar.uz
       </a>
     </div>
   `;
@@ -146,7 +149,7 @@ function renderDetail(p) {
   document.getElementById('addCartBtn').addEventListener('click', () => {
     const cur = +inp.value || 0;
     setQty(cur + 1);
-    showToast('🛒 ' + (lang === 'uz' ? 'Savatga qo\'shildi' : lang === 'en' ? 'Added to cart' : 'Добавлено в корзину'));
+    showToast(getIcon('cart', 'toast-icon') + ' ' + (lang === 'uz' ? 'Savatga qo\'shildi' : lang === 'en' ? 'Added to cart' : 'Добавлено в корзину'));
   });
 
   // Favorite button
@@ -154,7 +157,7 @@ function renderDetail(p) {
     const idx = favorites.indexOf(p.id);
     if (idx === -1) {
       favorites.push(p.id);
-      showToast('❤️ ' + (lang === 'uz' ? 'Sevimliga qo\'shildi' : lang === 'en' ? 'Added to favorites' : 'Добавлено в избранное'));
+      showToast(getIcon('heartFilled', 'toast-icon') + ' ' + (lang === 'uz' ? 'Sevimliga qo\'shildi' : lang === 'en' ? 'Added to favorites' : 'Добавлено в избранное'));
     } else {
       favorites.splice(idx, 1);
     }
@@ -182,7 +185,7 @@ function updateNavBadge() {
 function showToast(msg) {
   const el = document.getElementById('toast');
   if (!el) return;
-  el.textContent = msg;
+  el.innerHTML = msg;
   el.classList.add('show');
   setTimeout(() => el.classList.remove('show'), 2200);
 }

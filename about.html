@@ -11,7 +11,7 @@
   <!-- HEADER -->
   <header class="top-bar">
     <a class="back-link" href="index.html">
-      <span>←</span>
+      <span class="nav-icon" data-icon="back"></span>
       <span data-i18n="nav_home">Asosiy</span>
     </a>
     <h1 class="header-title" data-i18n="about_title">Biz haqida</h1>
@@ -32,7 +32,7 @@
   <div class="contact-cards">
 
     <a class="contact-card" href="tel:+998901500000">
-      <div class="contact-card-icon">📞</div>
+      <div class="contact-card-icon" data-icon="phone"></div>
       <div>
         <div class="contact-card-label" data-i18n="contact_phone">Telefon</div>
         <div class="contact-card-value">+998 90 150-00-00</div>
@@ -40,7 +40,7 @@
     </a>
 
     <a class="contact-card" href="https://t.me/rebaruz" target="_blank">
-      <div class="contact-card-icon">✈️</div>
+      <div class="contact-card-icon" data-icon="telegram"></div>
       <div>
         <div class="contact-card-label">Telegram</div>
         <div class="contact-card-value">@RebarUzbekistan</div>
@@ -48,7 +48,7 @@
     </a>
 
     <a class="contact-card" href="mailto:info@rebar.uz">
-      <div class="contact-card-icon">📧</div>
+      <div class="contact-card-icon" data-icon="email"></div>
       <div>
         <div class="contact-card-label" data-i18n="contact_email">Email</div>
         <div class="contact-card-value">info@rebar.uz</div>
@@ -56,7 +56,7 @@
     </a>
 
     <a class="contact-card" href="https://rebar.uz" target="_blank">
-      <div class="contact-card-icon">🌐</div>
+      <div class="contact-card-icon" data-icon="globe"></div>
       <div>
         <div class="contact-card-label">Website</div>
         <div class="contact-card-value">rebar.uz</div>
@@ -64,7 +64,7 @@
     </a>
 
     <div class="contact-card">
-      <div class="contact-card-icon">📍</div>
+      <div class="contact-card-icon" data-icon="pin"></div>
       <div>
         <div class="contact-card-label" data-i18n="contact_address">Manzil</div>
         <div class="contact-card-value" data-i18n="address_val">Toshkent, O'zbekiston</div>
@@ -76,23 +76,24 @@
   <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
     <a class="nav-item" data-page="home" href="index.html">
-      <span class="nav-icon">🏠</span>
+      <span class="nav-icon" data-icon="home"></span>
       <span data-i18n="nav_home">Asosiy</span>
     </a>
     <a class="nav-item" data-page="cart" href="checkout.html">
-      <span class="nav-icon">🛒</span>
+      <span class="nav-icon" data-icon="cart"></span>
       <span data-i18n="nav_cart">Savat</span>
     </a>
     <a class="nav-item" data-page="favorites" href="favorites.html">
-      <span class="nav-icon">❤️</span>
+      <span class="nav-icon" data-icon="heart"></span>
       <span data-i18n="nav_favorites">Sevimli</span>
     </a>
     <a class="nav-item active" data-page="about" href="about.html">
-      <span class="nav-icon">ℹ️</span>
+      <span class="nav-icon" data-icon="info"></span>
       <span data-i18n="nav_about">Biz haqida</span>
     </a>
   </nav>
 
+  <script src="icons.js"></script>
   <script src="i18n.js"></script>
   <script>
     initLangSwitcher();

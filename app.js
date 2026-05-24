@@ -9,6 +9,8 @@ let currentCat = 'all';
 loadCart();
 loadFavorites();
 
+document.getElementById('catalog').innerHTML = `<div class="loading">${getIcon('loader', 'spinner')}</div>`;
+
 fetch('products.json')
   .then(r => r.json())
   .then(data => {
@@ -65,7 +67,7 @@ function renderCatalog(list) {
   if (!list.length) {
     document.getElementById('catalog').innerHTML = `
       <div class="empty-state" style="grid-column:1/-1">
-        <div class="es-icon">📦</div><p>Mahsulot topilmadi</p>
+        <div class="es-icon">${getIcon('box')}</div><p>Mahsulot topilmadi</p>
       </div>`;
     return;
   }
@@ -75,7 +77,9 @@ function renderCatalog(list) {
     <div class="card">
       <div class="card-img-wrap">
         <img src="${p.img}" onerror="this.src='https://placehold.co/300x200/f2f3f5/9ca3af?text=Rebar'" alt="${pName(p)}" loading="lazy">
-        <button class="fav-btn" data-fav-id="${p.id}">${isFav ? '❤️' : '🤍'}</button>
+        <button class="fav-btn ${isFav ? 'active' : ''}" data-fav-id="${p.id}">
+          ${getIcon(isFav ? 'heartFilled' : 'heart')}
+        </button>
       </div>
       <div class="card-body">
         <div class="card-cat">${pCat(p)}</div>
@@ -83,9 +87,9 @@ function renderCatalog(list) {
         <div class="card-price">${p.price.toLocaleString('ru-RU')} <span>${pCurrency(p)} / ${pUnit(p)}</span></div>
         <div class="row-btn">
           <div class="counter-pill" data-id="${p.id}">
-            <button class="cp-btn">−</button>
+            <button class="cp-btn">${getIcon('minus')}</button>
             <input type="number" class="cp-input" value="${getQty(p.id)}" min="0">
-            <button class="cp-btn">+</button>
+            <button class="cp-btn">${getIcon('plus')}</button>
           </div>
           <a class="detail-btn" href="detail.html?id=${p.id}">${t('details')}</a>
         </div>
@@ -138,8 +142,20 @@ function loadFavorites() {
 function saveFavorites() { localStorage.setItem(FAV_KEY, JSON.stringify(favorites)); }
 function toggleFavorite(id, btn) {
   const idx = favorites.indexOf(id);
-  if (idx === -1) { favorites.push(id); if (btn) btn.textContent = '❤️'; showToast('❤️ ' + t('add_fav')); }
-  else { favorites.splice(idx, 1); if (btn) btn.textContent = '🤍'; }
+  if (idx === -1) {
+    favorites.push(id);
+    if (btn) {
+      btn.innerHTML = getIcon('heartFilled');
+      btn.classList.add('active');
+    }
+    showToast(getIcon('heartFilled', 'toast-icon') + ' ' + t('add_fav'));
+  } else {
+    favorites.splice(idx, 1);
+    if (btn) {
+      btn.innerHTML = getIcon('heart');
+      btn.classList.remove('active');
+    }
+  }
   saveFavorites();
 }
 
@@ -147,7 +163,7 @@ function toggleFavorite(id, btn) {
 function showToast(msg) {
   const el = document.getElementById('toast');
   if (!el) return;
-  el.textContent = msg;
+  el.innerHTML = msg;
   el.classList.add('show');
   setTimeout(() => el.classList.remove('show'), 2200);
 }
