@@ -17,7 +17,7 @@ document.getElementById('orderForm').addEventListener('submit', async (e) => {
   if (!name || !phone) return;
 
   btn.disabled = true;
-  btn.textContent = '⏳ ...';
+  btn.innerHTML = getIcon('loader', 'spinner') + ' ...';
 
   const comment = cart.map(i =>
     `${i.name} ×${i.qty} ${i.unit || ''} — ${(i.price * i.qty).toLocaleString('ru-RU')} ${t('sum')}`
@@ -39,7 +39,7 @@ document.getElementById('orderForm').addEventListener('submit', async (e) => {
     });
   } catch (err) { console.error('Bitrix24 error:', err); }
 
-  showToast('✅ ' + t('order_sent'));
+  showToast(getIcon('check', 'toast-icon') + ' ' + t('order_sent'));
   localStorage.removeItem(CART_KEY);
   setTimeout(() => { location.href = 'index.html'; }, 2000);
 });
@@ -47,7 +47,7 @@ document.getElementById('orderForm').addEventListener('submit', async (e) => {
 function renderCheckout() {
   const container = document.getElementById('checkoutCart');
   if (!cart.length) {
-    container.innerHTML = `<div class="empty-state"><div class="es-icon">🛒</div><p>${t('cart_empty')}</p></div>`;
+    container.innerHTML = `<div class="empty-state"><div class="es-icon">${getIcon('cart', 'icon-muted')}</div><p>${t('cart_empty')}</p></div>`;
     document.getElementById('orderForm').style.display = 'none';
     return;
   }
@@ -57,7 +57,7 @@ function renderCheckout() {
       <div class="ci-name">${item.name}</div>
       <div class="ci-qty">${item.qty} ${item.unit || ''}</div>
       <div class="ci-price">${(item.price * item.qty).toLocaleString('ru-RU')} ${t('sum')}</div>
-      <button class="ci-remove" data-idx="${idx}">✕</button>
+      <button class="ci-remove" data-idx="${idx}">${getIcon('remove')}</button>
     </div>`).join('');
 
   const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
@@ -83,7 +83,7 @@ function renderCheckout() {
 function showToast(msg) {
   const el = document.getElementById('toast');
   if (!el) return;
-  el.textContent = msg;
+  el.innerHTML = msg;
   el.classList.add('show');
   setTimeout(() => el.classList.remove('show'), 3000);
 }

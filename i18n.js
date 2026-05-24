@@ -117,6 +117,12 @@ function applyLangUI() {
   document.querySelectorAll('[data-i18n-ph]').forEach(el => {
     el.placeholder = t(el.dataset.i18nPh);
   });
+  document.querySelectorAll('[data-icon]').forEach(el => {
+    const iconName = el.dataset.icon;
+    if (typeof getIcon === 'function') {
+      el.innerHTML = getIcon(iconName);
+    }
+  });
   // highlight active lang button
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === lang);

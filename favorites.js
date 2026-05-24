@@ -17,6 +17,8 @@ function pCat(p)      { return typeof p.category === 'object' ? (p.category[getL
 function pCurrency(p) { return typeof p.currency === 'object' ? (p.currency[getLang()] || p.currency.ru) : p.currency; }
 function pUnit(p)     { return typeof p.unit     === 'object' ? (p.unit[getLang()]     || p.unit.ru)     : p.unit; }
 
+document.getElementById('favCatalog').innerHTML = `<div class="loading">${getIcon('loader', 'spinner')}</div>`;
+
 fetch('products.json')
   .then(r => r.json())
   .then(data => {
@@ -31,7 +33,7 @@ function renderFavorites() {
   if (!favProducts.length) {
     container.innerHTML = `
       <div class="empty-state" style="grid-column:1/-1">
-        <div class="es-icon">❤️</div>
+        <div class="es-icon">${getIcon('heart', 'icon-muted')}</div>
         <p>${t('favorites_empty')}</p>
       </div>`;
     return;
@@ -41,7 +43,7 @@ function renderFavorites() {
     <div class="card">
       <div class="card-img-wrap">
         <img src="${p.img}" onerror="this.src='https://placehold.co/300x200/f2f3f5/9ca3af?text=Rebar'" alt="${pName(p)}" loading="lazy">
-        <button class="fav-btn active" data-fav-id="${p.id}">❤️</button>
+        <button class="fav-btn active" data-fav-id="${p.id}">${getIcon('heartFilled')}</button>
       </div>
       <div class="card-body">
         <div class="card-cat">${pCat(p)}</div>
@@ -49,9 +51,9 @@ function renderFavorites() {
         <div class="card-price">${p.price.toLocaleString('ru-RU')} <span>${pCurrency(p)} / ${pUnit(p)}</span></div>
         <div class="row-btn">
           <div class="counter-pill" data-id="${p.id}">
-            <button class="cp-btn">−</button>
+            <button class="cp-btn">${getIcon('minus')}</button>
             <input type="number" class="cp-input" value="${getQty(p.id)}" min="0">
-            <button class="cp-btn">+</button>
+            <button class="cp-btn">${getIcon('plus')}</button>
           </div>
           <a class="detail-btn" href="detail.html?id=${p.id}">${t('details')}</a>
         </div>
