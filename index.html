@@ -12,12 +12,8 @@
 
   <!-- HEADER -->
   <header class="top-bar">
-    <a class="logo-wrap" href="index.html">
-      <span class="logo-mark"><img src="Rebar.png" alt="Logo" id="logo"></span>
-      <span class="logo-text">
-        <span class="logo-text-main">REBAR</span>
-        <span class="logo-text-sub">Uzbekistan</span>
-      </span>
+    <a class="logo-wrap" href="index.html" aria-label="Rebar Uzbekistan">
+      <img class="logo-img" src="Rebar.png" alt="Rebar Uzbekistan">
     </a>
     <div class="lang-switcher">
       <button class="lang-btn" data-lang="uz">UZ</button>
@@ -32,29 +28,57 @@
       <span class="hero-blob b1" data-depth="0.45"></span>
       <span class="hero-blob b2" data-depth="0.30"></span>
       <span class="hero-blob b3" data-depth="0.60"></span>
-      <span class="hero-bars" data-depth="0.12"></span>
+      <span class="hero-bars"></span>
     </div>
+    <span class="hero-watermark" data-parallax="0.05">REBAR</span>
+
+    <!-- Stylized rebar bar — matches brand logo (black with red diagonal stripes) -->
+    <svg class="hero-rebar" viewBox="0 0 64 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="barShade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#0E0C09"/>
+          <stop offset=".45" stop-color="#3A352C"/>
+          <stop offset="1" stop-color="#0E0C09"/>
+        </linearGradient>
+        <linearGradient id="stripeShade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#B71515"/>
+          <stop offset=".5" stop-color="#FF3B3B"/>
+          <stop offset="1" stop-color="#B71515"/>
+        </linearGradient>
+      </defs>
+      <rect x="6" y="0" width="52" height="240" rx="12" fill="url(#barShade)"/>
+      <g fill="url(#stripeShade)">
+        <path d="M6 28 L58 14 L58 38 L6 52 Z"/>
+        <path d="M6 70 L58 56 L58 80 L6 94 Z"/>
+        <path d="M6 112 L58 98 L58 122 L6 136 Z"/>
+        <path d="M6 154 L58 140 L58 164 L6 178 Z"/>
+        <path d="M6 196 L58 182 L58 206 L6 220 Z"/>
+      </g>
+      <rect x="12" y="6" width="3" height="228" rx="1.5" fill="rgba(255,255,255,.16)"/>
+      <rect x="50" y="6" width="2" height="228" rx="1" fill="rgba(0,0,0,.35)"/>
+    </svg>
+
     <div class="hero-content">
       <span class="hero-eyebrow"><span class="dot"></span><span data-i18n="hero_badge">Ishlab chiqaruvchi</span></span>
       <h1 class="hero-h"><span data-i18n="hero_h1">Kompozit armatura</span><br><span class="accent" data-i18n="hero_h2">va to'rlar</span></h1>
       <p class="hero-d" data-i18n="hero_desc">Bazalt va shisha-kompozit armatura, polad o'rnini bosadigan zamonaviy mustahkam yechim.</p>
       <div class="hero-actions">
-        <a href="#catalog" class="btn-red"><span data-i18n="hero_cta1">Katalogga o'tish</span></a>
+        <a href="#catalogHeading" class="btn-red"><span data-i18n="hero_cta1">Katalog</span></a>
         <a href="about.html" class="btn-ghost-light"><span data-i18n="hero_cta2">Biz haqida</span></a>
       </div>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="hero-stat-num"><span data-count="3" data-suffix="">0</span><span class="u">×</span></div>
-          <div class="hero-stat-lbl" data-i18n="hero_stat1">Mustahkamroq po'latga</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num"><span data-count="9" data-suffix="">0</span><span class="u">×</span></div>
-          <div class="hero-stat-lbl" data-i18n="hero_stat2">Engilroq</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num"><span data-count="80" data-suffix="">0</span><span class="u">+ yil</span></div>
-          <div class="hero-stat-lbl" data-i18n="hero_stat3">Xizmat muddati</div>
-        </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span data-count="3">0</span><span class="u">×</span></div>
+        <div class="hero-stat-lbl" data-i18n="hero_stat1">Mustahkamroq po'latga</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span data-count="9">0</span><span class="u">×</span></div>
+        <div class="hero-stat-lbl" data-i18n="hero_stat2">Engilroq</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span data-count="80">0</span><span class="u">+</span></div>
+        <div class="hero-stat-lbl" data-i18n="hero_stat3">Xizmat muddati</div>
       </div>
     </div>
   </section>
