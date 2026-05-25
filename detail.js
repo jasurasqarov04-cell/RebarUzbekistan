@@ -8,6 +8,7 @@ const FAV_KEY  = 'rebar_favorites';
 let cart = [];
 let favorites = [];
 let product = null;
+let allProducts = [];
 
 try { cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { cart = []; }
 try { favorites = JSON.parse(localStorage.getItem(FAV_KEY)) || []; } catch { favorites = []; }
@@ -25,6 +26,7 @@ document.getElementById('detailContent').innerHTML =
 fetch('products.json')
   .then(r => r.json())
   .then(data => {
+    allProducts = data;
     product = data.find(p => p.id === productId);
     if (!product) {
       document.getElementById('detailContent').innerHTML =
@@ -83,6 +85,26 @@ function renderDetail(p) {
   }
 
   const root = document.getElementById('detailContent');
+  // Related products: same category, excluding current, up to 8 items
+  const related = allProducts
+    .filter(o => o.id !== p.id && pCat(o) === pCat(p))
+    .slice(0, 8);
+  const relatedHtml = related.length ? `
+    <div class="section-label" style="padding-top:6px;">
+      <span>${t('related')}</span>
+    </div>
+    <div class="related-rail reveal">
+      ${related.map(o => `
+        <a class="related-card" href="detail.html?id=${o.id}">
+          <img src="${o.img}" alt="${escapeHtml(pName(o))}" onerror="this.src='https://placehold.co/300x200/ECEAE4/9B9789?text=Rebar'" loading="lazy">
+          <div class="related-card-body">
+            <div class="related-card-cat">${escapeHtml(pCat(o))}</div>
+            <div class="related-card-name">${escapeHtml(pName(o))}</div>
+            <div class="related-card-price">${o.price.toLocaleString('ru-RU')} <span>${escapeHtml(pCurrency(o))}/${escapeHtml(pUnit(o))}</span></div>
+          </div>
+        </a>`).join('')}
+    </div>` : '';
+
   root.innerHTML = `
     <!-- HERO -->
     <div class="detail-hero reveal">
@@ -98,6 +120,7 @@ function renderDetail(p) {
         </button>
       </div>
       <div class="detail-hero-body">
+        <span class="made-badge"><span class="dot"></span>${getIcon('factory')} <span>${t('rebar_sirdaryo')}</span></span>
         <div class="detail-cat">${escapeHtml(pCat(p))}</div>
         <h2 class="detail-name">${escapeHtml(pName(p))}</h2>
         <div class="detail-price-row">
@@ -129,6 +152,8 @@ function renderDetail(p) {
         ${getIcon('globe', 'btn-icon')} <span>rebar.uz</span>
       </a>` : ''}
     </div>
+
+    ${relatedHtml}
   `;
 
   if (window.TPAnim) window.TPAnim.refresh();

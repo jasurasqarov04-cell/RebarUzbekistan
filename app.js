@@ -29,9 +29,22 @@ fetch('products.json')
       `<div class="empty-state" style="grid-column:1/-1"><div class="es-icon">${getIcon('box')}</div><p>${t('no_products')}</p></div>`;
   });
 
-document.getElementById('search').addEventListener('input', (e) => {
-  const q = e.target.value.toLowerCase();
-  applyFilter(q);
+const searchInput = document.getElementById('search');
+const searchField = document.getElementById('searchField');
+const searchClear = document.getElementById('searchClear');
+
+searchInput.addEventListener('input', (e) => {
+  const q = e.target.value;
+  searchField.classList.toggle('has-value', q.length > 0);
+  applyFilter(q.toLowerCase());
+});
+
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  searchField.classList.remove('has-value');
+  applyFilter('');
+  searchInput.focus();
+  if (window.hap) window.hap('soft');
 });
 
 // ===== LOCALIZED FIELD HELPERS =====
@@ -48,6 +61,32 @@ function applyFilter(qRaw) {
     return matchCat && matchQ;
   });
   renderCatalog(filtered);
+  renderResultsMeta(filtered.length, q);
+}
+
+function renderResultsMeta(count, q) {
+  const el = document.getElementById('resultsMeta');
+  if (!el) return;
+  const parts = [];
+  if (q || currentCat !== 'all') {
+    parts.push(`<span><strong>${count}</strong> ${t('found')}</span>`);
+  }
+  if (currentCat !== 'all') {
+    parts.push(`<span class="filter-chip">
+      ${escapeHtml(currentCat)}
+      <button type="button" id="clearCatFilter" aria-label="clear filter">${getIcon('remove')}</button>
+    </span>`);
+  }
+  el.innerHTML = parts.join('');
+  const clearBtn = document.getElementById('clearCatFilter');
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      currentCat = 'all';
+      document.querySelectorAll('.cat-tab').forEach(b => b.classList.toggle('active', b.dataset.cat === 'all'));
+      applyFilter(searchInput.value.toLowerCase());
+      if (window.hap) window.hap('soft');
+    });
+  }
 }
 
 // ===== CATEGORY TABS =====

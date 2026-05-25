@@ -77,6 +77,10 @@ function renderCheckout() {
       <div class="empty-state">
         <div class="es-icon">${getIcon('cart', 'icon-muted')}</div>
         <p>${t('cart_empty')}</p>
+        <a href="index.html" class="btn-red" style="margin-top:18px;display:inline-flex;">
+          ${getIcon('arrowRight', 'btn-icon')}
+          <span>${t('keep_shopping')}</span>
+        </a>
       </div>`;
     document.getElementById('orderForm').style.display = 'none';
     return;

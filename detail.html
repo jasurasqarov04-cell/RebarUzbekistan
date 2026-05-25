@@ -4,7 +4,13 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"/>
   <meta name="theme-color" content="#15130F">
-  <title>Mahsulot – Rebar Market</title>
+  <meta name="description" content="Composite rebar product details — Rebar Uzbekistan, Syrdarya region.">
+  <meta name="format-detection" content="telephone=no">
+  <title>Product · Rebar Market</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="Rebar.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css"/>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
@@ -204,6 +210,23 @@
       letter-spacing: 0.2px;
     }
     .specs-table tr:nth-child(even) td { background: var(--surface-2); }
+
+    .made-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px 6px 8px;
+      background: var(--dark);
+      color: white;
+      border-radius: 999px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .made-badge .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+    .made-badge svg { width: 12px; height: 12px; color: var(--accent-2); }
 
     .detail-action-row {
       display: flex;

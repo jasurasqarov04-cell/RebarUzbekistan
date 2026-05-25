@@ -46,6 +46,10 @@ function renderFavorites() {
       <div class="empty-state" style="grid-column:1/-1">
         <div class="es-icon">${getIcon('heart', 'icon-muted')}</div>
         <p>${t('favorites_empty')}</p>
+        <a href="index.html" class="btn-red" style="margin-top:18px;display:inline-flex;">
+          ${getIcon('arrowRight', 'btn-icon')}
+          <span>${t('keep_shopping')}</span>
+        </a>
       </div>`;
     return;
   }
