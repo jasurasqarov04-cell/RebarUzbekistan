@@ -1,3 +1,7 @@
+// ═══════════════════════════════════════════════════════════════
+// Rebar Market — Detail page
+// ═══════════════════════════════════════════════════════════════
+
 const CART_KEY = 'rebar_cart';
 const FAV_KEY  = 'rebar_favorites';
 
@@ -12,11 +16,11 @@ initLangSwitcher();
 applyLangUI();
 updateNavBadge();
 
-// Get product ID from URL: detail.html?id=5
 const params = new URLSearchParams(location.search);
 const productId = parseInt(params.get('id'));
 
-document.getElementById('detailContent').innerHTML = `<div class="loading">${getIcon('loader', 'spinner')}</div>`;
+document.getElementById('detailContent').innerHTML =
+  `<div class="loading">${getIcon('loader', 'spinner')}</div>`;
 
 fetch('products.json')
   .then(r => r.json())
@@ -24,7 +28,7 @@ fetch('products.json')
     product = data.find(p => p.id === productId);
     if (!product) {
       document.getElementById('detailContent').innerHTML =
-        `<div class="empty-state"><div class="es-icon">${getIcon('box')}</div><p>Mahsulot topilmadi</p></div>`;
+        `<div class="empty-state"><div class="es-icon">${getIcon('box')}</div><p>${t('not_found')}</p></div>`;
       return;
     }
     renderDetail(product);
@@ -44,64 +48,70 @@ function renderDetail(p) {
   const isFav = favorites.includes(p.id);
   const qty = getQty(p.id);
 
-  // Short name for header (first 20 chars)
   const shortName = pName(p);
   document.getElementById('headerTitle').textContent =
     shortName.length > 22 ? shortName.slice(0, 20) + '…' : shortName;
 
-  // Build specs HTML
   let specsHtml = '';
   if (p.specs && p.specs.length) {
     const rows = p.specs.map(s => `
       <tr>
-        <td>${pSpecKey(s)}</td>
-        <td>${pSpecVal(s)}</td>
+        <td>${escapeHtml(pSpecKey(s))}</td>
+        <td>${escapeHtml(pSpecVal(s))}</td>
       </tr>`).join('');
     specsHtml = `
-      <div class="detail-section">
-        <div class="detail-section-title" data-i18n-section="specs">
-          ${getIcon('clock', 'section-icon')}
-          ${lang === 'uz' ? 'Texnik xarakteristikalar' : lang === 'en' ? 'Specifications' : 'Технические характеристики'}
+      <div class="detail-section reveal">
+        <div class="detail-section-title">
+          ${getIcon('list')}
+          <span>${t('specs_title')}</span>
         </div>
         <table class="specs-table">${rows}</table>
       </div>`;
   }
 
-  // Build description HTML
   const desc = pDesc(p);
   let descHtml = '';
   if (desc) {
     descHtml = `
-      <div class="detail-section">
+      <div class="detail-section reveal">
         <div class="detail-section-title">
-          ${lang === 'uz' ? 'Tavsif' : lang === 'en' ? 'Description' : 'Описание'}
+          ${getIcon('info')}
+          <span>${t('desc_title')}</span>
         </div>
-        <div class="detail-description">${desc}</div>
+        <div class="detail-description">${escapeHtml(desc)}</div>
       </div>`;
   }
 
-  document.getElementById('detailContent').innerHTML = `
+  const root = document.getElementById('detailContent');
+  root.innerHTML = `
     <!-- HERO -->
-    <div class="detail-hero">
-      <img class="detail-img"
-           src="${p.img}"
-           onerror="this.src='https://placehold.co/600x400/f2f3f5/9ca3af?text=Rebar'"
-           alt="${pName(p)}">
+    <div class="detail-hero reveal">
+      <div class="detail-img-wrap">
+        <img class="detail-img"
+             src="${p.img}"
+             onerror="this.src='https://placehold.co/600x400/ECEAE4/9B9789?text=Rebar'"
+             alt="${escapeHtml(pName(p))}">
+        <span class="detail-img-pattern"></span>
+        <span class="detail-img-overlay"></span>
+        <button class="detail-fav-corner ${isFav ? 'active' : ''}" id="favBtn" aria-label="favorite">
+          ${getIcon(isFav ? 'heartFilled' : 'heart')}
+        </button>
+      </div>
       <div class="detail-hero-body">
-        <div class="detail-cat">${pCat(p)}</div>
-        <h2 class="detail-name">${pName(p)}</h2>
+        <div class="detail-cat">${escapeHtml(pCat(p))}</div>
+        <h2 class="detail-name">${escapeHtml(pName(p))}</h2>
         <div class="detail-price-row">
           <span class="detail-price">${p.price.toLocaleString('ru-RU')}</span>
-          <span class="detail-price-unit">${pCurrency(p)} / ${pUnit(p)}</span>
+          <span class="detail-price-unit">${escapeHtml(pCurrency(p))} / ${escapeHtml(pUnit(p))}</span>
         </div>
         <div class="detail-add-row">
           <div class="counter-pill" id="counterPill">
-            <button class="cp-btn" id="btnMinus">${getIcon('minus')}</button>
-            <input type="number" class="cp-input" id="qtyInput" value="${qty}" min="0">
-            <button class="cp-btn" id="btnPlus">${getIcon('plus')}</button>
+            <button class="cp-btn" id="btnMinus" type="button" aria-label="minus">${getIcon('minus')}</button>
+            <input type="number" class="cp-input" id="qtyInput" value="${qty}" min="0" inputmode="numeric">
+            <button class="cp-btn" id="btnPlus" type="button" aria-label="plus">${getIcon('plus')}</button>
           </div>
-          <button class="add-cart-btn" id="addCartBtn">
-            ${getIcon('cart', 'btn-icon')} ${lang === 'uz' ? 'Savatga qo\'shish' : lang === 'en' ? 'Add to cart' : 'В корзину'}
+          <button class="add-cart-btn" id="addCartBtn" type="button">
+            ${getIcon('cart', 'btn-icon')} <span>${t('add_to_cart')}</span>
           </button>
         </div>
       </div>
@@ -110,59 +120,59 @@ function renderDetail(p) {
     ${specsHtml}
     ${descHtml}
 
-    <!-- Fav + external link row -->
-    <div style="display:flex;gap:10px;padding:0 10px 16px;">
-      <button id="favBtn" class="${isFav ? 'active' : ''}" style="
-        flex:1; height:44px; border-radius:22px;
-        border:1.5px solid var(--border); background:#fff;
-        font-size:13px; font-weight:700; font-family:'Nunito',sans-serif;
-        cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+    <div class="detail-action-row reveal">
+      <button id="favBtn2" type="button" class="detail-secondary-btn ${isFav ? 'active' : ''}">
         ${getIcon(isFav ? 'heartFilled' : 'heart', 'fav-icon-main')}
-        ${lang === 'uz' ? (isFav ? 'Sevimlilardan olib tashlash' : 'Sevimliga qo\'shish') :
-          lang === 'en' ? (isFav ? 'Remove from favorites' : 'Add to favorites') :
-          (isFav ? 'Из избранного' : 'В избранное')}
+        <span>${isFav ? t('remove_fav_btn') : t('add_fav_btn')}</span>
       </button>
-      <a href="${p.url}" target="_blank" style="
-        flex:1; height:44px; border-radius:22px;
-        border:1.5px solid var(--border); background:#fff;
-        font-size:13px; font-weight:700; font-family:'Nunito',sans-serif;
-        cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;
-        text-decoration:none; color:var(--text);">
-        ${getIcon('globe', 'btn-icon')} rebar.uz
-      </a>
+      ${p.url ? `<a href="${p.url}" target="_blank" rel="noopener" class="detail-secondary-btn">
+        ${getIcon('globe', 'btn-icon')} <span>rebar.uz</span>
+      </a>` : ''}
     </div>
   `;
 
-  // Counter logic
+  if (window.TPAnim) window.TPAnim.refresh();
+
+  // Counter
   const inp = document.getElementById('qtyInput');
   const setQty = v => {
     v = Math.max(0, +v || 0);
+    const prev = +inp.value || 0;
     inp.value = v;
     updateCart(p.id, p, v);
     updateNavBadge();
+    if (v > prev && window.hap) window.hap('light');
+    else if (v < prev && window.hap) window.hap('soft');
   };
   document.getElementById('btnMinus').addEventListener('click', () => setQty(+inp.value - 1));
   document.getElementById('btnPlus').addEventListener('click',  () => setQty(+inp.value + 1));
   inp.addEventListener('input', () => setQty(inp.value));
 
-  // Add to cart button — increments by 1
+  // Add to cart
   document.getElementById('addCartBtn').addEventListener('click', () => {
     const cur = +inp.value || 0;
     setQty(cur + 1);
-    showToast(getIcon('cart', 'toast-icon') + ' ' + (lang === 'uz' ? 'Savatga qo\'shildi' : lang === 'en' ? 'Added to cart' : 'Добавлено в корзину'));
+    if (window.flyToCart) window.flyToCart(document.querySelector('.detail-img-wrap'));
+    showToast(getIcon('cart', 'toast-icon') + ' ' + t('add_cart'));
   });
 
-  // Favorite button
-  document.getElementById('favBtn').addEventListener('click', () => {
-    const idx = favorites.indexOf(p.id);
-    if (idx === -1) {
-      favorites.push(p.id);
-      showToast(getIcon('heartFilled', 'toast-icon') + ' ' + (lang === 'uz' ? 'Sevimliga qo\'shildi' : lang === 'en' ? 'Added to favorites' : 'Добавлено в избранное'));
-    } else {
-      favorites.splice(idx, 1);
-    }
-    localStorage.setItem(FAV_KEY, JSON.stringify(favorites));
-    renderDetail(p); // re-render to update button state
+  // Favorite buttons (corner + bottom)
+  [document.getElementById('favBtn'), document.getElementById('favBtn2')].forEach(btn => {
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const idx = favorites.indexOf(p.id);
+      if (idx === -1) {
+        favorites.push(p.id);
+        if (window.hap) window.hap('success');
+        showToast(getIcon('heartFilled', 'toast-icon') + ' ' + t('add_fav'));
+      } else {
+        favorites.splice(idx, 1);
+        if (window.hap) window.hap('soft');
+        showToast(getIcon('heart', 'toast-icon') + ' ' + t('rm_fav'));
+      }
+      localStorage.setItem(FAV_KEY, JSON.stringify(favorites));
+      renderDetail(p);
+    });
   });
 }
 
@@ -172,7 +182,16 @@ function updateCart(id, p, newQty) {
   let line = cart.find(x => x.id === id);
   if (newQty === 0)  { cart = cart.filter(x => x.id !== id); }
   else if (line)     { line.qty = newQty; }
-  else               { cart.push({ id, name: pName(p), price: p.price, qty: newQty, unit: pUnit(p) }); }
+  else {
+    cart.push({
+      id,
+      name: pName(p),
+      price: p.price,
+      qty: newQty,
+      unit: pUnit(p),
+      img: p.img
+    });
+  }
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
 }
 function updateNavBadge() {
@@ -187,5 +206,12 @@ function showToast(msg) {
   if (!el) return;
   el.innerHTML = msg;
   el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2200);
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
 }

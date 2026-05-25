@@ -2,55 +2,114 @@
 <html lang="uz">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"/>
+  <meta name="theme-color" content="#15130F">
   <title>Mahsulot – Rebar Market</title>
   <link rel="stylesheet" href="style.css"/>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     .detail-hero {
-      background: #fff;
-      box-shadow: var(--shadow);
-      margin-bottom: 10px;
+      position: relative;
+      background: var(--card);
+      box-shadow: var(--sh-xs);
+      margin: 10px 12px;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      border: 1px solid rgba(229, 226, 217, .4);
+    }
+    .detail-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--bg2), var(--bg3));
     }
     .detail-img {
       width: 100%;
-      height: 220px;
+      height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform .6s var(--ease-out);
     }
-    .detail-hero-body {
-      padding: 14px 16px 16px;
+    .detail-hero:hover .detail-img { transform: scale(1.04); }
+    .detail-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,.35) 100%);
+      pointer-events: none;
     }
+    .detail-img-pattern {
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(-25deg, transparent 0, transparent 22px, rgba(0,0,0,.04) 22px, rgba(0,0,0,.04) 24px);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+    .detail-fav-corner {
+      position: absolute;
+      top: 14px; right: 14px;
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,.92);
+      border-radius: 50%;
+      border: none;
+      color: var(--text-2);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: all .2s var(--ease-spring);
+      box-shadow: 0 4px 12px rgba(0,0,0,.18);
+      z-index: 2;
+    }
+    .detail-fav-corner svg { width: 20px; height: 20px; }
+    .detail-fav-corner.active { color: var(--accent); animation: heartPop .45s var(--ease-spring); }
+    .detail-fav-corner:active { transform: scale(.88); }
+
+    .detail-hero-body { padding: 16px 18px 18px; }
     .detail-cat {
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--accent);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .detail-cat::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
     }
     .detail-name {
-      font-family: 'Oswald', sans-serif;
+      font-family: var(--font-display);
       font-size: 22px;
       font-weight: 600;
-      line-height: 1.25;
-      margin: 0 0 10px;
+      line-height: 1.2;
+      margin: 0 0 12px;
       color: var(--text);
+      letter-spacing: 0.2px;
     }
     .detail-price-row {
       display: flex;
       align-items: baseline;
       gap: 6px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
+      padding: 14px 16px;
+      background: linear-gradient(135deg, var(--bg2), var(--surface-2));
+      border-radius: 12px;
+      border: 1px solid var(--border);
     }
     .detail-price {
-      font-family: 'Oswald', sans-serif;
-      font-size: 26px;
+      font-family: var(--font-display);
+      font-size: 28px;
       font-weight: 700;
-      color: var(--accent);
+      background: var(--grad-fire);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.3px;
     }
     .detail-price-unit {
       font-size: 13px;
-      color: var(--text-muted);
+      color: var(--text-2);
+      font-weight: 600;
     }
     .detail-add-row {
       display: flex;
@@ -58,79 +117,116 @@
       align-items: center;
     }
     .detail-add-row .counter-pill {
-      max-width: 120px;
-      min-width: 100px;
-      height: 44px;
-      border-radius: 22px;
+      max-width: 130px;
+      min-width: 110px;
+      height: 48px;
+      border-radius: 14px;
+      background: #fff;
     }
-    .detail-add-row .cp-btn {
-      width: 36px;
-      height: 44px;
-      font-size: 20px;
-    }
-    .detail-add-row .cp-input {
-      font-size: 15px;
-    }
+    .detail-add-row .cp-btn { width: 40px; height: 46px; }
+    .detail-add-row .cp-btn svg { width: 18px; height: 18px; }
+    .detail-add-row .cp-input { font-size: 16px; }
     .add-cart-btn {
       flex: 1;
-      height: 44px;
-      background: var(--accent);
+      height: 48px;
+      background: var(--grad-red);
       color: #fff;
       border: none;
-      border-radius: 22px;
+      border-radius: 14px;
       font-size: 14px;
       font-weight: 700;
-      font-family: 'Nunito', sans-serif;
+      font-family: var(--font);
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
+      transition: transform .15s var(--ease-spring), filter .15s;
+      box-shadow: var(--sh-red);
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      position: relative; overflow: hidden;
     }
-    .add-cart-btn:active { background: var(--accent-dark); transform: scale(0.98); }
+    .add-cart-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,.25), transparent);
+      transform: translateX(-100%);
+      transition: transform .6s var(--ease-out);
+    }
+    .add-cart-btn:hover::before { transform: translateX(100%); }
+    .add-cart-btn:active { transform: scale(.97); filter: brightness(.94); }
 
-    /* Description block */
     .detail-section {
-      background: #fff;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      margin: 0 10px 10px;
+      background: var(--card);
+      border-radius: var(--r);
+      box-shadow: var(--sh-xs);
+      margin: 0 12px 12px;
       overflow: hidden;
+      border: 1px solid rgba(229, 226, 217, .4);
     }
     .detail-section-title {
-      font-family: 'Oswald', sans-serif;
+      font-family: var(--font-display);
       font-size: 15px;
       font-weight: 600;
-      padding: 12px 14px 8px;
+      padding: 14px 16px 10px;
       border-bottom: 1px solid var(--border);
       color: var(--text);
+      letter-spacing: 0.3px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .detail-section-title svg {
+      width: 16px; height: 16px;
+      color: var(--accent);
     }
     .detail-description {
-      padding: 12px 14px;
-      font-size: 13px;
-      line-height: 1.65;
-      color: #374151;
+      padding: 14px 16px;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--text-2);
     }
 
-    /* Specs table */
     .specs-table {
       width: 100%;
       border-collapse: collapse;
     }
     .specs-table tr:last-child td { border-bottom: none; }
     .specs-table td {
-      padding: 10px 14px;
+      padding: 12px 16px;
       font-size: 13px;
       border-bottom: 1px solid var(--border);
       vertical-align: top;
     }
     .specs-table td:first-child {
-      color: var(--text-muted);
+      color: var(--text-2);
       font-weight: 600;
       width: 45%;
     }
     .specs-table td:last-child {
       font-weight: 700;
       color: var(--text);
+      font-family: var(--font-display);
+      letter-spacing: 0.2px;
     }
-    .specs-table tr:nth-child(even) td { background: #fafafa; }
+    .specs-table tr:nth-child(even) td { background: var(--surface-2); }
+
+    .detail-action-row {
+      display: flex;
+      gap: 10px;
+      padding: 0 12px 18px;
+    }
+    .detail-secondary-btn {
+      flex: 1;
+      height: 46px;
+      border-radius: 14px;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      font-size: 12.5px;
+      font-weight: 700;
+      font-family: var(--font);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all .18s var(--ease-out);
+    }
+    .detail-secondary-btn:active { transform: scale(.97); }
+    .detail-secondary-btn.active { color: var(--accent); border-color: var(--accent); background: var(--accent-light); }
   </style>
 </head>
 <body>
@@ -139,8 +235,9 @@
   <header class="top-bar">
     <a class="back-link" href="javascript:history.back()" id="backBtn">
       <span class="nav-icon" data-icon="back"></span>
+      <span data-i18n="back">Ortga</span>
     </a>
-    <h1 class="header-title" id="headerTitle">...</h1>
+    <h1 class="header-title" id="headerTitle">…</h1>
     <div class="lang-switcher">
       <button class="lang-btn" data-lang="uz">UZ</button>
       <button class="lang-btn" data-lang="ru">RU</button>
@@ -179,6 +276,7 @@
 
   <script src="icons.js"></script>
   <script src="i18n.js"></script>
+  <script src="animations.js"></script>
   <script src="detail.js"></script>
 </body>
 </html>

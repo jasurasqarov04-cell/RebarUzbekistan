@@ -2,9 +2,11 @@
 <html lang="uz">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"/>
+  <meta name="theme-color" content="#15130F">
   <title>Biz haqida – Rebar Market</title>
   <link rel="stylesheet" href="style.css"/>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
 
@@ -12,7 +14,7 @@
   <header class="top-bar">
     <a class="back-link" href="index.html">
       <span class="nav-icon" data-icon="back"></span>
-      <span data-i18n="nav_home">Asosiy</span>
+      <span data-i18n="back">Ortga</span>
     </a>
     <h1 class="header-title" data-i18n="about_title">Biz haqida</h1>
     <div class="lang-switcher">
@@ -22,16 +24,67 @@
     </div>
   </header>
 
-  <!-- ABOUT HERO -->
-  <div class="about-hero">
-    <img src="Rebar.png" alt="Rebar Uzbekistan">
-    <p data-i18n="about_text">Rebar Uzbekistan — O'zbekistonda kompozit armatura va to'r ishlab chiqaruvchi va yetkazib beruvchi.</p>
-  </div>
+  <!-- ABOUT HERO (parallax) -->
+  <section class="about-hero" data-parallax-container>
+    <div class="hero-bg">
+      <span class="hero-blob b1" data-depth="0.5"></span>
+      <span class="hero-blob b2" data-depth="0.35"></span>
+      <span class="hero-bars" data-depth="0.10"></span>
+    </div>
+    <div class="hero-content" style="position:relative;z-index:1;">
+      <div class="about-logo-mark"><img src="Rebar.png" alt="Rebar Uzbekistan"></div>
+      <h1 class="about-hero-title">Rebar Uzbekistan</h1>
+      <div class="about-hero-sub" data-i18n="hero_badge">Ishlab chiqaruvchi · Toshkent</div>
+      <p data-i18n="about_text">Rebar Uzbekistan — O'zbekistonda kompozit armatura va to'r ishlab chiqaruvchi va yetkazib beruvchi.</p>
+    </div>
+  </section>
+
+  <!-- STATS BAND -->
+  <section class="reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 12px 6px;">
+    <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px 8px;text-align:center;box-shadow:var(--sh-xs);">
+      <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text);"><span data-count="3" data-suffix="">0</span><span style="font-size:14px;color:var(--accent);margin-left:1px;">×</span></div>
+      <div style="font-size:10px;font-weight:600;color:var(--text-2);margin-top:4px;letter-spacing:.3px;text-transform:uppercase;" data-i18n="hero_stat1">Po'latdan mustahkamroq</div>
+    </div>
+    <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px 8px;text-align:center;box-shadow:var(--sh-xs);">
+      <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text);"><span data-count="9" data-suffix="">0</span><span style="font-size:14px;color:var(--accent);margin-left:1px;">×</span></div>
+      <div style="font-size:10px;font-weight:600;color:var(--text-2);margin-top:4px;letter-spacing:.3px;text-transform:uppercase;" data-i18n="hero_stat2">Engilroq</div>
+    </div>
+    <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px 8px;text-align:center;box-shadow:var(--sh-xs);">
+      <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text);"><span data-count="80" data-suffix="">0</span><span style="font-size:14px;color:var(--accent);margin-left:1px;">+</span></div>
+      <div style="font-size:10px;font-weight:600;color:var(--text-2);margin-top:4px;letter-spacing:.3px;text-transform:uppercase;" data-i18n="hero_stat3">Xizmat muddati</div>
+    </div>
+  </section>
+
+  <!-- ADVANTAGES -->
+  <div class="section-label" style="padding-top:18px;">Преимущества / Afzalliklar</div>
+  <section class="reveal" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:0 12px 6px;">
+    <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px;box-shadow:var(--sh-xs);">
+      <span style="display:inline-flex;width:36px;height:36px;border-radius:10px;background:var(--accent-light);color:var(--accent);align-items:center;justify-content:center;margin-bottom:8px;" data-icon="shield"></span>
+      <div style="font-size:13px;font-weight:700;line-height:1.3;color:var(--text);">Коррозия 0%</div>
+      <div style="font-size:11.5px;color:var(--text-2);margin-top:2px;line-height:1.4;">Не ржавеет, не разрушается</div>
+    </div>
+    <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px;box-shadow:var(--sh-xs);">
+      <span style="display:inline-flex;width:36px;height:36px;border-radius:10px;background:var(--accent-light);color:var(--accent);align-items:center;justify-content:center;margin-bottom:8px;" data-icon="feather"></span>
+      <div style="font-size:13px;font-weight:700;line-height:1.3;color:var(--text);">9× легче стали</div>
+      <div style="font-size:11.5px;color:var(--text-2);margin-top:2px;line-height:1.4;">Меньше нагрузки на конструкцию</div>
+    </div>
+    <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px;box-shadow:var(--sh-xs);">
+      <span style="display:inline-flex;width:36px;height:36px;border-radius:10px;background:var(--accent-light);color:var(--accent);align-items:center;justify-content:center;margin-bottom:8px;" data-icon="thermo"></span>
+      <div style="font-size:13px;font-weight:700;line-height:1.3;color:var(--text);">Термостабильна</div>
+      <div style="font-size:11.5px;color:var(--text-2);margin-top:2px;line-height:1.4;">Широкий рабочий диапазон</div>
+    </div>
+    <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px;box-shadow:var(--sh-xs);">
+      <span style="display:inline-flex;width:36px;height:36px;border-radius:10px;background:var(--accent-light);color:var(--accent);align-items:center;justify-content:center;margin-bottom:8px;" data-icon="award"></span>
+      <div style="font-size:13px;font-weight:700;line-height:1.3;color:var(--text);">Сертифицировано</div>
+      <div style="font-size:11.5px;color:var(--text-2);margin-top:2px;line-height:1.4;">Соответствие ГОСТ</div>
+    </div>
+  </section>
 
   <!-- CONTACT CARDS -->
+  <div class="section-label" style="padding-top:20px;" data-i18n="contact_phone">Контакты</div>
   <div class="contact-cards">
 
-    <a class="contact-card" href="tel:+998901500000">
+    <a class="contact-card reveal" href="tel:+998901500000">
       <div class="contact-card-icon" data-icon="phone"></div>
       <div>
         <div class="contact-card-label" data-i18n="contact_phone">Telefon</div>
@@ -39,15 +92,15 @@
       </div>
     </a>
 
-    <a class="contact-card" href="https://t.me/rebaruz" target="_blank">
-      <div class="contact-card-icon" data-icon="telegram"></div>
+    <a class="contact-card reveal" href="https://t.me/rebaruz" target="_blank" rel="noopener">
+      <div class="contact-card-icon" style="background:linear-gradient(135deg,#229ED9,#0088CC);color:#fff;" data-icon="telegram"></div>
       <div>
         <div class="contact-card-label">Telegram</div>
         <div class="contact-card-value">@RebarUzbekistan</div>
       </div>
     </a>
 
-    <a class="contact-card" href="mailto:info@rebar.uz">
+    <a class="contact-card reveal" href="mailto:info@rebar.uz">
       <div class="contact-card-icon" data-icon="email"></div>
       <div>
         <div class="contact-card-label" data-i18n="contact_email">Email</div>
@@ -55,7 +108,7 @@
       </div>
     </a>
 
-    <a class="contact-card" href="https://rebar.uz" target="_blank">
+    <a class="contact-card reveal" href="https://rebar.uz" target="_blank" rel="noopener">
       <div class="contact-card-icon" data-icon="globe"></div>
       <div>
         <div class="contact-card-label">Website</div>
@@ -63,7 +116,7 @@
       </div>
     </a>
 
-    <div class="contact-card">
+    <div class="contact-card reveal">
       <div class="contact-card-icon" data-icon="pin"></div>
       <div>
         <div class="contact-card-label" data-i18n="contact_address">Manzil</div>
@@ -82,6 +135,7 @@
     <a class="nav-item" data-page="cart" href="checkout.html">
       <span class="nav-icon" data-icon="cart"></span>
       <span data-i18n="nav_cart">Savat</span>
+      <span class="nav-badge" id="navCartBadge" style="display:none">0</span>
     </a>
     <a class="nav-item" data-page="favorites" href="favorites.html">
       <span class="nav-icon" data-icon="heart"></span>
@@ -95,9 +149,17 @@
 
   <script src="icons.js"></script>
   <script src="i18n.js"></script>
+  <script src="animations.js"></script>
   <script>
     initLangSwitcher();
     applyLangUI();
+    // Update cart badge from local cart
+    try {
+      const cart = JSON.parse(localStorage.getItem('rebar_cart')) || [];
+      const total = cart.reduce((s, i) => s + i.qty, 0);
+      const nb = document.getElementById('navCartBadge');
+      if (nb && total > 0) { nb.textContent = total; nb.style.display = 'flex'; }
+    } catch {}
   </script>
 </body>
 </html>

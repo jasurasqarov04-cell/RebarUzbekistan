@@ -2,9 +2,11 @@
 <html lang="uz">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"/>
+  <meta name="theme-color" content="#15130F">
   <title>Sevimlilar – Rebar Market</title>
   <link rel="stylesheet" href="style.css"/>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
 
@@ -12,7 +14,7 @@
   <header class="top-bar">
     <a class="back-link" href="index.html">
       <span class="nav-icon" data-icon="back"></span>
-      <span data-i18n="nav_home">Asosiy</span>
+      <span data-i18n="back">Ortga</span>
     </a>
     <h1 class="header-title" data-i18n="favorites_title">Sevimlilar</h1>
     <div class="lang-switcher">
@@ -22,9 +24,13 @@
     </div>
   </header>
 
+  <!-- FAVORITES COUNT BAR -->
+  <div class="section-label" id="favCountBar"><span data-i18n="favorites_title">Sevimlilar</span></div>
+
   <!-- FAVORITES GRID -->
   <div id="favCatalog">
-    <div class="loading"><div class="spinner"></div></div>
+    <div class="skeleton"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line w-50"></div><div class="skeleton-line w-80"></div><div class="skeleton-line w-50"></div></div></div>
+    <div class="skeleton"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line w-50"></div><div class="skeleton-line w-80"></div><div class="skeleton-line w-50"></div></div></div>
   </div>
 
   <!-- TOAST -->
@@ -53,6 +59,7 @@
 
   <script src="icons.js"></script>
   <script src="i18n.js"></script>
+  <script src="animations.js"></script>
   <script src="favorites.js"></script>
 </body>
 </html>
