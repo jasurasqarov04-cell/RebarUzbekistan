@@ -933,66 +933,120 @@ body {
 .page-content { padding: 14px; }
 
 .checkout-list {
-  background: var(--card);
-  border-radius: var(--r);
-  overflow: hidden;
-  box-shadow: var(--sh-xs);
-  margin-bottom: 14px;
-  border: 1px solid rgba(229, 226, 217, .4);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
 }
 .checkout-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px;
-  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  grid-template-rows: auto auto;
+  column-gap: 14px;
+  row-gap: 6px;
+  align-items: start;
+  padding: 14px 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--sh-xs);
   animation: cardEnter .35s var(--ease-out) both;
+  transition: box-shadow .25s var(--ease-out), transform .25s var(--ease-out);
 }
-.checkout-item:last-child { border-bottom: none; }
+.checkout-item:hover { box-shadow: var(--sh-sm); }
+.ci-thumb {
+  grid-row: 1 / span 2;
+  width: 60px; height: 60px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--bg2), var(--bg3));
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
+}
+.ci-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.ci-thumb-fallback {
+  width: 28px; height: 28px;
+  color: var(--accent);
+  opacity: .7;
+}
 .ci-name {
-  flex: 1;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.35;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  line-height: 1.25;
+  text-transform: uppercase;
+  color: var(--text);
   min-width: 0;
 }
-.ci-qty {
+.ci-sub {
   font-size: 11.5px;
   color: var(--text-2);
-  white-space: nowrap;
-  background: var(--bg);
-  padding: 3px 8px;
-  border-radius: 999px;
-  font-weight: 700;
+  font-weight: 500;
+  letter-spacing: .1px;
+  margin-top: 2px;
+}
+.ci-qty-row {
+  grid-column: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.ci-qty-row .counter-pill { height: 32px; }
+.ci-qty-unit {
+  font-size: 12px;
+  color: var(--text-2);
+  font-weight: 600;
+}
+.ci-side {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 60px;
 }
 .ci-price {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 16px;
   color: var(--text);
   font-weight: 700;
   white-space: nowrap;
+  letter-spacing: .2px;
 }
 .ci-remove {
-  background: var(--accent-light);
+  background: transparent;
   border: none;
-  color: var(--accent);
-  width: 32px; height: 32px;
+  color: var(--text-3);
+  width: 30px; height: 30px;
   border-radius: 10px;
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  transition: all .15s;
+  transition: color .15s, background .15s, transform .15s;
 }
-.ci-remove:active { background: #fed7d7; transform: scale(.9); }
-.ci-remove svg { width: 16px; height: 16px; }
+.ci-remove:hover { color: var(--accent); background: var(--accent-light); }
+.ci-remove:active { transform: scale(.9); }
+.ci-remove svg { width: 18px; height: 18px; }
 
 .checkout-total-row {
+  position: relative;
   display: flex; justify-content: space-between; align-items: center;
-  background: var(--card);
-  border-radius: var(--r);
-  padding: 16px 18px;
-  margin-bottom: 14px;
-  box-shadow: var(--sh-xs);
-  border: 1px solid rgba(229, 226, 217, .4);
+  padding: 18px 6px 4px;
+  margin: 4px 0 16px;
+}
+.checkout-total-row::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 4px; right: 4px;
+  border-top: 1.5px dashed var(--border);
 }
 .ct-label {
   font-size: 14px;
@@ -1001,8 +1055,8 @@ body {
 }
 .ct-value {
   font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 800;
   background: var(--grad-fire);
   -webkit-background-clip: text;
   background-clip: text;
@@ -1011,12 +1065,15 @@ body {
 }
 
 .order-form {
-  background: var(--card);
-  border-radius: var(--r);
-  padding: 18px;
-  box-shadow: var(--sh-xs);
-  border: 1px solid rgba(229, 226, 217, .4);
+  background: transparent;
+  padding: 0;
+  border: none;
+  box-shadow: none;
   animation: cardEnter .4s var(--ease-out);
+}
+.order-form .form-field {
+  background: var(--card);
+  border-color: var(--border);
 }
 .form-title {
   font-family: var(--font-display);
@@ -1047,36 +1104,66 @@ body {
 }
 .submit-btn {
   width: 100%;
-  padding: 14px;
+  padding: 18px;
   background: var(--grad-red);
   color: #fff;
   border: none;
-  border-radius: 12px;
-  font-size: 15px;
+  border-radius: 16px;
+  font-size: 16px;
   font-weight: 700;
   font-family: var(--font);
+  letter-spacing: .2px;
   cursor: pointer;
-  transition: transform .12s var(--ease-spring), filter .15s;
+  transition: transform .12s var(--ease-spring), filter .15s, box-shadow .25s;
   margin-top: 4px;
-  box-shadow: var(--sh-red);
+  box-shadow: var(--sh-red), 0 14px 28px -10px rgba(226,27,27,.45);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   position: relative;
   overflow: hidden;
 }
+.submit-btn svg { width: 18px; height: 18px; }
 .submit-btn::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, transparent, rgba(255,255,255,.25), transparent);
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,.28), transparent);
   transform: translateX(-100%);
   transition: transform .55s var(--ease-out);
 }
 .submit-btn:hover::before { transform: translateX(100%); }
 .submit-btn:active { transform: scale(.98); filter: brightness(.94); }
 .submit-btn:disabled { opacity: .7; cursor: not-allowed; }
+
+/* Outlined secondary CTA — "+ Add more" */
+.add-more-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  margin-top: 12px;
+  background: var(--card);
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  font-size: 14.5px;
+  font-weight: 700;
+  font-family: var(--font);
+  letter-spacing: .1px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color .2s, color .2s, transform .12s var(--ease-spring), background .2s;
+}
+.add-more-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: #fff;
+}
+.add-more-btn:active { transform: scale(.98); }
 
 /* ─────────────────────────────────
    EMPTY STATE

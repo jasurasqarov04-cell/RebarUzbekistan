@@ -53,7 +53,9 @@ const TRANSLATIONS = {
     related: "Shu kategoriyadagi mahsulotlar",
     keep_shopping: "Katalogni ko'rish",
     rebar_sirdaryo: "Sirdaryo viloyati zavodida ishlab chiqarilgan",
-    factory: "Zavod"
+    factory: "Zavod",
+    add_more: "Yana qo'shish",
+    place_order: "Buyurtma berish"
   },
   ru: {
     search: "Поиск товаров…",
@@ -109,7 +111,9 @@ const TRANSLATIONS = {
     related: "Похожие товары",
     keep_shopping: "Перейти в каталог",
     rebar_sirdaryo: "Произведено на заводе в Сырдарье",
-    factory: "Завод"
+    factory: "Завод",
+    add_more: "Добавить ещё",
+    place_order: "Оформить заказ"
   },
   en: {
     search: "Search products…",
@@ -165,7 +169,9 @@ const TRANSLATIONS = {
     related: "Related products",
     keep_shopping: "Browse catalog",
     rebar_sirdaryo: "Manufactured at Syrdarya plant",
-    factory: "Factory"
+    factory: "Factory",
+    add_more: "Add more",
+    place_order: "Place order"
   }
 };
 

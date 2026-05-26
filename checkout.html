@@ -36,15 +36,18 @@
 
     <form id="orderForm" style="display:none">
       <div class="order-form reveal">
-        <h2 class="form-title" data-i18n="order_title">Buyurtma berish</h2>
         <input class="form-field" id="name"  type="text"
                data-i18n-ph="name_placeholder"  required autocomplete="name"/>
         <input class="form-field" id="phone" type="tel"
                data-i18n-ph="phone_placeholder" required autocomplete="tel"/>
         <button type="submit" class="submit-btn" id="submitBtn">
-          <span data-icon="check" style="display:inline-flex;width:18px;height:18px;"></span>
-          <span data-i18n="submit_order">Buyurtma yuborish</span>
+          <span data-i18n="place_order">Buyurtma berish</span>
+          <span data-icon="arrowRight" style="display:inline-flex;width:18px;height:18px;"></span>
         </button>
+        <a href="index.html" class="add-more-btn">
+          <span data-icon="plus" style="display:inline-flex;width:16px;height:16px;"></span>
+          <span data-i18n="add_more">Yana qo'shish</span>
+        </a>
       </div>
     </form>
   </div>
