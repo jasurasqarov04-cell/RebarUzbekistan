@@ -1,67 +1,197 @@
 // ═══════════════════════════════════════════════════════════════
-// REBAR UZBEKISTAN — SVG Icon Library v2
-// Lucide-style 24x24 strokes plus industrial/rebar custom marks.
+// REBAR UZBEKISTAN — SVG Icon Library v3
+// Two-tone (stroke + faint fill) for prominent/card icons,
+// crisp strokes for nav/utility. All paths tuned to a 24×24 viewBox.
 // ═══════════════════════════════════════════════════════════════
 
 const ICONS = {
-  // ── NAV / UI
-  home: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
-  cart: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>`,
-  heart: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`,
-  heartFilled: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`,
-  info: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
-  search: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>`,
-  back: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>`,
-  arrowRight: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`,
-  plus: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>`,
-  minus: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>`,
-  remove: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`,
-  trash: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6l-1.3 14a2 2 0 0 1-2 1.8H8.3a2 2 0 0 1-2-1.8L5 6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg>`,
-  check: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
-  loader: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="spinner"><path d="M12 2v4"/><path d="m16.2 7.8 2.9-2.9"/><path d="M18 12h4"/><path d="m16.2 16.2 2.9 2.9"/><path d="M12 18v4"/><path d="m4.9 19.1 2.9-2.9"/><path d="M2 12h4"/><path d="m4.9 4.9 2.9 2.9"/></svg>`,
-  clock: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
-  external: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>`,
+  // ── NAV / UI (crisp strokes, optimized for ~22px) ───────────────
+  home: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>`,
+  cart: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h2.5l.7 3h15.3l-2.2 9.4a2 2 0 0 1-1.9 1.6H8.6a2 2 0 0 1-1.9-1.5L4.2 6"/><circle cx="9" cy="20" r="1.6" fill="currentColor" stroke="none"/><circle cx="18" cy="20" r="1.6" fill="currentColor" stroke="none"/></svg>`,
+  heart: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21.2l7.8-7.8 1.1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>`,
+  heartFilled: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21.2l7.8-7.8 1.1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>`,
+  info: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5"/><circle cx="12" cy="8.2" r=".8" fill="currentColor" stroke="none"/></svg>`,
+  search: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-4-4"/></svg>`,
+  back: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>`,
+  arrowRight: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`,
+  plus: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>`,
+  minus: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>`,
+  remove: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>`,
+  trash: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4.2A2 2 0 0 1 10 2.2h4a2 2 0 0 1 2 2V6"/><path d="M19 6 17.7 20a2 2 0 0 1-2 1.8H8.3a2 2 0 0 1-2-1.8L5 6"/><path d="M10 11v6M14 11v6"/></svg>`,
+  check: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>`,
+  loader: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="spinner" aria-hidden="true"><path d="M12 2v4"/><path d="m16.2 7.8 2.9-2.9"/><path d="M18 12h4"/><path d="m16.2 16.2 2.9 2.9"/><path d="M12 18v4"/><path d="m4.9 19.1 2.9-2.9"/><path d="M2 12h4"/><path d="m4.9 4.9 2.9 2.9"/></svg>`,
+  clock: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>`,
+  external: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><path d="M10 14 21 3"/></svg>`,
+  list: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6"  x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6"  r="1.2" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1.2" fill="currentColor" stroke="none"/></svg>`,
+  spec: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.7-3.7a6 6 0 0 1-7.9 7.9l-6.9 6.9a2 2 0 0 1-2.8-2.8l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.6 3.6z"/></svg>`,
+  spark: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 13.6 9 21 10.5l-7.4 1.5L12 19l-1.6-7L3 10.5 10.4 9z"/></svg>`,
 
-  // ── CONTACTS
-  phone: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
-  telegram: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>`,
-  email: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`,
-  globe: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
-  whatsapp: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-13.4 7.9L3 21l1.2-4.5A9 9 0 1 1 21 12z"/><path d="M9 9c.5 0 1 .5 1.5 1.5s.5 1 0 1.5 .5 1.5 1.5 2.5 2 1.5 2.5 1 1-1 1.5-1 1 0 1.5.5"/></svg>`,
-  pin: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`,
-  truck: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="14" height="11" rx="1"/><path d="M15 9h4l3 4v3h-7V9z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`,
+  // ── CONTACTS (two-tone) ─────────────────────────────────────────
+  phone: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M5 3.5h3a1.5 1.5 0 0 1 1.5 1.2l.7 3.3a1.5 1.5 0 0 1-.4 1.4l-1.5 1.5a14 14 0 0 0 5.8 5.8l1.5-1.5a1.5 1.5 0 0 1 1.4-.4l3.3.7a1.5 1.5 0 0 1 1.2 1.5v3a1.5 1.5 0 0 1-1.7 1.5 18 18 0 0 1-16-16A1.5 1.5 0 0 1 5 3.5z"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+  </svg>`,
+  telegram: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="m21.5 4.5-19 7.3 6.2 2.5 1.8 5.7 3.2-3.4 5.3 3.9z"
+      fill="currentColor" fill-opacity=".18"
+      stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="m9.7 14.3 8-6.3-6.2 8 .7 4-2.5-5.7z" fill="currentColor"/>
+  </svg>`,
+  email: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <rect x="2.5" y="5" width="19" height="14" rx="2"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.6"/>
+    <path d="M3.5 7 12 13l8.5-6"
+      stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`,
+  globe: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="12" r="9"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.6"/>
+    <path d="M3 12h18"
+      stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M12 3.2c2.7 2.7 4 6 4 8.8s-1.3 6.1-4 8.8c-2.7-2.7-4-6-4-8.8s1.3-6.1 4-8.8z"
+      stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+  </svg>`,
+  whatsapp: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M3 21l1.5-5A9 9 0 1 1 21 12 9 9 0 0 1 6.5 19.5L3 21z"
+      fill="currentColor" fill-opacity=".18"
+      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M9 9c.5-.6 1.1-.4 1.5.3l.7 1.4c.2.4.1.7-.2 1l-.4.4c.5 1.1 1.4 2 2.5 2.5l.4-.4c.3-.3.6-.4 1-.2l1.4.7c.7.4.9 1 .3 1.5l-.7.7c-.6.6-1.4.8-2.2.5-2.7-1.1-4.8-3.2-5.9-5.9-.3-.8-.1-1.6.5-2.2z"
+      fill="currentColor"/>
+  </svg>`,
+  pin: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M12 22s9-7 9-13a9 9 0 1 0-18 0c0 6 9 13 9 13z"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="12" cy="10" r="2.8" fill="currentColor"/>
+  </svg>`,
+  truck: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <rect x="1.5" y="6" width="13" height="10" rx="1.5"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.6"/>
+    <path d="M14.5 10h4l3 3.5V16h-7z"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="6" cy="18.5" r="2.4" fill="currentColor"/>
+    <circle cx="18" cy="18.5" r="2.4" fill="currentColor"/>
+  </svg>`,
 
-  // ── REBAR / INDUSTRIAL CATEGORY ICONS
-  // Rebar bar — single composite bar with thread spiral
-  rebar: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L20 4"/><path d="M6.5 17.5l-2 2M9 15l-2 2M11.5 12.5l-2 2M14 10l-2 2M16.5 7.5l-2 2M19 5l-2 2"/></svg>`,
-  // Mesh / grid
-  mesh: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>`,
+  // ── REBAR / INDUSTRIAL CATEGORY (two-tone) ──────────────────────
+  // Steel rod with characteristic ribbed thread spiral
+  rebar: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M3.7 17.5 17.5 3.7l2.8 2.8L6.5 20.3z"
+      fill="currentColor" fill-opacity=".18"
+      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M5.5 16.5 7 18M8 14l1.5 1.5M10.5 11.5 12 13M13 9l1.5 1.5M15.5 6.5 17 8"
+      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".75"/>
+  </svg>`,
+  // Welded steel mesh (rebar grid)
+  mesh: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <rect x="3" y="3" width="18" height="18" rx="1.5"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.6"/>
+    <path d="M3 9h18M3 15h18M9 3v18M15 3v18"
+      stroke="currentColor" stroke-width="1.5" opacity=".7"/>
+    <circle cx="9" cy="9"  r="1.1" fill="currentColor"/>
+    <circle cx="15" cy="9" r="1.1" fill="currentColor"/>
+    <circle cx="9" cy="15" r="1.1" fill="currentColor"/>
+    <circle cx="15" cy="15" r="1.1" fill="currentColor"/>
+  </svg>`,
   // Box / package
-  box: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>`,
-  // Construction / building
-  construction: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>`,
+  box: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M3.3 7 12 12l8.7-5M12 22V12"
+      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M7.5 4.7l9 5.2"
+      stroke="currentColor" stroke-width="1.4" opacity=".55" stroke-linecap="round"/>
+  </svg>`,
+  // Construction site / building
+  construction: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M3 21V8.5a2 2 0 0 1 2-2h2V3.5h4v3h6a2 2 0 0 1 2 2V21z"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <rect x="8.5" y="11"   width="2.4" height="2.4" rx=".4" fill="currentColor"/>
+    <rect x="13.1" y="11"  width="2.4" height="2.4" rx=".4" fill="currentColor"/>
+    <rect x="8.5" y="15.5" width="2.4" height="2.4" rx=".4" fill="currentColor"/>
+    <rect x="13.1" y="15.5" width="2.4" height="2.4" rx=".4" fill="currentColor"/>
+  </svg>`,
   // Factory
-  factory: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M3 20V11l5 3V9l5 3V7l5 3-1 10"/><rect x="6" y="15" width="2" height="2"/><rect x="11" y="15" width="2" height="2"/><rect x="16" y="15" width="2" height="2"/></svg>`,
-  // Shield
-  shield: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>`,
-  // Scale / measurement
-  scale: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><path d="M3 8h2M7 8h2M11 8h2M15 8h2M19 8h2"/><path d="M5 12v3M9 12v4M13 12v3M17 12v4M21 12v3"/></svg>`,
-  // Lightning weight (light)
-  feather: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" x2="2" y1="8" y2="22"/><line x1="17.5" x2="9" y1="15" y2="15"/></svg>`,
-  // Anti-corrosion (droplet shield)
-  drop: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7s5.7 5.7 5.7 10.3a5.7 5.7 0 0 1-11.4 0c0-4.6 5.7-10.3 5.7-10.3z"/></svg>`,
-  // Award / certificate
-  award: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.21 13.89L7 22l5-3 5 3-1.21-8.12"/><path d="M9 9l2 2 4-4"/></svg>`,
-  // Thermo / heat
-  thermo: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>`,
-  // Star / quality
-  star: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9 9 9"/></svg>`,
-  // Wrench/spec
-  spec: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.7-3.7a6 6 0 0 1-7.9 7.9l-6.9 6.9a2 2 0 0 1-2.8-2.8l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.6 3.6z"/></svg>`,
-  // List
-  list: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/></svg>`,
-  // Sparkle
-  spark: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2 7 7 2-7 2-2 7-2-7-7-2 7-2z"/></svg>`,
+  factory: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M3 21V11l5 3V9l5 3V7l6 3-1 11z"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M2 21h20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    <rect x="6"  y="15" width="2" height="3" rx=".3" fill="currentColor"/>
+    <rect x="11" y="15" width="2" height="3" rx=".3" fill="currentColor"/>
+    <rect x="16" y="15" width="2" height="3" rx=".3" fill="currentColor"/>
+    <path d="M7 5.5c0-1 .8-1 .8-2s-.8-1-.8-2M11 3.5c0-1 .8-1 .8-2"
+      stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity=".5"/>
+  </svg>`,
+  // Shield (compliance / quality)
+  shield: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M8.5 12.2l2.5 2.5 4.5-5"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`,
+  // Measuring scale / ruler / standards
+  scale: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <rect x="2" y="9" width="20" height="6" rx="1.5"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.6"/>
+    <path d="M5 9v3M9 9v4M13 9v3M17 9v4M21 9v3"
+      stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  </svg>`,
+  // Lightweight / feather (low weight benefit)
+  feather: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M20.2 12.2a6 6 0 0 0-8.5-8.5L5 10.5V19h8.5z"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M16 8 2 22"
+      stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M17.5 15 9 15"
+      stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".55"/>
+  </svg>`,
+  // Anti-corrosion droplet
+  drop: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M12 2.7s5.7 5.7 5.7 10.3a5.7 5.7 0 0 1-11.4 0c0-4.6 5.7-10.3 5.7-10.3z"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M9.5 14a3 3 0 0 0 2.5 2"
+      stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".75"/>
+  </svg>`,
+  // Award / certificate medal
+  award: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="9" r="6"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.6"/>
+    <path d="M8.2 13.7 7 22l5-3 5 3-1.2-8.3"
+      fill="currentColor" fill-opacity=".25"
+      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M12 6 13.2 8.4 16 8.8l-2 2 .5 2.7L12 12.2 9.5 13.5l.5-2.7-2-2 2.8-.4z"
+      fill="currentColor"/>
+  </svg>`,
+  // Thermometer
+  thermo: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M14 13.5V4a2.5 2.5 0 0 0-5 0v9.5a4.5 4.5 0 1 0 5 0z"
+      fill="currentColor" fill-opacity=".15"
+      stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+    <circle cx="11.5" cy="17.5" r="2.4" fill="currentColor"/>
+    <line x1="11.5" y1="11.5" x2="11.5" y2="15.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M16 6h1.6M16 9h1.6M16 12h1.6"
+      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".7"/>
+  </svg>`,
+  // Star (quality)
+  star: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M12 2.5l3 6.4 7 1-5 4.9 1.2 6.9L12 18.4l-6.2 3.3L7 14.8 2 9.9l7-1z"
+      fill="currentColor" fill-opacity=".22"
+      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+  </svg>`,
 };
 
 function getIcon(name, className = '') {
