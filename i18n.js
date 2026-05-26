@@ -55,7 +55,13 @@ const TRANSLATIONS = {
     rebar_sirdaryo: "Sirdaryo viloyati zavodida ishlab chiqarilgan",
     factory: "Zavod",
     add_more: "Yana qo'shish",
-    place_order: "Buyurtma berish"
+    place_order: "Buyurtma berish",
+    step_cart: "Savat",
+    step_data: "Ma'lumotlar",
+    step_done: "Tayyor",
+    step_data_hint: "Iltimos, ma'lumotlaringizni kiriting",
+    step_back_cart: "Savatga qaytish",
+    order_sent_title: "Buyurtma yuborildi!"
   },
   ru: {
     search: "Поиск товаров…",
@@ -113,7 +119,13 @@ const TRANSLATIONS = {
     rebar_sirdaryo: "Произведено на заводе в Сырдарье",
     factory: "Завод",
     add_more: "Добавить ещё",
-    place_order: "Оформить заказ"
+    place_order: "Оформить заказ",
+    step_cart: "Корзина",
+    step_data: "Данные",
+    step_done: "Готово",
+    step_data_hint: "Пожалуйста, заполните ваши данные",
+    step_back_cart: "Вернуться в корзину",
+    order_sent_title: "Заказ отправлен!"
   },
   en: {
     search: "Search products…",
@@ -171,7 +183,13 @@ const TRANSLATIONS = {
     rebar_sirdaryo: "Manufactured at Syrdarya plant",
     factory: "Factory",
     add_more: "Add more",
-    place_order: "Place order"
+    place_order: "Place order",
+    step_cart: "Cart",
+    step_data: "Details",
+    step_done: "Done",
+    step_data_hint: "Please fill in your details",
+    step_back_cart: "Back to cart",
+    order_sent_title: "Order placed!"
   }
 };
 

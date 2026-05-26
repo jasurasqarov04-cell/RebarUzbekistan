@@ -31,16 +31,29 @@
   </header>
 
   <!-- CONTENT -->
-  <div class="page-content">
-    <div id="checkoutCart"></div>
+  <div class="page-content" id="checkoutRoot" data-step="1">
 
-    <form id="orderForm" style="display:none">
-      <div class="order-form reveal">
-        <input class="form-field" id="name"  type="text"
-               data-i18n-ph="name_placeholder"  required autocomplete="name"/>
-        <input class="form-field" id="phone" type="tel"
-               data-i18n-ph="phone_placeholder" required autocomplete="tel"/>
-        <button type="submit" class="submit-btn" id="submitBtn">
+    <!-- STEPPER -->
+    <nav class="stepper" aria-label="Checkout steps">
+      <button type="button" class="stepper-item is-active" data-step-go="1">
+        <span class="stepper-num">1</span>
+        <span class="stepper-label" data-i18n="step_cart">Savat</span>
+      </button>
+      <button type="button" class="stepper-item" data-step-go="2" disabled>
+        <span class="stepper-num">2</span>
+        <span class="stepper-label" data-i18n="step_data">Ma'lumotlar</span>
+      </button>
+      <button type="button" class="stepper-item" data-step-go="3" disabled>
+        <span class="stepper-num">3</span>
+        <span class="stepper-label" data-i18n="step_done">Tayyor</span>
+      </button>
+    </nav>
+
+    <!-- STEP 1 — CART -->
+    <section class="step-panel" data-step-panel="1">
+      <div id="checkoutCart"></div>
+      <div id="cartActions" class="cart-actions" hidden>
+        <button type="button" class="submit-btn" id="goToDataBtn">
           <span data-i18n="place_order">Buyurtma berish</span>
           <span data-icon="arrowRight" style="display:inline-flex;width:18px;height:18px;"></span>
         </button>
@@ -49,7 +62,48 @@
           <span data-i18n="add_more">Yana qo'shish</span>
         </a>
       </div>
-    </form>
+    </section>
+
+    <!-- STEP 2 — DATA -->
+    <section class="step-panel" data-step-panel="2" hidden>
+      <form id="orderForm">
+        <div class="order-form reveal in-view">
+          <div class="step-hint" data-i18n="step_data_hint">Iltimos, ma'lumotlaringizni kiriting</div>
+          <input class="form-field" id="name"  type="text"
+                 data-i18n-ph="name_placeholder"  required autocomplete="name"/>
+          <input class="form-field" id="phone" type="tel"
+                 data-i18n-ph="phone_placeholder" required autocomplete="tel"/>
+          <div class="step-mini-summary">
+            <span class="ct-label" data-i18n="total">Jami</span>
+            <span class="ct-value" id="dataStepTotal">0</span>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span data-i18n="submit_order">Buyurtma yuborish</span>
+            <span data-icon="check" style="display:inline-flex;width:18px;height:18px;"></span>
+          </button>
+          <button type="button" class="add-more-btn" id="backToCartBtn">
+            <span data-icon="back" style="display:inline-flex;width:16px;height:16px;"></span>
+            <span data-i18n="step_back_cart">Savatga qaytish</span>
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- STEP 3 — DONE -->
+    <section class="step-panel" data-step-panel="3" hidden>
+      <div class="step-done-card reveal in-view">
+        <div class="step-done-icon">
+          <span data-icon="check"></span>
+        </div>
+        <h2 class="step-done-title" data-i18n="order_sent_title">Buyurtma yuborildi!</h2>
+        <p class="step-done-text" data-i18n="order_sent">Buyurtma yuborildi! Tez orada siz bilan bog'lanamiz.</p>
+        <a href="index.html" class="submit-btn" style="margin-top:18px;text-decoration:none;">
+          <span data-i18n="keep_shopping">Katalogni ko'rish</span>
+          <span data-icon="arrowRight" style="display:inline-flex;width:18px;height:18px;"></span>
+        </a>
+      </div>
+    </section>
+
   </div>
 
   <!-- TOAST -->

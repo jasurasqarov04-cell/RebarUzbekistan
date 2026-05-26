@@ -1,5 +1,8 @@
 // ═══════════════════════════════════════════════════════════════
-// Rebar Market — Checkout page
+// Rebar Market — Checkout page (3-step wizard)
+//   1. Cart        — items + total + CTA "Place order"
+//   2. Data        — name/phone form + summary + submit
+//   3. Done        — success state, link back to catalog
 // ═══════════════════════════════════════════════════════════════
 
 const CART_KEY   = 'rebar_cart';
@@ -8,11 +11,75 @@ const BX_WEBHOOK = 'https://rebar.bitrix24.kz/rest/1/slgm6bd5z4cq971h/crm.lead.a
 let cart = [];
 try { cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { cart = []; }
 
+let currentStep = 1;
+const maxReachedStep = { v: 1 };
+
 initLangSwitcher();
 applyLangUI();
 
 renderCheckout();
+setStep(1, /*silent*/ true);
 
+// ───────────────────── STEP NAVIGATION ─────────────────────
+function setStep(n, silent = false) {
+  if (n < 1 || n > 3) return;
+  currentStep = n;
+  if (n > maxReachedStep.v) maxReachedStep.v = n;
+
+  document.getElementById('checkoutRoot').dataset.step = String(n);
+
+  document.querySelectorAll('.step-panel').forEach(p => {
+    p.hidden = +p.dataset.stepPanel !== n;
+  });
+
+  document.querySelectorAll('.stepper-item').forEach(item => {
+    const step = +item.dataset.stepGo;
+    item.classList.toggle('is-active', step === n);
+    item.classList.toggle('is-done', step < n);
+    // Allow jumping back to earlier steps (or to a previously reached step).
+    item.disabled = step > maxReachedStep.v;
+  });
+
+  if (n === 2) updateDataStepTotal();
+  if (!silent) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.hap) window.hap('selection');
+  }
+}
+
+// Stepper click — navigate back to a previously reached step
+document.querySelectorAll('.stepper-item').forEach(item => {
+  item.addEventListener('click', () => {
+    if (item.disabled) return;
+    const step = +item.dataset.stepGo;
+    if (step === 3 && currentStep !== 3) return; // can't jump to "done" without submitting
+    setStep(step);
+  });
+});
+
+// Step 1 → Step 2
+const goToDataBtn = document.getElementById('goToDataBtn');
+if (goToDataBtn) {
+  goToDataBtn.addEventListener('click', () => {
+    if (!cart.length) return;
+    setStep(2);
+    setTimeout(() => document.getElementById('name')?.focus(), 250);
+  });
+}
+
+// Step 2 → Step 1 (back)
+const backToCartBtn = document.getElementById('backToCartBtn');
+if (backToCartBtn) {
+  backToCartBtn.addEventListener('click', () => setStep(1));
+}
+
+function updateDataStepTotal() {
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const el = document.getElementById('dataStepTotal');
+  if (el) el.textContent = `${total.toLocaleString('ru-RU')} ${t('sum')}`;
+}
+
+// ───────────────────── FORM SUBMIT (step 2 → 3) ─────────────────────
 document.getElementById('orderForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn   = document.getElementById('submitBtn');
@@ -54,24 +121,21 @@ document.getElementById('orderForm').addEventListener('submit', async (e) => {
 
   if (window.hap) window.hap('success');
   showToast(getIcon('check', 'toast-icon') + ' ' + t('order_sent'));
+
+  cart = [];
   localStorage.removeItem(CART_KEY);
 
-  // Show success state inline
-  const container = document.getElementById('checkoutCart');
-  container.innerHTML = `
-    <div class="empty-state reveal in-view" style="padding:40px 20px;">
-      <div class="es-icon" style="background:var(--green-bg);width:88px;height:88px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;">
-        <span style="color:var(--green);width:42px;height:42px;display:flex;">${getIcon('check')}</span>
-      </div>
-      <p style="font-size:16px;color:var(--text);">${t('order_sent')}</p>
-    </div>`;
-  document.getElementById('orderForm').style.display = 'none';
+  btn.innerHTML = origBtn;
+  btn.disabled = false;
 
-  setTimeout(() => { location.href = 'index.html'; }, 2500);
+  setStep(3);
 });
 
+// ───────────────────── STEP 1 CART RENDER ─────────────────────
 function renderCheckout() {
   const container = document.getElementById('checkoutCart');
+  const actions   = document.getElementById('cartActions');
+
   if (!cart.length) {
     container.innerHTML = `
       <div class="empty-state">
@@ -82,7 +146,10 @@ function renderCheckout() {
           <span>${t('keep_shopping')}</span>
         </a>
       </div>`;
-    document.getElementById('orderForm').style.display = 'none';
+    if (actions) actions.hidden = true;
+    document.querySelectorAll('.stepper-item').forEach(item => {
+      if (+item.dataset.stepGo > 1) item.disabled = true;
+    });
     return;
   }
 
@@ -127,7 +194,7 @@ function renderCheckout() {
     btn.addEventListener('click', () => {
       if (window.hap) window.hap('soft');
       cart.splice(+btn.dataset.idx, 1);
-      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      saveCart();
       renderCheckout();
     });
   });
@@ -141,7 +208,7 @@ function renderCheckout() {
       else if (act === 'dec') cart[i].qty = Math.max(0, cart[i].qty - 1);
       if (cart[i].qty === 0) cart.splice(i, 1);
       if (window.hap) window.hap('selection');
-      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      saveCart();
       renderCheckout();
     });
   });
@@ -153,14 +220,24 @@ function renderCheckout() {
       if (!cart[i]) return;
       if (v === 0) cart.splice(i, 1);
       else cart[i].qty = v;
-      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      saveCart();
       renderCheckout();
     });
   });
 
-  document.getElementById('orderForm').style.display = 'block';
+  if (actions) actions.hidden = false;
+  // Re-enable step 2 navigation when there are items
+  document.querySelectorAll('.stepper-item').forEach(item => {
+    const s = +item.dataset.stepGo;
+    if (s === 2) item.disabled = false;
+    if (s === 3) item.disabled = currentStep !== 3;
+  });
+
+  if (currentStep === 2) updateDataStepTotal();
   if (window.TPAnim) window.TPAnim.refresh();
 }
+
+function saveCart() { localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
 
 function showToast(msg) {
   const el = document.getElementById('toast');
